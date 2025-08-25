@@ -1,0 +1,80 @@
+.container_tours{
+    width: 100%;
+    display: flex;
+    height: auto;
+    justify-content: space-around;
+     flex-wrap: wrap;
+}
+.container_img{
+    width: 100%;
+    height: 400px;
+    background-color: rgb(1, 77, 163);
+    border-bottom-right-radius:20px ;
+    border-bottom-left-radius:20px ;
+    
+}
+.container_img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: opacity(30%);
+    border-bottom-right-radius:20px ;
+    border-bottom-left-radius:20px ;
+    
+   
+}
+.titulo{
+    color: rgb(255, 255, 255);
+    text-align: center;
+    z-index: 2;
+    position: absolute;
+    margin-top: 40px;
+    font: 30px sans-serif;
+    width: 70%;
+    height: 100%;
+    align-items: center;
+    
+}
+.descripcion {
+    text-align: center;
+    color: rgb(66, 66, 66);
+    margin-top: 20px;
+    text-decoration: underline;
+    font-family: sans-serif;
+    width: 70%;
+}
+.container_img{
+    width: 100%;
+    margin-top: -40px;
+    z-index: -1;
+
+    
+}
+.container_cards{
+    width: 100%;
+    display: flex;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 30px 0px 80px 0px;
+}
+
+
+.container_logos{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.img_logo{
+    max-width: 200px;
+}
+@media (max-width: 480px){
+    .titulo{
+        margin-top: 10px;
+        transform: scale(0.9);
+
+    }
+
+}

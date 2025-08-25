@@ -1,0 +1,150 @@
+/* Estilos para el modal agregar tour */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.61);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: sans-serif;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 95%;
+  max-width: 800px;
+  max-height: 95vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.formulario .fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.formulario .campo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario .campo.full {
+  flex: 1 0 100%;
+}
+
+.formulario label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.formulario input,
+.formulario textarea,
+.formulario select {
+  padding: 0.5rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #525252;
+}
+
+
+.formulario textarea {
+  resize: none;
+  overflow: auto;
+}
+
+.info-img {
+  font-size: 0.875rem;
+  color: #888;
+  margin-top: 0.25rem;
+}
+.preview-imagenes {
+  margin-top: 0.5rem;
+}
+
+.preview-titulo {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  color: #444;
+}
+
+.preview-imagenes ol {
+  color: #444;
+  font-size: 0.95rem;
+
+}
+
+
+.acciones {
+  display: flex;
+  justify-content:center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.btn.cancelar {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.btn.azul {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn.verde {
+  background-color: #28a745;
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .formulario .fila {
+    flex-direction: column;
+  }
+  .modal-content{
+    max-width: 800px;
+    overflow: auto;
+    max-height: 95vh;
+
+  }
+  
+}
+@media (max-width: 480px) {
+  .formulario .fila {
+    flex-direction: column;
+  }
+  .modal-content{
+    max-width: 440px;
+    overflow: auto;
+    max-height: 95vh;
+
+  }
+  
+}
