@@ -63,7 +63,7 @@ const Tour = () => {
   useEffect(() => {
     const fetchTour = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/tours/${id}`);
+        const res = await axios.get(`/api/tours/${id}`);
         setTour(res.data);
         setBasePrice(res.data.precio)
         
@@ -81,7 +81,7 @@ const Tour = () => {
   const obtenerFirma = async (data) => {
     try {
       
-        const response = await axios.post("http://localhost:3001/api/firma-bold", {
+        const response = await axios.post("/api/firma-bold", {
         reference: data.reserva.referenciaPago,
         amount: basePrice * adults,
         currency: "COP",
@@ -157,7 +157,7 @@ function agregarRecomendaciones(cadena){
 
   const verifyDate= async () => {
     try{
-      const res = await axios.get(`http://localhost:3001/api/reservas/fecha/${selectedDate.toISOString().split('T')[0]}`);
+      const res = await axios.get(`/api/reservas/fecha/${selectedDate.toISOString().split('T')[0]}`);
  
 
       if(res.data.fecha===selectedDate.toISOString().split('T')[0] && selectedTime===res.data.horario){
