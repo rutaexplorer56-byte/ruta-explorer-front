@@ -34,7 +34,7 @@ const BotonBold = ({reference ,amount ,currency ,api ,signature}) => {
     buttonScript.setAttribute("costumer-data", user);
     buttonScript.setAttribute("data-order-id", reference);
     buttonScript.setAttribute("data-integrity-signature", signature);
-    buttonScript.setAttribute("data-redirection-url", "https://rutaxplorer.com/app/invoice");
+    buttonScript.setAttribute("data-redirection-url", "https://rutaxplorer.com/app/invoice/");
      
     buttonScript.async = true;
 

@@ -18,40 +18,54 @@ import { useSearchParams } from "react-router-dom";
   const postedRef = useRef(false);
 
   useEffect(() => {
-    const confirmarYLuegoLeer = async () => {
-      if (!orderId) {
+  let cancelado = false;
+
+  const confirmarYLuegoLeer = async () => {
+    if (!orderId) {
+      if (!cancelado) {
         setError("No se pudo completar el pago.");
         setCargando(false);
-        return;
       }
-      try {
-        setCargando(true);
+      return;
+    }
 
-        // Solo intenta confirmar si viene aprobado y aún no se posteó
-        if (txStatus === "approved" && !postedRef.current) {
-          postedRef.current = true;
-          await axios.post(`/api/reservas/webhook`, {
-            reference: orderId,
-            status: "pago",
-          });
-        }
+    try {
+      setCargando(true);
 
-        // Luego, leer la reserva
-        const { data } = await axios.get(
-          `/api/reservas/referencia/${orderId}`
-        );
+      // 🔹 Evitar doble POST
+      if (txStatus === "approved" && !postedRef.current) {
+        postedRef.current = true;
+        await axios.post(`/api/reservas/webhook`, {
+          reference: orderId,
+          status: "pago",
+        });
+      }
+
+      // 🔹 Leer la reserva siempre
+      const { data } = await axios.get(`/api/reservas/referencia/${orderId}`);
+      if (!cancelado) {
         setReserva(data);
         setError("");
-      } catch (e) {
-        setError("No fue posible cargar/confirmar la reserva.");
-        console.error(e);
-      } finally {
-        setCargando(false);
       }
-    };
+    } catch (e) {
+      if (!cancelado) {
+        setError("No fue posible cargar/confirmar la reserva.");
+      }
+      console.error(e);
+    } finally {
+      if (!cancelado) setCargando(false);
+    }
+  };
 
-    confirmarYLuegoLeer();
-  }, [orderId, txStatus]);
+  confirmarYLuegoLeer();
+
+  return () => {
+    cancelado = true; // evita setState después de desmontar
+  };
+}, []);
+
+
+  
     const aprobado = txStatus === "approved";
   const tituloMostrar = aprobado ? "¡Pago aprobado!":"";
 
