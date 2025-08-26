@@ -2,7 +2,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import { useEffect, useMemo, useState } from "react";
 import "../styles/Admin_reservations.css";
-import axios from "axios";
+import axios from "../axiosConfig";
 
 export default function Admin_reservations() {
   const [reservas, setReservas] = useState([]);

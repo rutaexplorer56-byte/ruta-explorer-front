@@ -4,7 +4,7 @@ import Header from "../components/header"
 import Card from "../components/card";
 import ModalAgregarTour from "../components/modal_tours";
 import '../styles/admin_tours.css'
-import axios from 'axios';
+import axios from "../axiosConfig";
 
 function Admin_tours(){
     const [modalAbierto, setModalAbierto] = useState(false);

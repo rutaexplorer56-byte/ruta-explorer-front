@@ -1,7 +1,7 @@
 import  { useState ,useEffect} from 'react';
 
 import '../styles/modal_tours.css';
-import axios from 'axios';
+import axios from "../axiosConfig";
 import { toast } from 'react-toastify';
 /* eslint-disable react/prop-types */
  

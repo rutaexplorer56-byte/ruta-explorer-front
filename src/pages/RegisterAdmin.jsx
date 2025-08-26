@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/LoginModal.css"; // reutilizamos mismos estilos
-import axios from "axios";
+import axios from "../axiosConfig";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 

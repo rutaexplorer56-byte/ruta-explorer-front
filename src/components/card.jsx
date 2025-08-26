@@ -3,7 +3,7 @@ import AOS from 'aos';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalAgregarTour from './modal_tours';
-import axios from 'axios';
+import axios from "../axiosConfig";
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 

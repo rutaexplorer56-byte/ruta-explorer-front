@@ -10,7 +10,7 @@ import Footer from '../components/footer';
 import AOS from 'aos';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from "../axiosConfig";
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import BotonBold from "../components/BotonBold";

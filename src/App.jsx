@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Tour from "./pages/tour";
 import Tours from "./pages/tours";
 import Admin_tours from "./pages/admin_tours";
@@ -20,7 +20,7 @@ function App(){
 
       
     
-    <Router>
+    
       <Routes>
         <Route path="/admin/reservations" element={<ProtectedRoute><Admin_reservations /></ProtectedRoute>} />
         <Route path="/admin/tours" element={<ProtectedRoute><Admin_tours /></ProtectedRoute>} />
@@ -33,9 +33,10 @@ function App(){
         <Route path="/tour/:id" element={<Tour />} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/invoice/:referencia" element={<Invoice />} />
+        
          
       </Routes>
-    </Router>
+  
     <ToastContainer position="top-right" autoClose={2000} 
             newestOnTop={true}
         closeOnClick

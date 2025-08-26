@@ -24,7 +24,7 @@
     
 }
 .logos{
-    margin-top: 17px;
+    margin-top: 0px;
     width: 100%;
     display: flex;
     justify-content:space-between ;
@@ -34,6 +34,10 @@
 .footer .contacto{
     width: 270px;
 }
+.footer a{
+    color: white;
+    text-decoration: none;
+}
 .menu h2{
     margin-bottom: 10px;
     text-align: center;
@@ -41,6 +45,7 @@
 .menu ul {
     display:flex;
     flex-direction: column;
+    
     gap: 8px;
     list-style: none;
     text-align: center;

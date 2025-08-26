@@ -3,7 +3,7 @@ import "../styles/invoice.css";
 import Header from "../components/header";
 import { useEffect, useRef } from 'react';
 import  { useState } from 'react'
-import axios from 'axios';
+import axios from "../axiosConfig";
 import { useSearchParams } from "react-router-dom";
 
 /* eslint-disable react/prop-types */

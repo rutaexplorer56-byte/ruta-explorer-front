@@ -4,7 +4,7 @@ import Footer from "../components/footer";
 import '../styles/tours.css'
 import AOS from 'aos';
 import { useEffect,useState } from 'react';
-import axios from 'axios';
+import axios from "../axiosConfig";
 function Tours(){
     useEffect(() => {
       AOS.init({

@@ -17,23 +17,27 @@ function Footer() {
         <div className="logo">
           <img src="https://rutaxplorer.com/wp-content/uploads/2023/07/RUTA-XPLORER-2-02-859x1024.png" alt="Ruta Xplorer" />
           <div className="logos">
-            <i className="bi bi-facebook"></i>
-            <i className="bi bi-whatsapp"></i>
-            <i className="bi bi-instagram"></i>
-            <i className="bi bi-youtube"></i>
-            <i className="bi bi-tiktok"></i>
+            <a href="https://www.facebook.com/people/Rutaxplorer/100090352211763/"><i className="bi bi-facebook"></i></a>
+            <a href="https://api.whatsapp.com/send?phone=3124151539"><i className="bi bi-whatsapp"></i></a>
+            <a href="https://www.instagram.com/ruta.xplorer/"><i className="bi bi-instagram"></i></a>
+            <a href="https://www.youtube.com/@ruta.xplorer/featured"><i className="bi bi-youtube"></i></a>
+            <a href="https://www.tiktok.com/@ruta.xplorer"><i className="bi bi-tiktok"></i></a>
+            
+            
+            
+            
           </div>
         </div>
 
         <div className="menu">
           <h2>{t('menu')}</h2>
           <ul>
-            <li>{t('inicio')}</li>
-            <li>{t('nosotros')}</li>
-            <li>{t('servicios')}</li>
-            <li>{t('tours')}</li>
-            <li>{t('contacto')}</li>
-            <li>{t('pagos')}</li>
+            <li><a href="https://rutaxplorer.com/">{t('inicio')}</a></li>
+            <li><a href="https://rutaxplorer.com/nosotros/">{t('nosotros')}</a></li>
+            <li><a href="https://rutaxplorer.com/servicios/">{t('servicios')}</a></li>
+            <li><a href="https://rutaxplorer.com/app/">{t('tours')}</a></li>
+            <li><a href="https://rutaxplorer.com/contacto/">{t('contacto')}</a></li>
+            <li><a href="https://checkout.bold.co/payment/LNK_QO3ZYM10UC">{t('pagos')}</a></li>
           </ul>
         </div>
 
@@ -44,11 +48,7 @@ function Footer() {
             <li>{t('correos')}</li>
             <li>{t('telefonos')}</li>
           </ul>
-          <h2>{t('politicas')}</h2>
-          <ul>
-            <li>{t('privacidad')}</li>
-            <li>{t('terminos')}</li>
-          </ul>
+          
         </div>
 
         <div className="noticias">
