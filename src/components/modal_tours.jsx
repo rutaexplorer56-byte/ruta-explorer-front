@@ -69,7 +69,7 @@ const handleSubmit = async (e) => {
       }
 
       // ✅ Cerrar modal
-      setTimeout(()=>{onClose();},3000)
+      setTimeout(()=>{onClose();},5000)
       
 
       // ✅ Resetear formulario
@@ -100,7 +100,7 @@ const handleSubmit = async (e) => {
     if(id){
       const obtenerTours = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/tours/${id}`);
+        const res = await axios.get(`/api/tours/${id}`);
         setTour(res.data); // aquí actualizamos el estado
         
       } catch (error) {
@@ -140,7 +140,7 @@ const handleSubmit = async (e) => {
 
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.patch(`http://localhost:3001/api/tours/${id}`, data, {
+    const response = await axios.patch(`/api/tours/${id}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,

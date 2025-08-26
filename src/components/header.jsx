@@ -72,7 +72,7 @@ function Header(){
                 <>
                   <li><Link to="/admin/reservations">{t('reservas')}</Link></li>
                   <li><Link to="/admin/tours">{t('tours')}</Link></li>
-                  <li><Link to="/admin/comentarios">{t('comentarios')}</Link></li>
+                  <li><Link to="/admin/tours">{t('comentarios')}</Link></li>
                   <h4 className='greeting'>{t('bienvenido')}:<p>{nombre}</p></h4>
                   <button className='close_sesion' onClick={logOut}>{t('cerrar_sesion')}</button>
                 </>

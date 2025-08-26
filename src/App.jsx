@@ -33,6 +33,7 @@ function App(){
         <Route path="/tour/:id" element={<Tour />} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/invoice/:referencia" element={<Invoice />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
         
          
       </Routes>
