@@ -58,6 +58,21 @@
     justify-content: center;
     margin: 30px 0px 80px 0px;
 }
+.tour-message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  display: block;
+  font-weight: bold;
+}
+.tour-message img{
+  margin-top: 20px;
+  
+}
+.tour-message .phone{
+  color: #007bff;
+}
 
 
 .container_logos{

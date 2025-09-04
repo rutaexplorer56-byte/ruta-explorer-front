@@ -36,7 +36,11 @@ const [buttons,setButtons]=useState(false)
       }
     });
     toast.success("✅ Tour eliminado exitosamente");
-    actualizarToursPadre()
+    setTimeout(() => {
+      window.location.reload();
+      actualizarToursPadre() // Cambia "/destino" por la ruta a donde quieras redirigir
+    }, 3000); // 3000 milisegundos = 3 segundos
+    
   } catch (error) {
     toast.error("❌ Error al eliminar el Tour. Inténtalo de nuevo.");
   }

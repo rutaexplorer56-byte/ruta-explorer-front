@@ -63,7 +63,13 @@
   font-size: 1rem;
   color: #525252;
 }
-
+.foto{
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 8px;
+}
 
 .formulario textarea {
   resize: none;
@@ -88,7 +94,50 @@
 .preview-imagenes ol {
   color: #444;
   font-size: 0.95rem;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 
+}
+.preview-imagenes ol li{
+  list-style: none;
+  
+}
+.preview-item {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.preview-item img {
+  width:80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+.boton-eliminar {
+  position: absolute;
+  top: -0px;
+  right: -0px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  padding: 0;
+  transition: background 0.2s ease-in-out;
+}
+
+.boton-eliminar:hover {
+  background: darkred;
 }
 
 
@@ -110,8 +159,8 @@
 }
 
 .btn.cancelar {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #ff4848;
+  color: #ffffff;
 }
 
 .btn.azul {

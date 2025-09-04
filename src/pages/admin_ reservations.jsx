@@ -69,7 +69,7 @@ export default function Admin_reservations() {
     setSavingIds((s) => new Set([...s, reserva.id]));
 
     try {
-      await axios.put(`http://localhost:3001/api/reservas/${reserva.id}`, { estado: nuevo });
+      await axios.put(`/api/reservas/${reserva.id}`, { estado: nuevo });
     } catch (error) {
       console.error("Error al actualizar estado:", error);
       // rollback
@@ -142,6 +142,7 @@ export default function Admin_reservations() {
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Hotel</th>
+                <th>Pago</th>
                 <th>Estado</th>
               </tr>
             </thead>
@@ -154,6 +155,7 @@ export default function Admin_reservations() {
                   <td>{formatDate(reserva.fecha)}</td>
                   <td>{reserva.horario || "-"}</td>
                   <td>{reserva.hotel || "-"}</td>
+                  <td ><p className={`${reserva.estadoPago === "pago" ? "pago" : "pendiente"}`}>{reserva.estadoPago || "-"}</p></td>
                   <td className="td-estado">
                     <div
                       className={`estado-toggle ${reserva.estado === "finalizada" ? "finalizada" : ""}`}
@@ -163,7 +165,7 @@ export default function Admin_reservations() {
                       aria-label="Cambiar estado"
                       style={{ opacity: savingIds.has(reserva.id) ? 0.6 : 1, pointerEvents: savingIds.has(reserva.id) ? "none" : "auto" }}
                     />
-                    <span className="estado-label">{reserva.estado}</span>
+                    <p className={`${reserva.estado === "finalizada" ? "pago" : "pendiente"}`}>{reserva.estado}</p>
                   </td>
                 </tr>
               ))}

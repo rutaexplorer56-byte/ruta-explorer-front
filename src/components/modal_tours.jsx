@@ -22,6 +22,7 @@ const ModalAgregarTour = (props) => {
     precio: '',
     cantidadMaxima: '',
     toursPorDia: '',
+    cantidadMinima: 1,
   });
 
 
@@ -33,10 +34,34 @@ const ModalAgregarTour = (props) => {
     }));
   };
 
-  const handleImageChange = (e) => {
-    const archivosNuevos = Array.from(e.target.files);
-  setImagenes((imagenesPrevias) => [...imagenesPrevias, ...archivosNuevos]);
-  };
+const handleImageChange = (e) => {
+  const archivosNuevos = Array.from(e.target.files);
+
+  // Si la suma supera 7, recorto
+  const disponibles = 7 - imagenes.length;
+  const archivosLimitados = archivosNuevos.slice(0, disponibles);
+
+  const archivosConPreview = archivosLimitados.map((file) => ({
+    file,
+    preview: URL.createObjectURL(file),
+    name: file.name
+  }));
+
+  setImagenes((imagenesPrevias) => [...imagenesPrevias, ...archivosConPreview]);
+  if (imagenes.length + archivosNuevos.length > 7) {
+  
+  toast.info("Solo puedes subir un máximo de 7 imágenes.");
+}
+};
+const eliminarImagen = (index) => {
+  setImagenes((imagenesPrevias) => {
+    // Liberar memoria del ObjectURL
+    URL.revokeObjectURL(imagenesPrevias[index].preview);
+
+    // Retornar las demás imágenes sin la eliminada
+    return imagenesPrevias.filter((_, i) => i !== index);
+  });
+};
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -48,7 +73,7 @@ const handleSubmit = async (e) => {
   }
 
   imagenes.forEach((img) => {
-    data.append('imagenes', img);
+    data.append('imagenes', img.file);
   });
 
   try {
@@ -84,6 +109,7 @@ const handleSubmit = async (e) => {
         precio: '',
         cantidadMaxima: '',
         toursPorDia: '',
+        cantidadMinima: 1,
       });
       setImagenes([]);
     } else {
@@ -125,7 +151,9 @@ const handleSubmit = async (e) => {
       cantidadMaxima: tour.cantidadMaxima || '',
       toursPorDia: tour.toursPorDia || '',
       id: tour.id || '',
+      cantidadMinima: tour.cantidadMinima || '',
     });
+    setImagenes([]);
   }
 }, [isOpen, tour]);
 
@@ -135,7 +163,7 @@ const handleSubmit = async (e) => {
     data.append(key, formData[key]);
   }
   imagenes.forEach((img) => {
-    data.append('imagenes', img);
+    data.append('imagenes', img.file);
   });
 
   try {
@@ -155,9 +183,9 @@ const handleSubmit = async (e) => {
       if (typeof actualizarToursPadre === "function") {
         await actualizarToursPadre();
       }
-
       // ✅ Cerrar modal
       setTimeout(()=>{onClose();},3000)
+      
       
 
       // Resetear formulario
@@ -172,6 +200,8 @@ const handleSubmit = async (e) => {
         precio: '',
         cantidadMaxima: '',
         toursPorDia: '',
+        cantidadMinima: '',
+
       });
       setImagenes([]);
     } else {
@@ -182,6 +212,12 @@ const handleSubmit = async (e) => {
     toast.error("❌ Ocurrió un error al actualizar los datos.");
   }
 };
+useEffect(() => {
+  return () => {
+    imagenes.forEach((img) => URL.revokeObjectURL(img.preview));
+  };
+}, []);
+
 
   if (!isOpen) return null;
 
@@ -207,9 +243,10 @@ const handleSubmit = async (e) => {
               <input type="number" name="cantidadMaxima" value={formData.cantidadMaxima} onChange={handleChange} placeholder={id!=null?tour.cantidadMaxima:"Ej: 2"} required />
             </div>
             <div className="campo">
-              <label>Tours por día</label>
-              <input type="number" name="toursPorDia" value={formData.toursPorDia} onChange={handleChange}placeholder={id!=null?tour.toursPorDia:"Ej: 3"} required />
+              <label>Cantidad minima</label>
+              <input type="number" name="cantidadMinima" value={formData.cantidadMinima} onChange={handleChange} placeholder={id!=null?tour.cantidadMinima:"Ej: 1"} required />
             </div>
+            
           </div>
 
           <div className="fila">
@@ -225,9 +262,10 @@ const handleSubmit = async (e) => {
 
           <div className="fila">
             <div className="campo">
-              <label>Incluido</label>
-              <input type="text" name="incluido" value={formData.incluido} onChange={handleChange} placeholder={id!=null?tour.incluido:"Ej: almuerzo, transporte (separado por comas)"} required />
+              <label>Tours por día</label>
+              <input type="number" name="toursPorDia" value={formData.toursPorDia} onChange={handleChange}placeholder={id!=null?tour.toursPorDia:"Ej: 3"} required />
             </div>
+            
             <div className="campo">
               <label>Horarios por día</label>
               <input type="text" name="salidas" value={formData.salidas} onChange={handleChange} placeholder={id!=null?tour.salidas:"Ej: 07:30 AM / 02:00 PM (separado por barra inclinada)"}required />
@@ -235,10 +273,15 @@ const handleSubmit = async (e) => {
             
           </div>
           <div className="fila">
-            <div className="campo full">
+            <div className="campo">
               <label>Recomendaciones</label>
               <input type="text" name="recomendaciones" value={formData.recomendaciones} onChange={handleChange} placeholder={id!=null?tour.recomendaciones:"Ej: llevar agua, utilizar ropa comoda (separado por comas)"} required />
             </div>
+            <div className="campo">
+              <label>Incluido</label>
+              <input type="text" name="incluido" value={formData.incluido} onChange={handleChange} placeholder={id!=null?tour.incluido:"Ej: almuerzo, transporte (separado por comas)"} required />
+            </div>
+            
           </div>
 
 
@@ -252,14 +295,24 @@ const handleSubmit = async (e) => {
           <div className="fila">
             <div className="campo full">
               <label>Imágenes del tour</label>
-              <input type="file" multiple accept="image/*" onChange={handleImageChange} />
-              <p className="info-img">SVG, PNG, JPG o GIF (máx. 800x400px)</p>
+              <input type="file" name="imagenes"   multiple accept="image/*" onChange={handleImageChange} />
+              <p className="info-img">SVG, PNG, JPG o GIF (máx. 7 Imagenes)</p>
               {imagenes.length > 0 && (
                 <div className="preview-imagenes">
                   <p className="preview-titulo">Imágenes seleccionadas:</p>
                   <ol>
                     {imagenes.map((img, index) => (
-                      <li key={index}>{img.name}</li>
+                      <li key={index} className="preview-item">
+                        <img src={img.preview} alt={img.name} />
+                        <button
+                          type="button"
+                          onClick={() => eliminarImagen(index)}
+                          className="boton-eliminar"
+                        >
+                          ✖
+                        </button>
+                        
+                      </li>
                     ))}
                   </ol>
                 </div>

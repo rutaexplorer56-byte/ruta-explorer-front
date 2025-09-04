@@ -25,7 +25,7 @@ function App(){
         <Route path="/admin/reservations" element={<ProtectedRoute><Admin_reservations /></ProtectedRoute>} />
         <Route path="/admin/tours" element={<ProtectedRoute><Admin_tours /></ProtectedRoute>} />
         <Route path="/tours" element={<Tours />} />
-        <Route path="/" element={<Tours />} />
+        {/* <Route path="/" element={<Tours />} /> */}
         <Route path="/registro" element={<RegisterAdmin />} />
         <Route path="/tours/:hotel" element={<Tours/>} />
         <Route path="/login" element={<Login />} />
@@ -33,7 +33,7 @@ function App(){
         <Route path="/tour/:id" element={<Tour />} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/invoice/:referencia" element={<Invoice />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/tours" replace />} />
         
          
       </Routes>

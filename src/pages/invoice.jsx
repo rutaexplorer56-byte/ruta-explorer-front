@@ -78,7 +78,7 @@ import { useSearchParams } from "react-router-dom";
           
 
           <div className="receipt-status">
-            <div className="icon-check">{aprobado ? "✓" : "ℹ"}</div>
+            <div className="icon-check">{aprobado ? "✓" : "X"}</div>
             <h2>{tituloMostrar}</h2>
 
             {/* Total: si viene de la reserva, úsalo; si no, muestra 0 COP */}

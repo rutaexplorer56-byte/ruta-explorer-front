@@ -82,3 +82,8 @@
   font-weight: 600;
 }
 .modal-link:hover { text-decoration: underline; }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

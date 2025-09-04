@@ -21,12 +21,12 @@ function Admin_tours(){
       }
     };
 const actualizarTours = async () => {
-
+       window.location.reload();
       try {
-        const res = await axios.get('http://localhost:3001/api/tours');
+        const res = await axios.get('/api/tours');
         setTours(res.data); // aquí actualizamos el estado
 
-        
+ 
       } catch (error) {
         console.error('Error al obtener tours:', error);
       }

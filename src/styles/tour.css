@@ -131,6 +131,7 @@
   position: sticky;
   top: 30px;
   align-self: flex-start;
+  
 }
 .tour-sidebar .titulo_calendario{
     color: #007bff;
@@ -185,9 +186,13 @@
     font-size: 16px;
     color: #ffffff;
 }
-
+.container_bold{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
 .reserve-btn {
-  margin-top: 20px;
+  margin-top: 10px;
   background: #007bff;
   color: white;
   padding: 12px;
@@ -197,6 +202,20 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
+}
+.tour-message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  display: block;
+  font-weight: bold;
+}
+.tour-message img{
+  margin-top: 20px;
+}
+.tour-message .phone{
+  color: #007bff;
 }
 
 .reserve-btn:hover {
