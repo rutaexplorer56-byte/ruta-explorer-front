@@ -46,7 +46,16 @@ const actualizarTours = async () => {
         </div>
         
         <div className="container_cards">
-                     {tours.map(tour => (
+                     {tours.map(tour =>{
+            
+            const precioMostrar = tour.tipo === "compartido"
+            ? tour.precio
+            : tour.precios?.length > 0
+              ? Math.min(...tour.precios.map(p => p.precioPorPersona)) // el más barato
+              : 0;
+            return (
+
+            
                         <Card
                         key={tour.id}
                         id={tour.id}
@@ -55,11 +64,12 @@ const actualizarTours = async () => {
                         personasMax={tour.cantidadMaxima}
                         horarios={tour.salidas}
                         duracion={tour.tiempo}
-                        precio={tour.precio}
+                        precio={precioMostrar}
                         idioma={tour.idioma}
-                        actualizarToursPadre={actualizarTours}
+                        precios={tour.precios}
+                        tipo={tour.tipo}
                         />
-                    ))}
+                    )})}
                     
 
         </div>

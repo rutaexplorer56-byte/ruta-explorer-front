@@ -172,6 +172,61 @@
   background-color: #28a745;
   color: white;
 }
+/* =====================
+   Escalones de precios (privado)
+   ===================== */
+.escalon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.escalon input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.escalon button {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.escalon button:hover {
+  background: #e60000;
+}
+
+.campo.full label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.campo.full .btn.azul {
+  margin-top: 8px;
+  background: #007bff;
+  color: #fff;
+  border-radius: 6px;
+  border: none;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-bottom: 17px;
+}
+
+.campo.full .btn.azul:hover {
+  background: #0056b3;
+}
+
 
 @media (max-width: 600px) {
   .formulario .fila {

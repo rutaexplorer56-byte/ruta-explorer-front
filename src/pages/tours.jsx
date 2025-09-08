@@ -57,7 +57,16 @@ const [tours, setTours] = useState([]);
       </div>
 
       </> ):(
-          tours.map(tour => (
+          tours.map(tour =>{
+            
+            const precioMostrar = tour.tipo === "compartido"
+            ? tour.precio
+            : tour.precios?.length > 0
+              ? Math.min(...tour.precios.map(p => p.precioPorPersona)) // el más barato
+              : 0;
+            return (
+
+            
                         <Card
                         key={tour.id}
                         id={tour.id}
@@ -66,10 +75,12 @@ const [tours, setTours] = useState([]);
                         personasMax={tour.cantidadMaxima}
                         horarios={tour.salidas}
                         duracion={tour.tiempo}
-                        precio={tour.precio}
+                        precio={precioMostrar}
                         idioma={tour.idioma}
+                        precios={tour.precios}
+                        tipo={tour.tipo}
                         />
-                    )))}
+                    )}))}
 
                      
                     

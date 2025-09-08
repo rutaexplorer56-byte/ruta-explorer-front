@@ -1,17 +1,14 @@
-import  { useState ,useEffect} from 'react';
-
+import { useState, useEffect } from 'react';
 import '../styles/modal_tours.css';
 import axios from "../axiosConfig";
 import { toast } from 'react-toastify';
+
 /* eslint-disable react/prop-types */
- 
-const ModalAgregarTour = (props) => {
-
+const ModalAgregarTour = ({ isOpen, onClose, id, actualizarToursPadre }) => {
   const [imagenes, setImagenes] = useState([]);
-  const { isOpen, onClose, id, actualizarToursPadre}=props
+  const [tour, setTour] = useState(null);
 
- 
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     nombre: '',
     descripcion: '',
     idioma: '',
@@ -23,280 +20,445 @@ const ModalAgregarTour = (props) => {
     cantidadMaxima: '',
     toursPorDia: '',
     cantidadMinima: 1,
+    tipo: 'compartido', // 'compartido' | 'privado'
+    precios: []         // [{ personas, precioPorPersona }]
   });
 
-
- const handleChange = (e) => {
+  // -----------------------
+  // Handlers generales
+  // -----------------------
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
+  const handleImageChange = (e) => {
+    const archivosNuevos = Array.from(e.target.files);
+    const disponibles = 7 - imagenes.length;
+    const archivosLimitados = archivosNuevos.slice(0, disponibles);
+
+    const archivosConPreview = archivosLimitados.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+      name: file.name
+    }));
+
+    setImagenes(prev => [...prev, ...archivosConPreview]);
+
+    if (imagenes.length + archivosNuevos.length > 7) {
+      toast.info("Solo puedes subir un máximo de 7 imágenes.");
+    }
+  };
+
+  const eliminarImagen = (index) => {
+    setImagenes(prev => {
+      URL.revokeObjectURL(prev[index].preview);
+      return prev.filter((_, i) => i !== index);
+    });
+  };
+
+  // -----------------------
+  // Escalones (privado)
+  // -----------------------
+  const agregarEscalon = () => {
+    setFormData(prev => ({
       ...prev,
-      [name]: value,
+      precios: [...prev.precios, { personas: '', precioPorPersona: '' }]
     }));
   };
 
-const handleImageChange = (e) => {
-  const archivosNuevos = Array.from(e.target.files);
+  const handleEscalonChange = (i, field, value) => {
+    const nuevos = [...formData.precios];
+    nuevos[i][field] = value;
+    setFormData(prev => ({ ...prev, precios: nuevos }));
+  };
 
-  // Si la suma supera 7, recorto
-  const disponibles = 7 - imagenes.length;
-  const archivosLimitados = archivosNuevos.slice(0, disponibles);
+  const eliminarEscalon = (i) => {
+    setFormData(prev => ({
+      ...prev,
+      precios: prev.precios.filter((_, idx) => idx !== i)
+    }));
+  };
 
-  const archivosConPreview = archivosLimitados.map((file) => ({
-    file,
-    preview: URL.createObjectURL(file),
-    name: file.name
-  }));
+  // -----------------------
+  // Submit (crear)
+  // -----------------------
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
 
-  setImagenes((imagenesPrevias) => [...imagenesPrevias, ...archivosConPreview]);
-  if (imagenes.length + archivosNuevos.length > 7) {
-  
-  toast.info("Solo puedes subir un máximo de 7 imágenes.");
-}
-};
-const eliminarImagen = (index) => {
-  setImagenes((imagenesPrevias) => {
-    // Liberar memoria del ObjectURL
-    URL.revokeObjectURL(imagenesPrevias[index].preview);
-
-    // Retornar las demás imágenes sin la eliminada
-    return imagenesPrevias.filter((_, i) => i !== index);
-  });
-};
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const data = new FormData();
-
-  for (const key in formData) {
-    data.append(key, formData[key]);
-  }
-
-  imagenes.forEach((img) => {
-    data.append('imagenes', img.file);
-  });
-
-  try {
-    const token = localStorage.getItem('token');
-    const response = await axios.post('/api/tours', data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (response.status === 200 || response.status === 201) {
-      toast.success("✅ Tour creado exitosamente");
-
-      // ✅ 🔥 ACTUALIZAR LISTA EN EL PADRE
-      if (typeof actualizarToursPadre === "function") {
-        await actualizarToursPadre();
+    // Si tipo es compartido, limpiar precios; si es privado, limpiar precio fijo
+  const payload = {
+    ...formData,
+    precio: formData.tipo === 'compartido' ? toNumber(formData.precio) : 0,
+    precios: formData.tipo === 'privado'
+      ? formData.precios.map(p => ({
+          personas: toNumber(p.personas),
+          precioPorPersona: toNumber(p.precioPorPersona),
+        }))
+      : [],
+  };
+    for (const key in payload) {
+      if (key === "precios") {
+        data.append("precios", JSON.stringify(payload.precios));
+      } else {
+        data.append(key, payload[key]);
       }
+    }
 
-      // ✅ Cerrar modal
-      setTimeout(()=>{onClose();},5000)
-      
-
-      // ✅ Resetear formulario
-      setFormData({
-        nombre: '',
-        descripcion: '',
-        idioma: '',
-        incluido: '',
-        recomendaciones: '',
-        salidas: '',
-        tiempo: '',
-        precio: '',
-        cantidadMaxima: '',
-        toursPorDia: '',
-        cantidadMinima: 1,
+    imagenes.forEach((img) => data.append('imagenes', img.file));
+ 
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post('/api/tours', data, {
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` }
       });
-      setImagenes([]);
-    } else {
-      toast.error("❌ Error al crear el Tour. Inténtalo de nuevo.");
-    }
-  } catch (error) {
-    
-    toast.error("❌ Ocurrió un error al enviar los datos.");
-  }
-};
-    const [tour, setTour] = useState([]);
-
-  useEffect(() => {
-    if(id){
-      const obtenerTours = async () => {
-      try {
-        const res = await axios.get(`/api/tours/${id}`);
-        setTour(res.data); // aquí actualizamos el estado
-        
-      } catch (error) {
-        console.error('Error al obtener tours:', error);
+       
+      if (response.status === 200 || response.status === 201) {
+        toast.success("✅ Tour creado exitosamente");
+        if (typeof actualizarToursPadre === "function") await actualizarToursPadre();
+        setTimeout(() => onClose(), 3000);
+        resetForm();
+      } else {
+        toast.error("❌ Error al crear el Tour. Inténtalo de nuevo.");
       }
-    };
-    obtenerTours();
+    } catch (error) {
+      console.log("❌ Error en la petición:");
+      console.log("Mensaje:", error.message);
+      console.log("Response completa:", error.response);
+      console.log("Status:", error?.response?.status);
+      console.log("Data:", error?.response?.data);
+      console.log("Headers:", error?.response?.headers);
+      toast.error(error?.response?.data?.mensaje );
     }
-    
-  }, [id]);
-  useEffect(() => {
-  if (isOpen && tour) {
+  };
+
+  // -----------------------
+  // Update (editar)
+  // -----------------------
+  const update = async () => {
+    const data = new FormData();
+
+      const payload = {
+    ...formData,
+    precio: formData.tipo === 'compartido' ? toNumber(formData.precio) : 0,
+    precios: formData.tipo === 'privado'
+      ? formData.precios.map(p => ({
+          personas: toNumber(p.personas),
+          precioPorPersona: toNumber(p.precioPorPersona),
+        }))
+      : [],
+  };
+
+    for (const key in payload) {
+      if (key === "precios") {
+        data.append("precios", JSON.stringify(payload.precios));
+      } else {
+        data.append(key, payload[key]);
+      }
+    }
+
+    imagenes.forEach((img) => data.append('imagenes', img.file));
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.patch(`/api/tours/${id}`, data, {
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` }
+      });
+
+      if (response.status === 200) {
+        toast.success("✅ Tour actualizado exitosamente");
+        if (typeof actualizarToursPadre === "function") await actualizarToursPadre();
+        setTimeout(() => onClose(), 3000);
+        resetForm();
+      } else {
+        toast.error("❌ Error al actualizar el Tour.");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.mensaje || "❌ Error al actualizar el Tour.");
+    }
+  };
+
+  const resetForm = () => {
     setFormData({
-      nombre: tour.nombre || '',
-      descripcion: tour.descripcion || '',
-      idioma: tour.idioma || '',
-      incluido: tour.incluido || '',
-      recomendaciones: tour.recomendaciones || '',
-      salidas: tour.salidas || '',
-      tiempo: tour.tiempo || '',
-      precio: tour.precio || '',
-      cantidadMaxima: tour.cantidadMaxima || '',
-      toursPorDia: tour.toursPorDia || '',
-      id: tour.id || '',
-      cantidadMinima: tour.cantidadMinima || '',
+      nombre: '',
+      descripcion: '',
+      idioma: '',
+      incluido: '',
+      recomendaciones: '',
+      salidas: '',
+      tiempo: '',
+      precio: '',
+      cantidadMaxima: '',
+      toursPorDia: '',
+      cantidadMinima: 1,
+      tipo: 'compartido',
+      precios: []
     });
     setImagenes([]);
-  }
-}, [isOpen, tour]);
+    setTour(null);
+  };
 
- const update = async () => {
-  const data = new FormData();
-  for (const key in formData) {
-    data.append(key, formData[key]);
-  }
-  imagenes.forEach((img) => {
-    data.append('imagenes', img.file);
-  });
+  // -----------------------
+  // Cargar tour si hay id
+  // -----------------------
+  useEffect(() => {
+    if (id) {
+      const obtenerTour = async () => {
+        try {
+          const res = await axios.get(`/api/tours/${id}`);
+          setTour(res.data);
+        } catch (err) {
+          console.error('Error al obtener tour:', err);
+        }
+      };
+      obtenerTour();
+    }
+  }, [id]);
 
-  try {
-    const token = localStorage.getItem('token');
-    const response = await axios.patch(`/api/tours/${id}`, data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (response.status === 200 || response.status === 204) {
-      toast.success("✅ Tour actualizado exitosamente");
-
-
-      // ✅ 🔥 ACTUALIZAR LISTA EN EL PADRE
-      if (typeof actualizarToursPadre === "function") {
-        await actualizarToursPadre();
-      }
-      // ✅ Cerrar modal
-      setTimeout(()=>{onClose();},3000)
-      
-      
-
-      // Resetear formulario
+  // Popular form cuando abrimos modal y ya tenemos tour
+  useEffect(() => {
+    if (isOpen && tour) {
       setFormData({
-        nombre: '',
-        descripcion: '',
-        idioma: '',
-        incluido: '',
-        recomendaciones: '',
-        salidas: '',
-        tiempo: '',
-        precio: '',
-        cantidadMaxima: '',
-        toursPorDia: '',
-        cantidadMinima: '',
-
+        nombre: tour.nombre || '',
+        descripcion: tour.descripcion || '',
+        idioma: tour.idioma || '',
+        incluido: tour.incluido || '',
+        recomendaciones: tour.recomendaciones || '',
+        salidas: tour.salidas || '',
+        tiempo: tour.tiempo || '',
+        precio: tour.precio || '',
+        cantidadMaxima: tour.cantidadMaxima?.toString?.() || '',
+        toursPorDia: tour.toursPorDia?.toString?.() || '',
+        cantidadMinima: tour.cantidadMinima ?? 1,
+        tipo: tour.tipo || 'compartido',
+        precios: Array.isArray(tour.precios)
+          ? tour.precios.map(p => ({
+              personas: p.personas?.toString?.() || '',
+              precioPorPersona: p.precioPorPersona?.toString?.() || ''
+            }))
+          : []
       });
       setImagenes([]);
-    } else {
-      toast.error("❌ Error al actualizar el tour.");
     }
-  } catch (error) {
-    console.error('Error en la solicitud PATCH:', error);
-    toast.error("❌ Ocurrió un error al actualizar los datos.");
-  }
-};
-useEffect(() => {
-  return () => {
-    imagenes.forEach((img) => URL.revokeObjectURL(img.preview));
-  };
-}, []);
+  }, [isOpen, tour]);
 
+  // Cleanup de previews
+  useEffect(() => {
+    return () => {
+      imagenes.forEach((img) => URL.revokeObjectURL(img.preview));
+    };
+  }, [imagenes]);
 
   if (!isOpen) return null;
 
+  // -----------------------
+  // Render
+  // -----------------------
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Agregar Tour</h2>
-        <form className="formulario" onSubmit={handleSubmit} >
+        <h2>{id ? "Editar Tour" : "Agregar Tour"}</h2>
+
+        <form className="formulario" onSubmit={handleSubmit}>
+          {/* Tipo */}
           <div className="fila">
             <div className="campo">
-              <label>Nombre del Tour</label>
-              <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} placeholder={id!=null?tour.nombre:"Ej: Tour del cafe"} required />
-            </div>
-            <div className="campo">
-              <label>Precio</label>
-              <input type="number" name="precio" value={formData.precio} onChange={handleChange} placeholder={id!=null?tour.precio:"Ej: 85000 (sin puntos ni comas)"} required />
+              <label>Tipo de tour</label>
+              <select name="tipo" value={formData.tipo} onChange={handleChange} required>
+                <option value="compartido">Compartido</option>
+                <option value="privado">Privado</option>
+              </select>
             </div>
           </div>
 
+          {/* Nombre y precio (si compartido) */}
+          <div className="fila">
+            <div className="campo">
+              <label>Nombre del Tour</label>
+              <input
+                type="text"
+                name="nombre"
+                value={formData.nombre}
+                onChange={handleChange}
+                placeholder="Ej: Tour del café"
+                required
+              />
+            </div>
+
+            {formData.tipo === "compartido" && (
+              <div className="campo">
+                <label>Precio fijo</label>
+                <input
+                  type="number"
+                  name="precio"
+                  value={formData.precio}
+                  onChange={handleChange}
+                  placeholder="Ej: 85000"
+                  required
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Escalones si privado */}
+          {formData.tipo === "privado" && (
+            <div className="campo full">
+              <label>Precios por número de personas</label>
+              {formData.precios.map((p, i) => (
+                <div key={i} className="fila escalon">
+                  <input
+                    type="number"
+                    placeholder="Personas"
+                    
+                    value={p.personas}
+                    onChange={(e) => handleEscalonChange(i, "personas", e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Precio por persona"
+                    
+                    value={p.precioPorPersona}
+                    onChange={(e) => handleEscalonChange(i, "precioPorPersona", e.target.value)}
+                  />
+                  <button type="button" onClick={() => eliminarEscalon(i)}>✖</button>
+                </div>
+              ))}
+
+              <button type="button" className="btn azul" onClick={agregarEscalon}>
+                ➕ Agregar Escalón
+              </button>
+            </div>
+          )}
+
+          {/* Cantidades e idioma/tiempo */}
           <div className="fila">
             <div className="campo">
               <label>Cantidad máxima</label>
-              <input type="number" name="cantidadMaxima" value={formData.cantidadMaxima} onChange={handleChange} placeholder={id!=null?tour.cantidadMaxima:"Ej: 2"} required />
+              <input
+                type="number"
+                name="cantidadMaxima"
+                value={formData.cantidadMaxima}
+                onChange={handleChange}
+                placeholder="Ej: 8"
+                required
+              />
             </div>
             <div className="campo">
-              <label>Cantidad minima</label>
-              <input type="number" name="cantidadMinima" value={formData.cantidadMinima} onChange={handleChange} placeholder={id!=null?tour.cantidadMinima:"Ej: 1"} required />
+              <label>Cantidad mínima</label>
+              <input
+                type="number"
+                name="cantidadMinima"
+                value={formData.cantidadMinima}
+                onChange={handleChange}
+                placeholder="Ej: 1"
+                required
+              />
             </div>
-            
           </div>
 
           <div className="fila">
             <div className="campo">
               <label>Duración</label>
-              <input type="text" name="tiempo" value={formData.tiempo} onChange={handleChange} placeholder={id!=null?tour.tiempo:"Ej: 3 horas"} required />
+              <input
+                type="text"
+                name="tiempo"
+                value={formData.tiempo}
+                onChange={handleChange}
+                placeholder="Ej: 3 horas"
+                required
+              />
             </div>
             <div className="campo">
               <label>Idioma</label>
-              <input type="text" name="idioma" value={formData.idioma} onChange={handleChange} placeholder={id!=null?tour.idioma:"Ej: Español/ingles (separado por barra inclinada)"} required />
+              <input
+                type="text"
+                name="idioma"
+                value={formData.idioma}
+                onChange={handleChange}
+                placeholder="Ej: Español/Inglés"
+                required
+              />
             </div>
           </div>
 
           <div className="fila">
             <div className="campo">
               <label>Tours por día</label>
-              <input type="number" name="toursPorDia" value={formData.toursPorDia} onChange={handleChange}placeholder={id!=null?tour.toursPorDia:"Ej: 3"} required />
+              <input
+                type="number"
+                name="toursPorDia"
+                value={formData.toursPorDia}
+                onChange={handleChange}
+                placeholder="Ej: 3"
+                required
+              />
             </div>
-            
             <div className="campo">
               <label>Horarios por día</label>
-              <input type="text" name="salidas" value={formData.salidas} onChange={handleChange} placeholder={id!=null?tour.salidas:"Ej: 07:30 AM / 02:00 PM (separado por barra inclinada)"}required />
+              <input
+                type="text"
+                name="salidas"
+                value={formData.salidas}
+                onChange={handleChange}
+                placeholder="Ej: 07:30 AM / 02:00 PM"
+                required
+              />
             </div>
-            
           </div>
+
           <div className="fila">
             <div className="campo">
               <label>Recomendaciones</label>
-              <input type="text" name="recomendaciones" value={formData.recomendaciones} onChange={handleChange} placeholder={id!=null?tour.recomendaciones:"Ej: llevar agua, utilizar ropa comoda (separado por comas)"} required />
+              <input
+                type="text"
+                name="recomendaciones"
+                value={formData.recomendaciones}
+                onChange={handleChange}
+                placeholder="Ej: llevar agua, ropa cómoda"
+                required
+              />
             </div>
             <div className="campo">
               <label>Incluido</label>
-              <input type="text" name="incluido" value={formData.incluido} onChange={handleChange} placeholder={id!=null?tour.incluido:"Ej: almuerzo, transporte (separado por comas)"} required />
+              <input
+                type="text"
+                name="incluido"
+                value={formData.incluido}
+                onChange={handleChange}
+                placeholder="Ej: almuerzo, transporte"
+                required
+              />
             </div>
-            
           </div>
-
 
           <div className="fila">
             <div className="campo full">
               <label>Descripción</label>
-              <textarea name="descripcion" rows="4" value={formData.descripcion} onChange={handleChange}placeholder={id!=null?tour.descripcion:"Ej: esto es un tour por salento"} required></textarea>
+              <textarea
+                name="descripcion"
+                rows="4"
+                value={formData.descripcion}
+                onChange={handleChange}
+                placeholder="Describe el tour..."
+                required
+              />
             </div>
           </div>
 
+          {/* Imágenes */}
           <div className="fila">
             <div className="campo full">
               <label>Imágenes del tour</label>
-              <input type="file" name="imagenes"   multiple accept="image/*" onChange={handleImageChange} />
-              <p className="info-img">SVG, PNG, JPG o GIF (máx. 7 Imagenes)</p>
+              <input
+                type="file"
+                name="imagenes"
+                multiple
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+              <p className="info-img">SVG, PNG, JPG o GIF (máx. 7 imágenes)</p>
+
               {imagenes.length > 0 && (
                 <div className="preview-imagenes">
                   <p className="preview-titulo">Imágenes seleccionadas:</p>
@@ -311,7 +473,6 @@ useEffect(() => {
                         >
                           ✖
                         </button>
-                        
                       </li>
                     ))}
                   </ol>
@@ -320,10 +481,12 @@ useEffect(() => {
             </div>
           </div>
 
+          {/* Acciones */}
           <div className="acciones">
             <button type="button" className="btn cancelar" onClick={onClose}>Cancelar</button>
-            {id!=null?<button type="button" className="btn naranja" onClick={update}>Actualizar</button>:<button type="submit" className="btn azul">Añadir Tour</button>}
-            
+            {id
+              ? <button type="button" className="btn naranja" onClick={update}>Actualizar</button>
+              : <button type="submit" className="btn azul">Añadir Tour</button>}
           </div>
         </form>
       </div>

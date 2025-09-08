@@ -58,7 +58,7 @@ const Tour = () => {
   const [currency,setCurrency]=useState('COP')
   const [apiKey, setApiKey] = useState(import.meta.env.VITE_BOLD_PUBLIC_KEY);
   const[amount,setAmount]=useState(0)
-
+const [selectedEscalon, setSelectedEscalon] = useState(null);
 
   useEffect(() => {
     const fetchTour = async () => {
@@ -80,13 +80,14 @@ const Tour = () => {
     fetchTour();
     
   }, [id]);
+  
 
   const obtenerFirma = async (data) => {
     try {
       
         const response = await axios.post("/api/firma-bold", {
         reference: data.reserva.referenciaPago,
-        amount: basePrice * adults,
+        amount: selectedEscalon || (basePrice * adults),
         currency: "COP",
       });
       setFirmaBold(response.data.signature);
@@ -198,10 +199,18 @@ const handleAdultChange = (delta) => {
 
 
  const handleReserva = async () => {
-  if (!selectedDate || !selectedTime || !nombreUsuario || !correoUsuario) {
+  const esCorreoValido = (correo) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(correo);
+  };
+  if (!selectedDate || !selectedTime || !nombreUsuario || !correoUsuario || !selectedEscalon) {
     toast.info("Por favor completa todos los campos antes de reservar.", {
             position: "top-right"
             });
+    return;
+  }
+   if (!esCorreoValido(correoUsuario)) {
+    toast.info("Por favor ingresa un correo válido.");
     return;
   }
   const isValid = await verifyDate();
@@ -362,18 +371,63 @@ const handleAdultChange = (delta) => {
           <label>Correo:</label>
           <input placeholder='Correo:'
           value={correoUsuario} 
-          onChange={(e) => setCorreoUsuario(e.target.value)}>
+          type="email"
+          onChange={(e) => setCorreoUsuario(e.target.value)} required>
+            
           </input>
           
-          <div className="adult-counter">
-            <label>Personas:</label>
-            <div>
-              <button onClick={() => handleAdultChange(-1)}>-</button>
-              <span>{adults}</span>
-              <button onClick={() => handleAdultChange(1)} disabled={tour && adults >= tour.cantidadMaxima}>+</button>
-            </div>
-          </div>
-          <p className='precio'><strong>Total:</strong> <span>${ (basePrice * adults).toLocaleString('es-CO') }</span></p>
+          {/* Si el tour es compartido */}
+          {tour.tipo === "compartido" && (
+            <>
+              <div className="adult-counter">
+                <label>Personas:</label>
+                <div>
+                  <button onClick={() => handleAdultChange(-1)}>-</button>
+                  <span>{adults}</span>
+                  <button
+                    onClick={() => handleAdultChange(1)}
+                    disabled={tour && adults >= tour.cantidadMaxima}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <p className='precio'>
+                <strong>Total:</strong>{" "}
+                <span>${(basePrice * adults).toLocaleString("es-CO")}</span>
+              </p>
+            </>
+          )}
+
+          {/* Si el tour es privado */}
+          {tour.tipo === "privado" && (
+            <>
+              <label>Selecciona número de personas:</label>
+              <select
+                value={selectedEscalon || ""}
+                onChange={(e) => {setSelectedEscalon(e.target.value); setAmount(e.target.value)}}
+              >
+                
+                {Array.isArray(tour.precios) &&
+                  tour.precios.map((p, idx) => (
+                    <option
+                      key={idx}
+                      value={p.precioPorPersona * p.personas}
+                    >
+                      {p.personas} personas - ${p.precioPorPersona.toLocaleString("es-CO")} COP c/u
+                    </option>
+                  ))}
+              </select>
+
+              {selectedEscalon && (
+                <p className="precio">
+                  <strong>Total:</strong>{" "}
+                  <span>${parseInt(selectedEscalon).toLocaleString("es-CO")}</span>
+                </p>
+              )}
+            </>
+          )}
+         
           <div className='container_bold'>
             {!firmaBold && (<button  className={`reserve-btn ${admin ? "disable" : ""}`} disabled={admin} onClick={handleReserva}>Reservar ahora</button>)}
             {firmaBold &&(

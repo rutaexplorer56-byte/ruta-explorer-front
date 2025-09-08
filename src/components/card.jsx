@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 
 // eslint-disable-next-line react/prop-types
-const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre }) => {
+const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo }) => {
    const [modalAbierto, setModalAbierto] = useState(false);
   useEffect(() => {
   AOS.init({
@@ -66,8 +66,16 @@ const [buttons,setButtons]=useState(false)
           <li>- Idioma: {idioma}</li>
         </ul>
         <p className="price">
-          a partir de <strong>${precio}</strong> (x) persona
-        </p>
+              a partir de{" "}
+              <strong>
+                {tipo === "compartido"
+                  ? `$${precio?.toLocaleString("es-CO")}`
+                  : precios?.length > 0
+                    ? `$${precios[0].precioPorPersona.toLocaleString("es-CO")}`
+                    : "$0"}
+              </strong>{" "}
+              (x) persona
+            </p>
         <div className='buttons-container'>
           {!buttons ? (
              <Link className="reserve-button" to={`/tour/${hotel}/${id}`}>
