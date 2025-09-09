@@ -84,6 +84,7 @@ export default function Admin_reservations() {
     }
   };
 
+
   return (
     <>
       <Header />
@@ -140,6 +141,7 @@ export default function Admin_reservations() {
                 <th>Título</th>
                 <th>Nombre</th>
                 <th>Fecha</th>
+                <th>Personas</th>
                 <th>Hora</th>
                 <th>Hotel</th>
                 <th>Pago</th>
@@ -153,6 +155,7 @@ export default function Admin_reservations() {
                   <td>{reserva.nombreTour}</td>
                   <td>{reserva.nombrePersona}</td>
                   <td>{formatDate(reserva.fecha)}</td>
+                  <td>{reserva.cantidadPersonas}</td>
                   <td>{reserva.horario || "-"}</td>
                   <td>{reserva.hotel || "-"}</td>
                   <td ><p className={`${reserva.estadoPago === "pago" ? "pago" : "pendiente"}`}>{reserva.estadoPago || "-"}</p></td>

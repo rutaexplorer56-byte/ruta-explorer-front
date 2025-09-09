@@ -59,6 +59,8 @@ const Tour = () => {
   const [apiKey, setApiKey] = useState(import.meta.env.VITE_BOLD_PUBLIC_KEY);
   const[amount,setAmount]=useState(0)
 const [selectedEscalon, setSelectedEscalon] = useState(null);
+const [precioMostrar, setPrecioMostrar] = useState([]);
+const [selectedPersonas, setSelectedPersonas] = useState("");
 
   useEffect(() => {
     const fetchTour = async () => {
@@ -67,6 +69,7 @@ const [selectedEscalon, setSelectedEscalon] = useState(null);
         setTour(res.data);
         setBasePrice(res.data.precio)
         setAdults(res.data.cantidadMinima ?? 1) // default
+       
 
       
         
@@ -82,6 +85,7 @@ const [selectedEscalon, setSelectedEscalon] = useState(null);
   }, [id]);
   
 
+  
   const obtenerFirma = async (data) => {
     try {
       
@@ -146,6 +150,13 @@ useEffect(() => {
   agregarHorasDesdeCadena(tour.salidas);
   agregarIncluidos(tour.incluido);
   agregarRecomendaciones(tour.recomendaciones);
+    setPrecioMostrar(
+          tour.tipo === "compartido"
+            ? tour.precio
+            : tour.precios?.length > 0
+              ? Math.min(...tour.precios.map(p => p.precioPorPersona)) // el más barato
+              : 0
+         ) 
 }, [tour]);
 
 
@@ -173,13 +184,13 @@ const handleAdultChange = (delta) => {
     try{
       const res = await axios.get(`/api/reservas/fecha/${fecha}/${tour.id}/${selectedTime}`);
       
- 
-
+      
       if(res.data.fecha===selectedDate.toISOString().split('T')[0] && selectedTime===res.data.horario  && res.data.tourId===tour.id){
         toast.warn("ya hay una reserva para esta fecha u horario, por favor cambialo...", {
         position: "top-right",
         autoClose: 4300,
       });
+      
       return false;
         
       }
@@ -199,18 +210,26 @@ const handleAdultChange = (delta) => {
 
 
  const handleReserva = async () => {
+
   const esCorreoValido = (correo) => {
+    
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(correo);
-  };
-  if (!selectedDate || !selectedTime || !nombreUsuario || !correoUsuario || !selectedEscalon) {
+  
+  }; 
+  if (!selectedDate || !selectedTime || !nombreUsuario || !correoUsuario  ) {
     toast.info("Por favor completa todos los campos antes de reservar.", {
             position: "top-right"
             });
+            
     return;
   }
    if (!esCorreoValido(correoUsuario)) {
     toast.info("Por favor ingresa un correo válido.");
+    return;
+  }
+  if(tour.tipo==="privado" && !selectedEscalon){
+    toast.info("Por favor selecciona la cantidad de personas.", )
     return;
   }
   const isValid = await verifyDate();
@@ -224,8 +243,8 @@ const handleAdultChange = (delta) => {
       horario:selectedTime,
       nombrePersona: nombreUsuario,
       correo: correoUsuario,
-      cantidadPersonas: adults,
-      valorTotal: basePrice * adults,
+      cantidadPersonas:  selectedPersonas || adults ,//esto
+      valorTotal: basePrice*adults || selectedEscalon , //esto
       tourId: tour.id,
       hotel:hotel
     });
@@ -270,7 +289,7 @@ const handleAdultChange = (delta) => {
       </> ):
       ( <div className="tour-page">
       <div className="tour-main">
-        <div className='titulo_tour'><h1>{tour.nombre}</h1> <div className='precio'>${tour.precio} COP</div></div>
+        <div className='titulo_tour'><h1>{tour.nombre}</h1> <div className='precio'>${precioMostrar} COP</div></div>
         <div className="tour-gallery"  data-aos="fade-down">
           <Zoom>
             <img className="main-image" src={mainImage} alt="Tour principal" />
@@ -382,10 +401,10 @@ const handleAdultChange = (delta) => {
               <div className="adult-counter">
                 <label>Personas:</label>
                 <div>
-                  <button onClick={() => handleAdultChange(-1)}>-</button>
+                  <button onClick={() =>{ handleAdultChange(-1); console.log(amount)}}>-</button>
                   <span>{adults}</span>
                   <button
-                    onClick={() => handleAdultChange(1)}
+                    onClick={() => {handleAdultChange(1);  console.log(amount)}}
                     disabled={tour && adults >= tour.cantidadMaxima}
                   >
                     +
@@ -405,7 +424,15 @@ const handleAdultChange = (delta) => {
               <label>Selecciona número de personas:</label>
               <select
                 value={selectedEscalon || ""}
-                onChange={(e) => {setSelectedEscalon(e.target.value); setAmount(e.target.value)}}
+                onChange={(e) => {
+                    
+                      setSelectedEscalon(e.target.value); // guarda el precio total
+                      setAmount(e.target.value);
+                      setSelectedPersonas(e.target.options[e.target.selectedIndex].dataset.personas);
+                      
+                       // 👈 guarda personas
+    }
+                }
               >
                 
                 {Array.isArray(tour.precios) &&
@@ -413,6 +440,7 @@ const handleAdultChange = (delta) => {
                     <option
                       key={idx}
                       value={p.precioPorPersona * p.personas}
+                      data-personas={p.personas} // 👈 usar dataset
                     >
                       {p.personas} personas - ${p.precioPorPersona.toLocaleString("es-CO")} COP c/u
                     </option>
