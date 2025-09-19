@@ -67,7 +67,7 @@ import { useSearchParams } from "react-router-dom";
 
   
     const aprobado = txStatus === "approved";
-  const tituloMostrar = aprobado ? "¡Pago aprobado!":"";
+  const tituloMostrar = aprobado ? "¡Pago aprobado!":"oops, pago rechazado";
 
   return (
     <>
@@ -78,7 +78,7 @@ import { useSearchParams } from "react-router-dom";
           
 
           <div className="receipt-status">
-            <div className="icon-check">{aprobado ? "✓" : "X"}</div>
+            <div className={aprobado ? "icon-check" : "icon-denied"}>{aprobado ? "✓" : "X"}</div>
             <h2>{tituloMostrar}</h2>
 
             {/* Total: si viene de la reserva, úsalo; si no, muestra 0 COP */}
@@ -131,6 +131,10 @@ import { useSearchParams } from "react-router-dom";
                 <div className="row">
                   <span>Correo</span>
                   <strong>{reserva.correo}</strong>
+                </div>
+                <div className="row">
+                  <span>telefono</span>
+                  <strong>{reserva.telefono}</strong>
                 </div>
                 <div className="row">
                   <span>Estado de la reserva</span>

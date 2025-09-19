@@ -60,7 +60,17 @@ body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helve
   margin:0 auto 8px auto;
   font-size:22px;
 }
+.icon-denied{
+  width:44px; height:44px;
+  border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:rgba(238, 27, 27, 0.26);
+  color:rgb(236, 43, 43);
+  font-weight:800;
+  margin:0 auto 8px auto;
+  font-size:22px;
 
+}
 .receipt-status h2{
   margin:4px 0 6px 0;
   font-size:20px;

@@ -4,7 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
  import AOS from 'aos';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SelectorIdioma from './language';
+import GoogleTranslate from './language';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
@@ -54,14 +54,16 @@ function Header(){
 
     return (
         <div className="container" data-aos="fade">
-         <SelectorIdioma></SelectorIdioma> 
+         
             
           
             <div className="info_header">
+              
                 <ul>
                     <li><i className="bi bi-envelope-fill"></i> reservas@rutaxplorer.com</li>
                     <li className='ubication'>{t('siguenos')}:<a href='https://www.facebook.com/people/Rutaxplorer/100090352211763/'><i className="bi bi-facebook"></i> </a> <a href='https://www.instagram.com/ruta.xplorer/'><i className="bi bi-instagram"></i></a> <a href='https://www.youtube.com/@ruta.xplorer/featured'><i className="bi bi-youtube"></i></a>  <a href='https://www.tiktok.com/@ruta.xplorer'><i className="bi bi-tiktok"></i></a></li>
                     <li ><i className="bi bi-geo-alt-fill"></i> <a href='https://www.google.com/maps/place/Salento+ToursRuta.Xplorer+SAS+Transporte+y+turismo/@4.6361604,-75.572946,17z/data=!3m1!4b1!4m6!3m5!1s0x8e388df9d2f6e29d:0x292561140c00b46b!8m2!3d4.6361604!4d-75.572946!16s%2Fg%2F11v496jwg0?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D'>Mz B Casa 1 Barrio La nueva Floresta Salento - Quindío</a> <i className="bi bi-pin-map-fill"></i></li>
+                   
                 </ul>
             </div>
             <header className="header">

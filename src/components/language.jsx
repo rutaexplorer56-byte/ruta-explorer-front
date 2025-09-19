@@ -1,18 +1,31 @@
-import { useTranslation } from 'react-i18next';
+import { useEffect } from "react";
+import "../styles/header.css";
+const GoogleTranslate = () => {
+  useEffect(() => {
+    // Definir la función global que Google necesita
+    window.googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: "es", // idioma original
+          includedLanguages: "en,fr,de,it,pt", // idiomas que permites
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+        },
+        "google_translate_element"
+      );
+    };
 
-const SelectorIdioma = () => {
-  const { i18n } = useTranslation();
+    // Insertar el script de Google si no está cargado
+    const scriptId = "google-translate-script";
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement("script");
+      script.id = scriptId;
+      script.src =
+        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      document.body.appendChild(script);
+    }
+  }, []);
 
-  const cambiarIdioma = (e) => {
-    i18n.changeLanguage(e.target.value);
-  };
-
-  return (
-    <select onChange={cambiarIdioma} defaultValue={i18n.language} className="language">
-      <option value="es">🇪🇸 Español</option>
-      <option value="en">🇺🇸 English</option>
-    </select>
-  );
+  return <div className="language" id="google_translate_element" />;
 };
 
-export default SelectorIdioma;
+export default GoogleTranslate;

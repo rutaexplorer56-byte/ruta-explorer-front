@@ -21,6 +21,7 @@ registerLocale('es', es);
 const Tour = () => {
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [correoUsuario, setCorreoUsuario] = useState('');
+  const [telefonoUsuario,setTelefonoUsuario]=useState('')
  
   const [admin,setAdmin]=useState(false)
        const { t } = useTranslation();
@@ -228,6 +229,7 @@ const handleAdultChange = (delta) => {
     toast.info("Por favor ingresa un correo válido.");
     return;
   }
+  console.log("selectedEscalon", selectedEscalon);
   if(tour.tipo==="privado" && !selectedEscalon){
     toast.info("Por favor selecciona la cantidad de personas.", )
     return;
@@ -243,6 +245,7 @@ const handleAdultChange = (delta) => {
       horario:selectedTime,
       nombrePersona: nombreUsuario,
       correo: correoUsuario,
+      telefono:telefonoUsuario,
       cantidadPersonas:  selectedPersonas || adults ,//esto
       valorTotal: basePrice*adults || selectedEscalon , //esto
       tourId: tour.id,
@@ -394,6 +397,13 @@ const handleAdultChange = (delta) => {
           onChange={(e) => setCorreoUsuario(e.target.value)} required>
             
           </input>
+          <label>Telefono:</label>
+          <input placeholder='+(indicativo) - Telefono:'
+          value={telefonoUsuario} 
+          type='tel'
+          onChange={(e) => setTelefonoUsuario(e.target.value)} required>
+            
+          </input>
           
           {/* Si el tour es compartido */}
           {tour.tipo === "compartido" && (
@@ -423,7 +433,7 @@ const handleAdultChange = (delta) => {
             <>
               <label>Selecciona número de personas:</label>
               <select
-                value={selectedEscalon || ""}
+                value={selectedEscalon|| ""}
                 onChange={(e) => {
                     
                       setSelectedEscalon(e.target.value); // guarda el precio total
@@ -441,6 +451,7 @@ const handleAdultChange = (delta) => {
                       key={idx}
                       value={p.precioPorPersona * p.personas}
                       data-personas={p.personas} // 👈 usar dataset
+                      
                     >
                       {p.personas} personas - ${p.precioPorPersona.toLocaleString("es-CO")} COP c/u
                     </option>

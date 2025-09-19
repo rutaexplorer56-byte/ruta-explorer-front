@@ -4,20 +4,7 @@
     border-bottom: 1px solid rgb(226, 226, 226);
     
 }
-.language{
-  position: absolute;
-  z-index: 8000;
-  right: 5px;
-  top: 5px;
-  height: 35px;
-  display: flex;
-  border-radius: 5px;
-  background-color: rgb(255, 255, 255);
-  border: 2px solid rgb(255, 255, 255);
-  color:#08ACEF;
 
-
-}
 
 .info_header{
     width: 100%;
