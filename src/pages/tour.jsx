@@ -218,6 +218,10 @@ const handleAdultChange = (delta) => {
   return regex.test(correo);
   
   }; 
+  if (!selectedTime) {
+    toast.info("Por favor selecciona un horario disponible o cambia la fecha.");
+    return;
+  }
   if (!selectedDate || !selectedTime || !nombreUsuario || !correoUsuario  ) {
     toast.info("Por favor completa todos los campos antes de reservar.", {
             position: "top-right"
@@ -229,6 +233,7 @@ const handleAdultChange = (delta) => {
     toast.info("Por favor ingresa un correo válido.");
     return;
   }
+  
   console.log("selectedEscalon", selectedEscalon);
   if(tour.tipo==="privado" && !selectedEscalon){
     toast.info("Por favor selecciona la cantidad de personas.", )
@@ -270,7 +275,38 @@ const handleAdultChange = (delta) => {
             });
   }
 };
+const isToday = (d) => {
+  if (!d) return false;
+  const now = new Date();
+  return (
+    d.getFullYear() === now.getFullYear() &&
+    d.getMonth() === now.getMonth() &&
+    d.getDate() === now.getDate()
+  );
+};
 
+// "06:00 AM" | "6:00 pm" | "14:30"  ->  [hora24, minuto]
+const to24 = (s = "") => {
+  const str = s.trim();
+  const m = str.match(/^(\d{1,2}):(\d{2})(?:\s*(AM|PM))?$/i);
+  if (!m) return [0, 0];
+  let [, hh, mm, ap] = m;
+  let h = parseInt(hh, 10);
+  const min = parseInt(mm, 10);
+  if (ap) {
+    const pm = ap.toUpperCase() === "PM";
+    if (pm && h !== 12) h += 12;
+    if (!pm && h === 12) h = 0; // 12 AM -> 00
+  }
+  return [h, min];
+};
+useEffect(() => {
+  if (!selectedTime || !isToday(selectedDate)) return;
+  const [h, m] = to24(selectedTime);
+  const dt = new Date(selectedDate); dt.setHours(h, m, 0, 0);
+  const cutoff = new Date(Date.now() + 2*60*60*1000);
+  if (dt < cutoff) setSelectedTime("");
+}, [selectedDate, selectedTime]);
   if (cargando) return <p>Cargando...</p>;
 
   return (
@@ -317,7 +353,7 @@ const handleAdultChange = (delta) => {
         <div className="tour-info-block" data-aos="fade-up-right">
           <div className="tour-icons">
             <div><i className="bi bi-alarm"></i><p><strong>Tiempo:</strong><br />{tour.tiempo}</p></div>
-            <div><i className="bi bi-person-dash"></i><p><strong>Cantidad minima:</strong><br />{tour.cantidadMinima}</p></div>
+            <div><i className="bi bi-person-dash"></i><p><strong>Cantidad Minima Personas:</strong><br />{tour.cantidadMinima}</p></div>
             <div><i className="bi bi-calendar-date"></i><p><strong>Tours al día:</strong><br />{tour.toursPorDia}</p></div>
             <div><i className="bi bi-clipboard2-check"></i><p><strong>Horarios:</strong><br />{tour.salidas}</p></div>
             <div><i className="bi bi-translate"></i><p><strong>Idioma:</strong><br />{tour.idioma}</p></div>
@@ -373,16 +409,54 @@ const handleAdultChange = (delta) => {
               selected={selectedDate} 
               onChange={(date) => setSelectedDate(date)} 
               dateFormat="dd/MM/yyyy"
-              minDate={new Date(new Date().setDate(new Date().getDate() ))} 
+              // minDate={new Date(new Date().setDate(new Date().getDate() ))} 
+              minDate={new Date()}
 
             />
           </div>
           <label>Horario</label>
           <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
             <option value="">Selecciona un horario</option>
-            {availableTimes.map((time, index) => (
+            {/* {availableTimes.map((time, index) => (
               <option key={index} value={time}>{time}</option>
-            ))}
+            ))} */}
+              {(availableTimes || [])
+                  .filter((t) => {
+                    // fecha base: hoy si selectedDate es null
+                    const baseDate = selectedDate || new Date();
+
+                    // si NO es hoy, mostrar todos
+                    const isToday =
+                      baseDate.getFullYear() === (new Date()).getFullYear() &&
+                      baseDate.getMonth() === (new Date()).getMonth() &&
+                      baseDate.getDate() === (new Date()).getDate();
+
+                    if (!isToday) return true;
+
+                    // hoy: solo horarios >= ahora + 4h
+                    const now = new Date();
+                    const cutoff = new Date(now.getTime() + 4 * 60 * 60 * 1000);
+
+                    // "06:00 AM" | "6:00 pm" | "14:30" -> [hora24, min]
+                    const m = (t || "").trim().match(/^(\d{1,2}):(\d{2})(?:\s*(AM|PM))?$/i);
+                    if (!m) return true; // si no matchea, no bloqueamos
+                    let [, hh, mm, ap] = m;
+                    let h = parseInt(hh, 10);
+                    const min = parseInt(mm, 10);
+                    if (ap) {
+                      const pm = ap.toUpperCase() === "PM";
+                      if (pm && h !== 12) h += 12;
+                      if (!pm && h === 12) h = 0;
+                    }
+
+                    const dt = new Date(baseDate);
+                    dt.setHours(h, min, 0, 0);
+                    return dt >= cutoff;
+                  })
+                  .map((time, i) => (
+                    <option key={i} value={time}>{time}</option>
+                  ))
+                }
           </select>
           <label>Tu nombre:</label>
           <input 

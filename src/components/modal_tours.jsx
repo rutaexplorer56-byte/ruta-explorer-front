@@ -6,8 +6,13 @@ import { toast } from 'react-toastify';
 /* eslint-disable react/prop-types */
 const ModalAgregarTour = ({ isOpen, onClose, id, actualizarToursPadre }) => {
   const [imagenes, setImagenes] = useState([]);
-  const [tour, setTour] = useState(null);
+   const [actualizarImagenes, setActualizarImagenes] = useState([]);
 
+  const [tour, setTour] = useState(null);
+// elimina una foto EXISTENTE (URL) del tour en edición
+const eliminarImagenExistente = (index) => {
+  setActualizarImagenes(prev => prev.filter((_, i) => i !== index));
+};
   const [formData, setFormData] = useState({
     nombre: '',
     descripcion: '',
@@ -137,6 +142,7 @@ const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
   // Update (editar)
   // -----------------------
   const update = async () => {
+    
     const data = new FormData();
 
       const payload = {
@@ -157,8 +163,21 @@ const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
         data.append(key, payload[key]);
       }
     }
+    //funcion para convertir url a file
+    const urlToFile = async (url, index) => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return new File([blob], `imagen_existente_${index}.jpg`, { type: blob.type });
+      };
+     // convertirmos las iamgenes existentes de url a file   
+       for (let i = 0; i < actualizarImagenes.length; i++) {
+          const file = await urlToFile(actualizarImagenes[i], i);
+          data.append('imagenes', file);
+    }
+    const nuevasImagenes=[...actualizarImagenes,...imagenes]
 
-    imagenes.forEach((img) => data.append('imagenes', img.file));
+    nuevasImagenes.forEach((img) => data.append('imagenes', img.file));
+   
 
     try {
       const token = localStorage.getItem('token');
@@ -193,7 +212,8 @@ const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
       toursPorDia: '',
       cantidadMinima: 1,
       tipo: 'compartido',
-      precios: []
+      precios: [],
+      
     });
     setImagenes([]);
     setTour(null);
@@ -232,6 +252,7 @@ const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
         toursPorDia: tour.toursPorDia?.toString?.() || '',
         cantidadMinima: tour.cantidadMinima ?? 1,
         tipo: tour.tipo || 'compartido',
+    
         precios: Array.isArray(tour.precios)
           ? tour.precios.map(p => ({
               personas: p.personas?.toString?.() || '',
@@ -239,7 +260,7 @@ const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
             }))
           : []
       });
-      setImagenes([]);
+      setActualizarImagenes(tour.fotos);
     }
   }, [isOpen, tour]);
 
@@ -261,6 +282,7 @@ const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
         <h2>{id ? "Editar Tour" : "Agregar Tour"}</h2>
 
         <form className="formulario" onSubmit={handleSubmit}>
+         
           {/* Tipo */}
           <div className="fila">
             <div className="campo">
@@ -326,7 +348,7 @@ const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
               ))}
 
               <button type="button" className="btn azul" onClick={agregarEscalon}>
-                ➕ Agregar Escalón
+                ➕ Agregar Campo
               </button>
             </div>
           )}
@@ -458,6 +480,26 @@ const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
                 onChange={handleImageChange}
               />
               <p className="info-img">SVG, PNG, JPG o GIF (máx. 7 imágenes)</p>
+              {actualizarImagenes.length > 0 && (
+                <div className="preview-imagenes">
+                  <p className="preview-titulo">Imágenes existentes:</p>
+                  <ol>
+                    {actualizarImagenes.map((img, index) => (
+                      <li key={index} className="preview-item">
+                        <img src={img} alt={`foto - ${index}`} />
+                        <button
+                          type="button"
+                          onClick={() => eliminarImagenExistente(index)}
+                          className="boton-eliminar"
+                        >
+                          ✖
+                        </button>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+              
 
               {imagenes.length > 0 && (
                 <div className="preview-imagenes">

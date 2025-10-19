@@ -144,6 +144,8 @@ export default function Admin_reservations() {
                 <th>Personas</th>
                 <th>Hora</th>
                 <th>Hotel</th>
+                <th>Telefono</th>
+                <th>Correo</th>
                 <th>Pago</th>
                 <th>Estado</th>
               </tr>
@@ -158,7 +160,9 @@ export default function Admin_reservations() {
                   <td>{reserva.cantidadPersonas}</td>
                   <td>{reserva.horario || "-"}</td>
                   <td>{reserva.hotel || "-"}</td>
-                  <td ><p className={`${reserva.estadoPago === "pago" ? "pago" : "pendiente"}`}>{reserva.estadoPago || "-"}</p></td>
+                  <td>{reserva.telefono || "-"}</td>
+                  <td>{reserva.correo || "-"}</td>
+                  <td ><p className={`${reserva.estadoPago === "pago" ? "pago" : "cancelado"}`}>{`${reserva.estadoPago === "pago" ? "pago" : "Cancelado"}`}</p></td>
                   <td className="td-estado">
                     <div
                       className={`estado-toggle ${reserva.estado === "finalizada" ? "finalizada" : ""}`}

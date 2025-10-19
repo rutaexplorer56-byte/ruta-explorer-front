@@ -57,7 +57,7 @@ const [tours, setTours] = useState([]);
       </div>
 
       </> ):(
-          tours.map(tour =>{
+          tours.filter(tour => tour.activo === true).map(tour =>{
             
             const precioMostrar = tour.tipo === "compartido"
             ? tour.precio
@@ -79,6 +79,7 @@ const [tours, setTours] = useState([]);
                         idioma={tour.idioma}
                         precios={tour.precios}
                         tipo={tour.tipo}
+                        activo={tour.activo}
                         />
                     )}))}
 

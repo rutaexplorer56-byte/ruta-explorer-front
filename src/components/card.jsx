@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 
 // eslint-disable-next-line react/prop-types
-const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo }) => {
+const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,}) => {
    const [modalAbierto, setModalAbierto] = useState(false);
   useEffect(() => {
   AOS.init({
@@ -18,6 +18,9 @@ const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idiom
   });
 }, []);
 const [buttons,setButtons]=useState(false)
+  // 👇 estado local para el activo/inactivo y “guardando”
+  const [activoLocal, setActivoLocal] = useState(!!activo);
+  const [saving, setSaving] = useState(false);
   const { hotel } = useParams();
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -25,6 +28,36 @@ const [buttons,setButtons]=useState(false)
       setButtons(true);
     }
   }, []); 
+   useEffect(() => {
+    console.log("activo prop cambiado:", activo);
+    setActivoLocal(!!activo); // si cambia desde arriba, sincroniza
+  }, [activo, id]);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+    const token = localStorage.getItem('token');
+    if (token) setButtons(true);
+  }, []);
+
+  const toggleActivo = async () => {
+    if (saving) return;
+    const next = !activoLocal;
+    setActivoLocal(next);          // optimista
+    setSaving(true);
+    try {
+      const token = localStorage.getItem('token');
+      await axios.patch(`/api/tours/${id}`, { activo: next }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      toast.success(`Tour ${next ? 'activado' : 'desactivado'} `);
+      if (typeof actualizarToursPadre === 'function') actualizarToursPadre();
+    } catch (err) {
+      setActivoLocal(!next);       // revert
+      toast.error('No se pudo cambiar el estado 😕');
+    } finally {
+      setSaving(false);
+    }
+  };
 
  const eliminarTour = async (id) => {
 
@@ -58,6 +91,20 @@ const [buttons,setButtons]=useState(false)
         <img src={imagen} alt={titulo} />
       </div>
       <div className="tour-details">
+        {buttons ?(
+         <div
+              className={`estado-toggle ${activoLocal ? 'finalizada' : 'inactivo'}`}
+              onClick={toggleActivo}
+              title={activoLocal ? 'Activo' : 'Inactivo'}
+              role="button"
+              aria-label="Cambiar estado del tour"
+              style={{ opacity: saving ? 0.6 : 1, pointerEvents: saving ? 'none' : 'auto' }}
+            ></div>
+            ):(<></>)
+
+            }
+       
+           
         <h3>{titulo}</h3>
         <ul className="tour-info">
           <li>- Cantidad máxima de personas:{personasMax}</li>

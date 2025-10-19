@@ -5,7 +5,7 @@
   border-radius: 12px;
   background:#fff;
   margin: 16px auto 28px;
-  max-width:1100px ;
+  max-width:1300px ;
   box-shadow: 0 2px 6px rgba(0,0,0,.06);
   overflow: auto;
 
@@ -111,7 +111,10 @@
 }
 .pago{ font-weight: 500 ;padding: 5px; text-align:center ; border-radius: 50px; color: #12a150; background-color: #96f7c0;}
 .pendiente{font-weight: 500 ; padding: 5px; text-align:center ; border-radius: 50px; color: #f08a2b; background-color: #f7d896;}
+.cancelado{font-weight: 500 ; padding: 5px; text-align:center ; border-radius: 50px; color: #f0322b; background-color: #f7b296;}
 .estado-toggle.finalizada{ background:#22c55e; }
+.estado-toggle.inactivo{ background:#666666; }
+
 .estado-toggle.finalizada::before{ transform: translateX(22px); }
 
 /* Texto del estado */
