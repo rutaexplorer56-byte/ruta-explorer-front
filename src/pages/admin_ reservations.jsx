@@ -161,7 +161,7 @@ export default function Admin_reservations() {
                   <td>{reserva.horario || "-"}</td>
                   <td>{reserva.hotel || "-"}</td>
                   <td>{reserva.telefono || "-"}</td>
-                  <td>{reserva.correo || "-"}</td>
+                  <td className="correo">{reserva.correo || "-"}</td>
                   <td ><p className={`${reserva.estadoPago === "pago" ? "pago" : "cancelado"}`}>{`${reserva.estadoPago === "pago" ? "pago" : "Cancelado"}`}</p></td>
                   <td className="td-estado">
                     <div

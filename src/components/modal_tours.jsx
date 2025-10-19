@@ -49,6 +49,7 @@ const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
     }));
 
     setImagenes(prev => [...prev, ...archivosConPreview]);
+    // console.log(archivosConPreview)
 
     if (imagenes.length + archivosNuevos.length > 7) {
       toast.info("Solo puedes subir un máximo de 7 imágenes.");

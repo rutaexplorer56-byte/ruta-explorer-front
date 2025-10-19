@@ -149,6 +149,7 @@
   flex-wrap: wrap;
   color: #08ACEF;
   font-size: 20px;
+  align-items: center;
 }
 .greeting p{
   color: rgb(83, 83, 83);

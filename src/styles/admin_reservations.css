@@ -56,12 +56,23 @@
 .tabla-reservas th,
 .tabla-reservas td{
   padding: 12px 14px;
-  border-bottom: 1px solid #eef0f3;
+  
   color:#374151;
   text-align: left;
   vertical-align: middle;
-}
+  /* 🔥 Fuerza el salto si es una palabra muy larga */
 
+}
+.tabla-reservas th{
+border-bottom: 1px solid #eef0f3;
+}
+.tabla-reservas .correo{
+  max-width: 170px;
+  min-width: 170px;
+  word-break: break-word;   /* 🔥 Fuerza el salto si es una palabra muy larga */
+  white-space: normal;
+
+}
 .tabla-reservas th{
   background: #f5f7fa;
   text-transform: uppercase;
@@ -83,6 +94,7 @@
   align-items: center;
   gap: 10px;
   min-width: 100px;
+  border: none;
 }
 
 /* Toggle switch */
