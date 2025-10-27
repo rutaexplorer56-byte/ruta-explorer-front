@@ -502,6 +502,13 @@ useEffect(() => {
           onChange={(e) => setTelefonoUsuario(e.target.value)} required>
             
           </input>
+          <label>¿Fuiste Recomendado?</label>
+                  <input 
+                  className='recepcion'
+                  placeholder='Ingresa el nombre de la persona o Hotel' 
+                    value={recepcionista} 
+                    onChange={(e) => setRecepcionista(e.target.value)}>
+                  </input>
           
           {/* Si el tour es compartido */}
           {tour.tipo === "compartido" && (
@@ -557,16 +564,10 @@ useEffect(() => {
                     </option>
                   ))}
               </select>
-              {recepcionista  && <>
-                  <label>Recepcionista:</label>
-                  <input 
-                  className='recepcion'
-                  placeholder='Ingresa el nombre del Hotel:' 
-                    value={hotel === "undefined" ? "hotel" : recepcionista} 
-                    onChange={(e) => setRecepcionista(e.target.value)}>
-                  </input>
-              </>}
-
+              
+                  
+              
+                  
               {selectedEscalon && (
                 <p className="precio total">
                   <strong>Total:</strong>{" "}
