@@ -562,7 +562,7 @@ useEffect(() => {
                   <input 
                   className='recepcion'
                   placeholder='Ingresa el nombre del Hotel:' 
-                    value={hotel === "undefined" ? "hotel" : hotel} 
+                    value={hotel === "undefined" ? "hotel" : recepcionista} 
                     onChange={(e) => setRecepcionista(e.target.value)}>
                   </input>
               </>}
