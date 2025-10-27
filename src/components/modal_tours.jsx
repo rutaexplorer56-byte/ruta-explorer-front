@@ -36,7 +36,15 @@ const eliminarImagenExistente = (index) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
+const toNumber = (v) => {
+  if (v === null || v === undefined) return 0;
+  const limpio = String(v)
+    .replace(/[^0-9,.-]/g, "")  // Quita espacios o símbolos
+    .replace(/\./g, "")         // Elimina puntos de miles
+    .replace(/,/g, ".");        // Cambia coma por punto
+  return Number(limpio) || 0;   // Convierte a número exacto
+};
+// const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
   const handleImageChange = (e) => {
     const archivosNuevos = Array.from(e.target.files);
     const disponibles = 7 - imagenes.length;

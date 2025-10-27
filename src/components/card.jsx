@@ -21,11 +21,16 @@ const [buttons,setButtons]=useState(false)
   // 👇 estado local para el activo/inactivo y “guardando”
   const [activoLocal, setActivoLocal] = useState(!!activo);
   const [saving, setSaving] = useState(false);
-  const { hotel } = useParams();
+  const [hotel, setHotel] = useState(" ");
+  const { parametros } = useParams();
   useEffect(() => {
+
     const token = localStorage.getItem('token');
     if (token) {
       setButtons(true);
+    }
+    if(parametros){
+      setHotel(parametros);
     }
   }, []); 
    useEffect(() => {
@@ -116,16 +121,16 @@ const [buttons,setButtons]=useState(false)
               a partir de{" "}
               <strong>
                 {tipo === "compartido"
-                  ? `$${precio?.toLocaleString("es-CO")}`
+                  ? `$${Number(precio).toLocaleString("es-CO", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
                   : precios?.length > 0
-                    ? `$${precios[0].precioPorPersona.toLocaleString("es-CO")}`
+                    ? `$${Number(precios[precios.length-1].precioPorPersona).toLocaleString("es-CO", { minimumFractionDigits: 0, maximumFractionDigits: 0 })} `
                     : "$0"}
               </strong>{" "}
-              (x) persona
+               COP (x) persona
             </p>
         <div className='buttons-container'>
           {!buttons ? (
-             <Link className="reserve-button" to={`/tour/${hotel}/${id}`}>
+             <Link className="reserve-button" to={`/tour/${id}/${hotel}`}>
               <button className="reserve-button" >Reservar</button>
               </Link>
             

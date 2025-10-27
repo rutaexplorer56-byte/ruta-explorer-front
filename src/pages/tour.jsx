@@ -42,7 +42,8 @@ const Tour = () => {
 
 
   const { id } = useParams();
-  const { hotel } = useParams();
+  const { hotel} = useParams();
+  const [recepcionista,setRecepcionista]=useState(null) 
   const [tour, setTour] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [fotos,setFotos]= useState("https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/4a/e8/a0/20190709-093333-largejpg.jpg?w=1200&h=1200&s=1")
@@ -62,14 +63,30 @@ const Tour = () => {
 const [selectedEscalon, setSelectedEscalon] = useState(null);
 const [precioMostrar, setPrecioMostrar] = useState([]);
 const [selectedPersonas, setSelectedPersonas] = useState("");
+const [currentIndex, setCurrentIndex] = useState(0);
+
+useEffect(() => {
+  if (Array.isArray(fotos) && fotos.length > 0) {
+    setMainImage(fotos[currentIndex]);
+  }
+}, [currentIndex, fotos]);
+const nextImage = () => {
+  setCurrentIndex((prev) => (prev + 1) % fotos.length);
+};
+
+const prevImage = () => {
+  setCurrentIndex((prev) => (prev - 1 + fotos.length) % fotos.length);
+};
 
   useEffect(() => {
+
     const fetchTour = async () => {
       try {
         const res = await axios.get(`/api/tours/${id}`);
         setTour(res.data);
         setBasePrice(res.data.precio)
         setAdults(res.data.cantidadMinima ?? 1) // default
+        setRecepcionista(hotel)
        
 
       
@@ -151,13 +168,14 @@ useEffect(() => {
   agregarHorasDesdeCadena(tour.salidas);
   agregarIncluidos(tour.incluido);
   agregarRecomendaciones(tour.recomendaciones);
-    setPrecioMostrar(
-          tour.tipo === "compartido"
-            ? tour.precio
-            : tour.precios?.length > 0
-              ? Math.min(...tour.precios.map(p => p.precioPorPersona)) // el más barato
-              : 0
-         ) 
+  setPrecioMostrar(
+    tour.tipo === "compartido"
+      ? tour.precio
+      : tour.precios?.length > 0
+        ? tour.precios[0].precioPorPersona // último elemento
+        : 0
+  );
+
 }, [tour]);
 
 
@@ -234,7 +252,7 @@ const handleAdultChange = (delta) => {
     return;
   }
   
-  console.log("selectedEscalon", selectedEscalon);
+
   if(tour.tipo==="privado" && !selectedEscalon){
     toast.info("Por favor selecciona la cantidad de personas.", )
     return;
@@ -254,7 +272,7 @@ const handleAdultChange = (delta) => {
       cantidadPersonas:  selectedPersonas || adults ,//esto
       valorTotal: basePrice*adults || selectedEscalon , //esto
       tourId: tour.id,
-      hotel:hotel
+      hotel:recepcionista
     });
 
    if (response.status === 201 || response.status === 200) {
@@ -328,11 +346,15 @@ useEffect(() => {
       </> ):
       ( <div className="tour-page">
       <div className="tour-main">
-        <div className='titulo_tour'><h1>{tour.nombre}</h1> <div className='precio'>${precioMostrar} COP</div></div>
+        <div className='titulo_tour'><h1>{tour.nombre}</h1> <div className='precio'>${precioMostrar.toLocaleString()} COP</div></div>
         <div className="tour-gallery"  data-aos="fade-down">
-          <Zoom>
-            <img className="main-image" src={mainImage} alt="Tour principal" />
-          </Zoom>
+          <div className="main-image-container">
+                <button className="nav-arrow left" onClick={prevImage}>❮</button>
+                <Zoom>
+                  <img className="main-image" src={mainImage} alt="Tour principal" />
+                </Zoom>
+                <button className="nav-arrow right" onClick={nextImage}>❯</button>
+              </div>
           <div className="thumbnail-row">
             {Array.isArray(fotos) && fotos.length > 0 ? (
                 fotos.map((src, index) => (
@@ -341,7 +363,9 @@ useEffect(() => {
                     src={src}
                     alt={`Thumbnail ${index + 1}`}
                     className={mainImage === src ? 'thumbnail selected' : 'thumbnail'}
-                    onClick={() => setMainImage(src)}
+                    onClick={() => {
+                      setCurrentIndex(index);
+                      setMainImage(src)}}
                   />
                 ))
               ) : (
@@ -495,7 +519,7 @@ useEffect(() => {
                   </button>
                 </div>
               </div>
-              <p className='precio'>
+              <p className='precio total'>
                 <strong>Total:</strong>{" "}
                 <span>${(basePrice * adults).toLocaleString("es-CO")}</span>
               </p>
@@ -507,6 +531,7 @@ useEffect(() => {
             <>
               <label>Selecciona número de personas:</label>
               <select
+              className='recepcion'
                 value={selectedEscalon|| ""}
                 onChange={(e) => {
                     
@@ -515,9 +540,10 @@ useEffect(() => {
                       setSelectedPersonas(e.target.options[e.target.selectedIndex].dataset.personas);
                       
                        // 👈 guarda personas
-    }
+                }
                 }
               >
+                <option value="">Selecciona una opción</option>
                 
                 {Array.isArray(tour.precios) &&
                   tour.precios.map((p, idx) => (
@@ -531,9 +557,18 @@ useEffect(() => {
                     </option>
                   ))}
               </select>
+              {recepcionista  && <>
+                  <label>Recepcionista:</label>
+                  <input 
+                  className='recepcion'
+                  placeholder='Ingresa el nombre del Hotel:' 
+                    value={hotel === "undefined" ? "hotel" : hotel} 
+                    onChange={(e) => setRecepcionista(e.target.value)}>
+                  </input>
+              </>}
 
               {selectedEscalon && (
-                <p className="precio">
+                <p className="precio total">
                   <strong>Total:</strong>{" "}
                   <span>${parseInt(selectedEscalon).toLocaleString("es-CO")}</span>
                 </p>

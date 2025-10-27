@@ -143,7 +143,7 @@ export default function Admin_reservations() {
                 <th>Fecha</th>
                 <th>Personas</th>
                 <th>Hora</th>
-                <th>Hotel</th>
+                <th>Comisión</th>
                 <th>Telefono</th>
                 <th>Correo</th>
                 <th>Pago</th>
@@ -159,7 +159,7 @@ export default function Admin_reservations() {
                   <td>{formatDate(reserva.fecha)}</td>
                   <td>{reserva.cantidadPersonas}</td>
                   <td>{reserva.horario || "-"}</td>
-                  <td>{reserva.hotel || "-"}</td>
+                  <td>{reserva.hotel || ""}</td>
                   <td>{reserva.telefono || "-"}</td>
                   <td className="correo">{reserva.correo || "-"}</td>
                   <td ><p className={`${reserva.estadoPago === "pago" ? "pago" : "cancelado"}`}>{`${reserva.estadoPago === "pago" ? "pago" : "Cancelado"}`}</p></td>

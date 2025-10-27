@@ -86,7 +86,11 @@ import { useSearchParams } from "react-router-dom";
               {(reserva?.valorTotal)} COP
             </div>
 
-            <div className="receipt-date">{new Date().toLocaleString("es-CO")}</div>
+            <div className="receipt-date">{new Date().toLocaleString("es-CO", {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}</div>
 
             {txStatus && (
               <div className="receipt-status-chip">
@@ -147,7 +151,7 @@ import { useSearchParams } from "react-router-dom";
               </div>
 
               <div className="receipt-total">
-                <span>Total</span>
+                <span>Total:</span>
                 <strong>{(reserva.valorTotal)} COP</strong>
               </div>
             </>

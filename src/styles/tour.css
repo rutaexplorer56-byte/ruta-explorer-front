@@ -22,6 +22,7 @@
 
 }
 .titulo_tour .precio{
+  margin-top: 5;
     font-size: 20px;
     padding: 10px;
     border-radius: 20px;
@@ -152,7 +153,7 @@
 .tour-reservation label {
   font-weight: bold;
   display: block;
-  margin-top: 0px;
+  margin-top: 5px;
   color: rgb(75, 75, 75);
 }
 
@@ -320,7 +321,7 @@
   width: 100%;
   padding: 8px 10px;
   border: 1px solid #ccc;
-  margin-top: 5px;
+  margin-top: 0px;
   border-radius: 8px;
 
 }
@@ -351,10 +352,15 @@
     max-width: 200px;
 }
 .precio {
+ 
     display: flex;
     justify-content: center;
     gap: 12rem;
     color: rgb(66, 66, 66);
+}
+.total{
+   margin-top: 8px;
+   
 }
 .disable{
   background-color: #4b4b4b;
@@ -363,7 +369,46 @@
 .disable:hover{
   background-color: #4b4b4b;
 }
+.recepcion{
+  margin-top: 5px;
+}
+.main-image-container {
 
+  align-items: center;
+  justify-content: center;
+   width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: zoom-in;
+  transition: 0.3s;
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-190%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.nav-arrow.left {
+  left: 10px;
+}
+
+.nav-arrow.right {
+  right: 10px;
+}
+
+.nav-arrow:hover {
+  background: rgba(0, 0, 0, 0.151);
+}
 @media (max-width: 480px){
     .tour-page{
         padding:0px;
