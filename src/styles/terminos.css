@@ -1,0 +1,209 @@
+:root {
+  --overlay-bg: rgba(17, 24, 39, 0.6);   /* negro con opacidad */
+  --content-bg: #ffffff;
+  --text-color: #111827;
+  --border-color: #e5e7eb;
+  --shadow: 0 20px 40px rgba(0,0,0,0.18);
+  --radius: 16px;
+  --z-modal: 9999;
+
+  --header-bg: #ffffff;
+  --footer-bg: #fafafa;
+}
+
+/* Modo oscuro opcional (si tu app agrega .dark al <html> o <body>) */
+.dark :root,
+:root.dark {
+  --overlay-bg: rgba(0,0,0,0.7);
+  --content-bg: #0b1220;
+  --text-color: #e5e7eb;
+  --border-color: #1f2937;
+  --header-bg: #0b1220;
+  --footer-bg: #0b1220;
+}
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  backdrop-filter: saturate(120%) blur(2px);
+  display: grid;
+  place-items: center;
+  z-index: var(--z-modal);
+  animation: modal-fade-in 160ms ease-out;
+}
+
+/* Contenedor principal */
+.modal-content {
+  position: relative;
+  width: min(920px, 92vw);
+  max-height: 86vh;
+  background: var(--content-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden; /* redondeo limpio */
+  animation: modal-scale-in 180ms cubic-bezier(.2,.8,.2,1);
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+  font-size: clamp(1.05rem, 1vw + 0.9rem, 1.35rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Botón cerrar */
+.modal-close {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 6px 8px;
+  border-radius: 10px;
+  color: var(--text-color);
+  transition: transform 120ms ease, background-color 120ms ease, opacity 120ms ease;
+}
+
+.modal-close:hover { background: rgba(0,0,0,0.06); }
+.dark .modal-close:hover { background: rgba(255,255,255,0.06); }
+.modal-close:active { transform: scale(0.94); }
+.modal-close:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Body (scrollable) */
+.modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  max-height: calc(86vh - 150px); /* header + footer aprox */
+  line-height: 1.6;
+}
+
+/* Tipografía y listas dentro del body */
+.modal-body p { margin: 0 0 12px; }
+.modal-body ul, .modal-body ol {
+  padding-left: 1.25rem;
+  margin: 0 0 12px;
+}
+.modal-body li { margin: 6px 0; }
+
+/* Footer */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--footer-bg);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Botones básicos (por si no usas framework) */
+.btn{
+  appearance: none;
+  border: 1px solid var(--border-color);
+  background: #48a3fd;
+  color: blue;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+  background: #ffffff;
+}
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+.btn.cancelar {
+    color: #ffffff;
+  background: #48a3fd;
+}
+.dark .btn { background: #111827; border-color: #30363d; }
+.dark .btn:hover { background: #0b1220; }
+
+/* ======= Responsivo ======= */
+
+/* Pantallas pequeñas: usar modal "sheet" (casi pantalla completa) */
+@media (max-width: 640px) {
+  .modal-content {
+    width: 100vw;
+    height: 96vh;
+    max-height: 96vh;
+    border-radius: 18px 18px 0 0;
+    margin-top: auto; /* se apoya abajo como hoja deslizante */
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .modal-body {
+    max-height: calc(96vh - 120px);
+  }
+}
+
+/* Alturas muy pequeñas (teclados móviles, etc.) */
+@media (max-height: 620px) {
+  .modal-content {
+    max-height: 92vh;
+  }
+  .modal-body {
+    max-height: calc(92vh - 120px);
+  }
+}
+
+/* ======= Animaciones ======= */
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes modal-scale-in {
+  from { transform: translateY(4px) scale(0.98); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Respeta usuarios con “reduced motion” */
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay,
+  .modal-content,
+  .modal-close,
+  .btn {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Scrollbar sutil (WebKit) */
+.modal-body::-webkit-scrollbar {
+  width: 10px;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 999px;
+}
+.dark .modal-body::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+}

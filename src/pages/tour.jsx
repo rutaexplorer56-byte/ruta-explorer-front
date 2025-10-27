@@ -14,6 +14,7 @@ import axios from "../axiosConfig";
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import BotonBold from "../components/BotonBold";
+import Terminos from '../components/Terminos';
 
 
 registerLocale('es', es);
@@ -64,7 +65,13 @@ const [selectedEscalon, setSelectedEscalon] = useState(null);
 const [precioMostrar, setPrecioMostrar] = useState([]);
 const [selectedPersonas, setSelectedPersonas] = useState("");
 const [currentIndex, setCurrentIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
+  // Abrir modal
+  const abrirModal = () => setIsModalOpen(true);
 
+  // Cerrar modal
+  const cerrarModal = () => setIsModalOpen(false);
 useEffect(() => {
   if (Array.isArray(fotos) && fotos.length > 0) {
     setMainImage(fotos[currentIndex]);
@@ -195,34 +202,34 @@ const handleAdultChange = (delta) => {
   });
 };
 
-  const verifyDate= async () => {
-    const fecha = selectedDate.toISOString().split('T')[0];
+  // const verifyDate= async () => {
+  //   const fecha = selectedDate.toISOString().split('T')[0];
 
     
     
-    try{
-      const res = await axios.get(`/api/reservas/fecha/${fecha}/${tour.id}/${selectedTime}`);
+  //   try{
+  //     const res = await axios.get(`/api/reservas/fecha/${fecha}/${tour.id}/${selectedTime}`);
       
       
-      if(res.data.fecha===selectedDate.toISOString().split('T')[0] && selectedTime===res.data.horario  && res.data.tourId===tour.id){
-        toast.warn("ya hay una reserva para esta fecha u horario, por favor cambialo...", {
-        position: "top-right",
-        autoClose: 4300,
-      });
+  //     if(res.data.fecha===selectedDate.toISOString().split('T')[0] && selectedTime===res.data.horario  && res.data.tourId===tour.id){
+  //       toast.warn("ya hay una reserva para esta fecha u horario, por favor cambialo...", {
+  //       position: "top-right",
+  //       autoClose: 4300,
+  //     });
       
-      return false;
+  //     return false;
         
-      }
-      return true;
+  //     }
+  //     return true;
       
 
 
-    }
-    catch(error){
-      return true;
+  //   }
+  //   catch(error){
+  //     return true;
 
-    }
-  }
+  //   }
+  // }
 
 
   
@@ -257,8 +264,13 @@ const handleAdultChange = (delta) => {
     toast.info("Por favor selecciona la cantidad de personas.", )
     return;
   }
-  const isValid = await verifyDate();
-  if (!isValid) return; // Evita ejecutar lo demás
+  // const isValid = await verifyDate();
+  // if (!isValid) return; // Evita ejecutar lo demás
+  if (!aceptaTerminos) {
+
+      toast.info("Debes aceptar los Términos y Condiciones antes de continuar.", )
+      return;
+    }
 
   try {
    
@@ -345,6 +357,11 @@ useEffect(() => {
 
       </> ):
       ( <div className="tour-page">
+        <Terminos 
+              isOpen={isModalOpen}
+              onClose={cerrarModal}
+              title="Términos y Condiciones de Reserva y Cancelación"
+          ></Terminos>
       <div className="tour-main">
         <div className='titulo_tour'><h1>{tour.nombre}</h1> <div className='precio'>${precioMostrar.toLocaleString()} COP X Persona</div></div>
         <div className="tour-gallery"  data-aos="fade-down">
@@ -484,12 +501,13 @@ useEffect(() => {
           </select>
           <label>Tu nombre:</label>
           <input 
+          className='input'
            placeholder='Nombre:' 
             value={nombreUsuario} 
             onChange={(e) => setNombreUsuario(e.target.value)}>
           </input>
           <label>Correo:</label>
-          <input placeholder='Correo:'
+          <input placeholder='Correo:' className='input'
           value={correoUsuario} 
           type="email"
           onChange={(e) => setCorreoUsuario(e.target.value)} required>
@@ -497,6 +515,7 @@ useEffect(() => {
           </input>
           <label>Telefono:</label>
           <input placeholder='+(indicativo) - Telefono:'
+          className='input'
           value={telefonoUsuario} 
           type='tel'
           onChange={(e) => setTelefonoUsuario(e.target.value)} required>
@@ -504,7 +523,7 @@ useEffect(() => {
           </input>
           <label>¿Fuiste Recomendado?</label>
                   <input 
-                  className='recepcion'
+                  className='recepcion input'
                   placeholder='Ingresa el nombre de la persona o Hotel' 
                     value={recepcionista} 
                     onChange={(e) => setRecepcionista(e.target.value)}>
@@ -576,6 +595,19 @@ useEffect(() => {
               )}
             </>
           )}
+          <div className='terminos-container'> 
+             <input
+            type="checkbox"
+            checked={aceptaTerminos}
+            onChange={() => setAceptaTerminos(!aceptaTerminos)}
+            className='check-terminos'
+          />
+           <p onClick={abrirModal} className="btn-link">
+              Términos y Condiciones
+            </p>
+          </div>
+           
+          
          
           <div className='container_bold'>
             {!firmaBold && (<button  className={`reserve-btn ${admin ? "disable" : ""}`} disabled={admin} onClick={handleReserva}>Reservar ahora</button>)}

@@ -317,11 +317,11 @@
 .hola{
   height: 80px;
 }
-.tour-reservation input{
+.tour-reservation .input{
   width: 100%;
   padding: 8px 10px;
   border: 1px solid #ccc;
-  margin-top: 0px;
+  margin-top: 5px;
   border-radius: 8px;
 
 }
@@ -355,7 +355,7 @@
  
     display: flex;
     justify-content: center;
-    gap: 12rem;
+    gap: 13rem;
     color: rgb(66, 66, 66);
 }
 .total{
@@ -408,6 +408,48 @@
 
 .nav-arrow:hover {
   background: rgba(0, 0, 0, 0.151);
+}
+.btn-link{
+    background: none;
+    border: none;
+    color: #007bff;
+    
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    margin-top: 10px;
+    text-align: center;
+}
+.btn-link:hover{
+    text-decoration: underline;
+}
+.terminos-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem; /* espacio entre checkbox y texto */
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.check-terminos {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.link-terminos {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-size: 14px;
+}
+
+.link-terminos:hover {
+  color: #0056b3;
 }
 @media (max-width: 480px){
     .tour-page{
