@@ -156,7 +156,7 @@ export default function Admin_reservations() {
                   <td className="id_table">{reserva.id}</td>
                   <td>{reserva.nombreTour}</td>
                   <td>{reserva.nombrePersona}</td>
-                  <td>{formatDate(reserva.fecha)}</td>
+                  <td className="fecha">{reserva.fecha}</td>
                   <td>{reserva.cantidadPersonas}</td>
                   <td>{reserva.horario || "-"}</td>
                   <td>{reserva.hotel || ""}</td>

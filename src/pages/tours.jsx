@@ -5,6 +5,7 @@ import '../styles/tours.css'
 import AOS from 'aos';
 import { useEffect,useState } from 'react';
 import axios from "../axiosConfig";
+import { useParams } from 'react-router-dom';
 function Tours(){
     useEffect(() => {
       AOS.init({
@@ -16,6 +17,7 @@ function Tours(){
 
 
 const [tours, setTours] = useState([]);
+  const { hotel} = useParams();
 
   useEffect(() => {
     const obtenerTours = async () => {
@@ -80,6 +82,8 @@ const [tours, setTours] = useState([]);
                         precios={tour.precios}
                         tipo={tour.tipo}
                         activo={tour.activo}
+                        hotel={hotel}
+                        
                         />
                     )}))}
 

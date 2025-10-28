@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import ModalAgregarTour from './modal_tours';
 import axios from "../axiosConfig";
 import { toast } from 'react-toastify';
-import { useParams } from 'react-router-dom';
+
 
 
 // eslint-disable-next-line react/prop-types
-const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,}) => {
+const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,hotel}) => {
    const [modalAbierto, setModalAbierto] = useState(false);
   useEffect(() => {
   AOS.init({
@@ -21,20 +21,22 @@ const [buttons,setButtons]=useState(false)
   // 👇 estado local para el activo/inactivo y “guardando”
   const [activoLocal, setActivoLocal] = useState(!!activo);
   const [saving, setSaving] = useState(false);
-  const [hotel, setHotel] = useState(" ");
-  const { parametros } = useParams();
+  // const [parametro, setParametro] = useState(" ");
+  // const { parametros } = useParams();
+    // const { hotel} = useParams();
   useEffect(() => {
 
     const token = localStorage.getItem('token');
     if (token) {
       setButtons(true);
     }
-    if(parametros){
-      setHotel(parametros);
-    }
+    // if(parametros){
+    //   setHotel(parametros);
+    // }
+    // console.log("parametros en card:", parametros);
   }, []); 
    useEffect(() => {
-    console.log("activo prop cambiado:", activo);
+  
     setActivoLocal(!!activo); // si cambia desde arriba, sincroniza
   }, [activo, id]);
 
@@ -130,7 +132,7 @@ const [buttons,setButtons]=useState(false)
             </p>
         <div className='buttons-container'>
           {!buttons ? (
-             <Link className="reserve-button" to={`/tour/${id}/${hotel}`}>
+             <Link className="reserve-button" to={`/tour/${hotel}/${id}`}>
               <button className="reserve-button" >Reservar</button>
               </Link>
             

@@ -44,7 +44,7 @@ const Tour = () => {
 
   const { id } = useParams();
   const { hotel} = useParams();
-  const [recepcionista,setRecepcionista]=useState(null) 
+  const [recepcionista,setRecepcionista]=useState('') 
   const [tour, setTour] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [fotos,setFotos]= useState("https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/4a/e8/a0/20190709-093333-largejpg.jpg?w=1200&h=1200&s=1")
@@ -93,7 +93,7 @@ const prevImage = () => {
         setTour(res.data);
         setBasePrice(res.data.precio)
         setAdults(res.data.cantidadMinima ?? 1) // default
-        setRecepcionista(hotel)
+        
        
 
       
@@ -109,6 +109,7 @@ const prevImage = () => {
     
   }, [id]);
   
+  console.log(selectedDate)
 
   
   const obtenerFirma = async (data) => {
@@ -284,7 +285,7 @@ const handleAdultChange = (delta) => {
       cantidadPersonas:  selectedPersonas || adults ,//esto
       valorTotal: basePrice*adults || selectedEscalon , //esto
       tourId: tour.id,
-      hotel:recepcionista
+      hotel:`${hotel} - ${recepcionista}`
     });
 
    if (response.status === 201 || response.status === 200) {
