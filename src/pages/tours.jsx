@@ -3,7 +3,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import '../styles/tours.css'
 import AOS from 'aos';
-import { useEffect,useState } from 'react';
+import { useEffect,useState,useRef } from 'react';
 import axios from "../axiosConfig";
 import { useParams } from 'react-router-dom';
 function Tours(){
@@ -17,8 +17,16 @@ function Tours(){
 
 
 const [tours, setTours] = useState([]);
+ const [slide, setSlide] = useState(0);
+  const pausedRef = useRef(false);
   const { hotel} = useParams();
-
+const images = [
+    "https://upload.wikimedia.org/wikipedia/commons/2/2c/Filandia.jpg",
+    "https://listsbylukiih.com/wp-content/uploads/2025/02/cocora-valley-colombia-mirador-2-trees.webp",
+    "https://bucketlistbri.com/wp-content/uploads/2018/03/DSC07841-min-min.jpg"
+    ,"https://admin.kunapak.com/uploads/imagenes/47556c0d72642b8a15b5563514eb47aeab0f9ad2.jpg",
+    "https://manwiththemovingcamera.com/wp-content/uploads/Main-pic-IMG_9763.jpg"
+  ];
   useEffect(() => {
     const obtenerTours = async () => {
       try {
@@ -31,19 +39,56 @@ const [tours, setTours] = useState([]);
     };
     obtenerTours();
   }, []);
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!pausedRef.current) {
+        setSlide((s) => (s + 1) % images.length);
+      }
+    }, 4000);
+    return () => clearInterval(id);
+  }, [images.length]);
+
+  // const prevSlide = () =>
+  //   setSlide((s) => (s - 1 + images.length) % images.length);
+  // const nextSlide = () => setSlide((s) => (s + 1) % images.length);
 
     return(
             <>
             <Header></Header>
             <div className="container_tours">
                 
-                <h1 className="titulo">Descubre la magia de Salento y sus paisajes únicos. Vive experiencias inolvidables en cada tour, conectando con la naturaleza, la cultura y la aventura</h1>
-                <div className="container_img" data-aos="fade-down">
+             
+
+
+                            <div
+                    className="hero-slider fade"
+                    data-aos="fade-down"
+                    // onMouseEnter={() => (pausedRef.current = true)}
+                    // onMouseLeave={() => (pausedRef.current = false)}
+                  >
+                    {images.map((src, i) => (
+                      <div
+                        key={i}
+                        className={`fade-slide ${i === slide ? "active" : ""}`}
+                        style={{ backgroundImage: `url(${src})` }}
+                      ><span className="bg"></span><h1 className="titulo">¡Explora destinos, vive experiencias: ruta.xplorer tu compañero de viaje!
+EN EL EJE CAFETERO <br></br><div>OPERADORA TURISTICA EN EL EJE CAFETERO <br></br>
+AGENCIA DE VIAJES</div> </h1></div>
+                    ))}
+
+                    
+                  </div>
+                {/* <div className="container_img" data-aos="fade-down">
                     
                     <img src="https://d2yoo3qu6vrk5d.cloudfront.net/images/20220707153640/cropped-valle-cocora-1-3.webp"></img>
                     
+                </div> */}
+                <div className="titulo-tours">
+                  <p>TOURS</p>
+                  <h1>OPERADORA TURISTICA <br></br>
+AGENCIA DE VIAJES</h1>
+                  <span></span>
                 </div>
-                <h2 className="descripcion">Tours guiados por los destinos más icónicos del Quindío. Reserva tu experiencia y deja que comience la aventura.</h2>
                <div className="container_cards">
 
                 {tours==0 ?(<>
