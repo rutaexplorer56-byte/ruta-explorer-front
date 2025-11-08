@@ -364,7 +364,7 @@ useEffect(() => {
               title="Términos y Condiciones de Reserva y Cancelación"
           ></Terminos>
       <div className="tour-main">
-        <div className='titulo_tour'><h1>{tour.nombre}</h1> <div className='precio'>${precioMostrar.toLocaleString()} COP X Persona</div></div>
+        <div className='titulo_tour'><h1>{tour.nombre}</h1> <div className='precio'>Desde: ${precioMostrar.toLocaleString()} COP X Persona</div></div>
         <div className="tour-gallery"  data-aos="fade-down">
           <div className="main-image-container">
                 <button className="nav-arrow left" onClick={prevImage}>❮</button>

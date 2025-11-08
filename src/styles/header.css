@@ -58,7 +58,7 @@
     position: absolute;
     z-index: 3;
     left:15px;
-    top:100px;
+    top:120px;
     background-color: rgb(255, 255, 255);
     font-size: 40px;
     color: #08ACEF;
@@ -67,6 +67,7 @@
     
 }
 .voltear{
+  
     transform: rotate(180deg);
 
 }
@@ -204,7 +205,9 @@
 
   .header {
     flex-direction: column;
+    height: auto;
     align-items: center;
+    
     gap: 20px;
     padding: 10px;
   }
@@ -224,6 +227,7 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    
     
     transition: all 0.3s ease;
     height: 200px;
@@ -251,11 +255,13 @@
 
 /* Dispositivos pequeños (<= 480px) */
 @media (max-width: 480px) {
+  
     .header .boton{
         display: block;
     }
     
   .info_header ul {
+    
     font-size: 12px;
     gap: 4px;
     padding: 8px;
