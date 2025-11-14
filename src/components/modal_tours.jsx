@@ -5,10 +5,15 @@ import { toast } from 'react-toastify';
 
 /* eslint-disable react/prop-types */
 const ModalAgregarTour = ({ isOpen, onClose, id, actualizarToursPadre }) => {
-  const [imagenes, setImagenes] = useState([]);
+   const [imagenes, setImagenes] = useState([]);
    const [actualizarImagenes, setActualizarImagenes] = useState([]);
+   const [tour, setTour] = useState(null);
 
-  const [tour, setTour] = useState(null);
+   const MAX_FILE_SIZE_MB = 5;
+   const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
+
+
 // elimina una foto EXISTENTE (URL) del tour en edición
 const eliminarImagenExistente = (index) => {
   setActualizarImagenes(prev => prev.filter((_, i) => i !== index));
@@ -49,6 +54,20 @@ const toNumber = (v) => {
     const archivosNuevos = Array.from(e.target.files);
     const disponibles = 7 - imagenes.length;
     const archivosLimitados = archivosNuevos.slice(0, disponibles);
+
+
+      // ✅ Validar tamaño máximo por archivo
+      const archivoGrande = archivosNuevos.find(
+        (file) => file.size > MAX_FILE_SIZE_BYTES
+      );
+
+      if (archivoGrande) {
+        toast.error(
+          `La imagen "${archivoGrande.name}" supera los ${MAX_FILE_SIZE_MB}MB permitidos.`
+        );
+        e.target.value = ""; // limpia el input
+        return;
+      }
 
     const archivosConPreview = archivosLimitados.map((file) => ({
       file,

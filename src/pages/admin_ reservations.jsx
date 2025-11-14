@@ -146,6 +146,7 @@ export default function Admin_reservations() {
                 <th>Comisión</th>
                 <th>Telefono</th>
                 <th>Correo</th>
+                <th>Total</th>
                 <th>Pago</th>
                 <th>Estado</th>
               </tr>
@@ -162,6 +163,7 @@ export default function Admin_reservations() {
                   <td>{reserva.hotel || ""}</td>
                   <td>{reserva.telefono || "-"}</td>
                   <td className="correo">{reserva.correo || "-"}</td>
+                  <td>${reserva.valorTotal || "-"}</td>
                   <td ><p className={`${reserva.estadoPago === "pago" ? "pago" : "cancelado"}`}>{`${reserva.estadoPago === "pago" ? "pago" : "Cancelado"}`}</p></td>
                   <td className="td-estado">
                     <div

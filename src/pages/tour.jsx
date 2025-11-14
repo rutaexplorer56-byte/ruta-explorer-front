@@ -109,7 +109,7 @@ const prevImage = () => {
     
   }, [id]);
   
-  console.log(selectedDate)
+
 
   
   const obtenerFirma = async (data) => {
@@ -334,8 +334,11 @@ const to24 = (s = "") => {
 useEffect(() => {
   if (!selectedTime || !isToday(selectedDate)) return;
   const [h, m] = to24(selectedTime);
-  const dt = new Date(selectedDate); dt.setHours(h, m, 0, 0);
-  const cutoff = new Date(Date.now() + 2*60*60*1000);
+  const dt = new Date(selectedDate); 
+  dt.setHours(h, m, 0, 0);
+  // const cutoff = new Date(Date.now() + 2*60*60*1000); 
+  const MINUTOS_ANTICIPACION = 1;   // ej: 30 minutos
+  const cutoff = new Date(Date.now() + MINUTOS_ANTICIPACION * 60 * 1000);
   if (dt < cutoff) setSelectedTime("");
 }, [selectedDate, selectedTime]);
   if (cargando) return <p>Cargando...</p>;
@@ -477,7 +480,7 @@ useEffect(() => {
 
                     // hoy: solo horarios >= ahora + 4h
                     const now = new Date();
-                    const cutoff = new Date(now.getTime() + 4 * 60 * 60 * 1000);
+                    // const cutoff = new Date(now.getTime() + 4 * 60 * 60 * 1000);
 
                     // "06:00 AM" | "6:00 pm" | "14:30" -> [hora24, min]
                     const m = (t || "").trim().match(/^(\d{1,2}):(\d{2})(?:\s*(AM|PM))?$/i);
@@ -493,7 +496,7 @@ useEffect(() => {
 
                     const dt = new Date(baseDate);
                     dt.setHours(h, min, 0, 0);
-                    return dt >= cutoff;
+                    return dt >= now;
                   })
                   .map((time, i) => (
                     <option key={i} value={time}>{time}</option>
