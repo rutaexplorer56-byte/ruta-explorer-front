@@ -9,7 +9,7 @@ const ModalAgregarTour = ({ isOpen, onClose, id, actualizarToursPadre }) => {
    const [actualizarImagenes, setActualizarImagenes] = useState([]);
    const [tour, setTour] = useState(null);
 
-   const MAX_FILE_SIZE_MB = 5;
+   const MAX_FILE_SIZE_MB = 20;
    const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
 
@@ -24,6 +24,7 @@ const eliminarImagenExistente = (index) => {
     idioma: '',
     incluido: '',
     recomendaciones: '',
+    salida: '',
     salidas: '',
     tiempo: '',
     precio: '',
@@ -233,6 +234,7 @@ const toNumber = (v) => {
       idioma: '',
       incluido: '',
       recomendaciones: '',
+      salida: '',
       salidas: '',
       tiempo: '',
       precio: '',
@@ -273,6 +275,7 @@ const toNumber = (v) => {
         idioma: tour.idioma || '',
         incluido: tour.incluido || '',
         recomendaciones: tour.recomendaciones || '',
+        salida: tour.salida || '',
         salidas: tour.salidas || '',
         tiempo: tour.tiempo || '',
         precio: tour.precio || '',
@@ -452,6 +455,17 @@ const toNumber = (v) => {
                 value={formData.salidas}
                 onChange={handleChange}
                 placeholder="Ej: 07:30 AM / 02:00 PM"
+                required
+              />
+            </div>
+            <div className="campo">
+              <label>Lugar de salida</label>
+              <input
+                type="text"
+                name="salida"
+                value={formData.salida}
+                onChange={handleChange}
+                placeholder="Ej: Parque Principal"
                 required
               />
             </div>

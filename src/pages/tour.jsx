@@ -244,6 +244,10 @@ const handleAdultChange = (delta) => {
   return regex.test(correo);
   
   }; 
+  if (!selectedDate) {
+    toast.info("Por favor selecciona la fecha.");
+    return;
+  }
   if (!selectedTime) {
     toast.info("Por favor selecciona un horario disponible o cambia la fecha.");
     return;
@@ -279,6 +283,7 @@ const handleAdultChange = (delta) => {
       nombreTour:tour.nombre,
       fecha: selectedDate.toISOString().split('T')[0],
       horario:selectedTime,
+      salida: tour.salida,
       nombrePersona: nombreUsuario,
       correo: correoUsuario,
       telefono:telefonoUsuario,
@@ -397,11 +402,12 @@ useEffect(() => {
 
         <div className="tour-info-block" data-aos="fade-up-right">
           <div className="tour-icons">
-            <div><i className="bi bi-alarm"></i><p><strong>Tiempo:</strong><br />{tour.tiempo}</p></div>
+            <div><i className="bi bi-stopwatch"></i><p><strong>Duración:</strong><br />{tour.tiempo}</p></div>
             <div><i className="bi bi-person-dash"></i><p><strong>Cantidad Minima Personas:</strong><br />{tour.cantidadMinima}</p></div>
             <div><i className="bi bi-calendar-date"></i><p><strong>Tours al día:</strong><br />{tour.toursPorDia}</p></div>
             <div><i className="bi bi-clipboard2-check"></i><p><strong>Horarios:</strong><br />{tour.salidas}</p></div>
             <div><i className="bi bi-translate"></i><p><strong>Idioma:</strong><br />{tour.idioma}</p></div>
+            <div><i className="bi bi-pin-map-fill"></i><p><strong>Lugar de Salida:</strong><br />{tour.salida}</p></div>
           </div>
            <h2>Incluido:</h2>
           <ul className="lista_incluidos">

@@ -129,6 +129,10 @@ import { useSearchParams } from "react-router-dom";
                   <strong>{reserva.horario}</strong>
                 </div>
                 <div className="row">
+                  <span>Lugar de salida</span>
+                  <strong>{reserva.salida}</strong>
+                </div>
+                <div className="row">
                   <span>Nombre </span>
                   <strong>{reserva.nombrePersona}</strong>
                 </div>
