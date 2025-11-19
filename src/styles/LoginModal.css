@@ -64,6 +64,9 @@
   background-color: rgb(247, 109, 59);
   color: white;
 }
+.naranja:hover{
+  background-color: rgb(255, 140, 85);
+}
 .modal-button:hover {
   background: #239ccf;
 }

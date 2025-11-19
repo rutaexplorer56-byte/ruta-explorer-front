@@ -35,7 +35,7 @@ const actualizarTours = async () => {
     
   obtenerTours();
   }, []);
-console.log(tours)
+
 
     return(
         <>
@@ -48,7 +48,7 @@ console.log(tours)
         
         <div className="container_cards">
                      {tours.map(tour =>{
-            console.log(tour.activo)
+
             const precioMostrar = tour.tipo === "compartido"
             ? tour.precio
             : tour.precios?.length > 0

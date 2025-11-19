@@ -133,6 +133,10 @@ import { useSearchParams } from "react-router-dom";
                   <strong>{reserva.salida}</strong>
                 </div>
                 <div className="row">
+                  <span>Idioma de Preferencia</span>
+                  <strong>{reserva.idioma}</strong>
+                </div>
+                <div className="row">
                   <span>Nombre </span>
                   <strong>{reserva.nombrePersona}</strong>
                 </div>

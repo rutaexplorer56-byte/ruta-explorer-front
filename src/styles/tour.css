@@ -1,10 +1,11 @@
+
 .tour-page {
     margin: 15px;
   display: flex;
   gap: 20px;
   padding: 30px;
   flex-wrap: wrap;
-  font-family: sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .tour-main {
@@ -13,21 +14,47 @@
 }
 .titulo_tour{
     display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
-    color: #303030;
+    
     width: 100%;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: flex-start;
+    gap: 20%;
+    padding: 0px 0px;
     flex-wrap: wrap;
 
 }
+.titulo_tour p{
+    font-size: 20px;
+    color: #007fc9;
+    margin-bottom: 5px;
+    font-weight: 500;
+    
+}
+.titulo_tour h1{
+    font-size: 35px;
+    font-weight: bold;
+    margin: 0px;
+    color: #021841;
+   
+  }
+  .titulo_tour span{
+    display: block;
+    width: 100px;
+    height: 3px;
+    background-color: #007fc9;
+    border-radius: 2px;  
+    margin-top: 15px;
+   }
 .titulo_tour .precio{
-  margin-top: 5;
+  margin-top: 20px;
     font-size: 20px;
     padding: 10px;
     border-radius: 20px;
     color: #fff;
     background-color: #08ACEF;
+    height: fit-content;
+    width: fit-content;
 }
 .tour-gallery {
   margin-bottom: 20px;
@@ -70,13 +97,14 @@
 
 .tour-info-block {
   margin-top: 20px;
+  font-size: 20px;
 }
 
 .tour-icons {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin:20px 0px;
 }
 .tour-icons div{
     display: flex;
@@ -314,9 +342,7 @@
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(8, 172, 239, 0.3);
 }
-.hola{
-  height: 80px;
-}
+
 .tour-reservation .input{
   width: 100%;
   padding: 8px 10px;
@@ -329,11 +355,11 @@
     color:#4b4b4b
 }
 .container_descripcion{
-    width: 100%;
+    width: 90%;
 }
 .descripcion_tour{
     padding: 10px;
-    font-size: 17px;
+    font-size: 20px;
     color: #616161;
     text-align: start;
 }

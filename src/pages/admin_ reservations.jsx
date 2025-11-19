@@ -142,7 +142,8 @@ export default function Admin_reservations() {
                 <th>Nombre</th>
                 <th>Fecha</th>
                 <th>Personas</th>
-                <th>Hora</th>
+                <th>Horario</th>
+                <th>Idioma</th>
                 <th>Comisión</th>
                 <th>Telefono</th>
                 <th>Correo</th>
@@ -160,6 +161,7 @@ export default function Admin_reservations() {
                   <td className="fecha">{reserva.fecha}</td>
                   <td>{reserva.cantidadPersonas}</td>
                   <td>{reserva.horario || "-"}</td>
+                  <td>{reserva.idioma || ""}</td>
                   <td>{reserva.hotel || ""}</td>
                   <td>{reserva.telefono || "-"}</td>
                   <td className="correo">{reserva.correo || "-"}</td>

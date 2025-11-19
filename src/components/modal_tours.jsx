@@ -25,6 +25,7 @@ const eliminarImagenExistente = (index) => {
     incluido: '',
     recomendaciones: '',
     salida: '',
+    categoria: '',
     salidas: '',
     tiempo: '',
     precio: '',
@@ -150,9 +151,14 @@ const toNumber = (v) => {
        
       if (response.status === 200 || response.status === 201) {
         toast.success("✅ Tour creado exitosamente");
-        if (typeof actualizarToursPadre === "function") await actualizarToursPadre();
-        setTimeout(() => onClose(), 3000);
-        resetForm();
+        if (typeof actualizarToursPadre === "function")  
+        setTimeout(() =>{
+          actualizarToursPadre()
+          // onClose()
+          resetForm();
+        } 
+          , 3300);
+        
       } else {
         toast.error("❌ Error al crear el Tour. Inténtalo de nuevo.");
       }
@@ -235,6 +241,7 @@ const toNumber = (v) => {
       incluido: '',
       recomendaciones: '',
       salida: '',
+      categoria: '',
       salidas: '',
       tiempo: '',
       precio: '',
@@ -276,6 +283,7 @@ const toNumber = (v) => {
         incluido: tour.incluido || '',
         recomendaciones: tour.recomendaciones || '',
         salida: tour.salida || '',
+        categoria: tour.categoria || '',
         salidas: tour.salidas || '',
         tiempo: tour.tiempo || '',
         precio: tour.precio || '',
@@ -387,7 +395,7 @@ const toNumber = (v) => {
           {/* Cantidades e idioma/tiempo */}
           <div className="fila">
             <div className="campo">
-              <label>Cantidad máxima</label>
+              <label>Cantidad máxima de personas</label>
               <input
                 type="number"
                 name="cantidadMaxima"
@@ -398,7 +406,7 @@ const toNumber = (v) => {
               />
             </div>
             <div className="campo">
-              <label>Cantidad mínima</label>
+              <label>Cantidad mínima de personas</label>
               <input
                 type="number"
                 name="cantidadMinima"
@@ -421,6 +429,25 @@ const toNumber = (v) => {
                 placeholder="Ej: 3 horas"
                 required
               />
+            </div>
+            <div className="campo">
+              <label>Categoría</label>
+             <select
+              name="categoria"
+              value={formData.categoria}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Seleccione una categoría…</option>
+
+              <option value="1">1. Rutas cafeteras</option>
+              <option value="2">2. Experiencias de senderismo privadas</option>
+              <option value="3">3. Experiencias de senderismo compartidas</option>
+              <option value="4">4. Experiencias de aventura</option>
+              <option value="5">5. Parques temáticos</option>
+              <option value="6">6. Experiencias gastronómicas</option>
+              <option value="7">7. Tours con salida desde Pereira</option>
+            </select>
             </div>
             <div className="campo">
               <label>Idioma</label>

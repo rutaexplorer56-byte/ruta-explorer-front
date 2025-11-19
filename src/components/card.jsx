@@ -142,7 +142,7 @@ const [buttons,setButtons]=useState(false)
             
             <button className='view' ><Link  to={`/tour/${id}`}><i className="bi bi-eye"></i> </Link></button>
            
-            <button className='delete' onClick={()=>{eliminarTour(id)}}><i className="bi bi-x-lg"></i></button>
+            <button className='delete' onClick={()=>{eliminarTour(id)}}><i className="bi bi-trash"></i></button>
 
             </>
           )

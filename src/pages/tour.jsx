@@ -61,12 +61,13 @@ const Tour = () => {
   const [currency,setCurrency]=useState('COP')
   const [apiKey, setApiKey] = useState(import.meta.env.VITE_BOLD_PUBLIC_KEY);
   const[amount,setAmount]=useState(0)
-const [selectedEscalon, setSelectedEscalon] = useState(null);
-const [precioMostrar, setPrecioMostrar] = useState([]);
-const [selectedPersonas, setSelectedPersonas] = useState("");
-const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedEscalon, setSelectedEscalon] = useState(null);
+  const [precioMostrar, setPrecioMostrar] = useState([]);
+  const [selectedPersonas, setSelectedPersonas] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [aceptaTerminos, setAceptaTerminos] = useState(false);
+  const [idioma, setIdioma] = useState("");
   // Abrir modal
   const abrirModal = () => setIsModalOpen(true);
 
@@ -284,6 +285,7 @@ const handleAdultChange = (delta) => {
       fecha: selectedDate.toISOString().split('T')[0],
       horario:selectedTime,
       salida: tour.salida,
+      idioma:idioma,
       nombrePersona: nombreUsuario,
       correo: correoUsuario,
       telefono:telefonoUsuario,
@@ -346,7 +348,7 @@ useEffect(() => {
   const cutoff = new Date(Date.now() + MINUTOS_ANTICIPACION * 60 * 1000);
   if (dt < cutoff) setSelectedTime("");
 }, [selectedDate, selectedTime]);
-  if (cargando) return <p>Cargando...</p>;
+  if (cargando) return <img src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif" alt="No tours available" />;
 
   return (
     
@@ -372,7 +374,8 @@ useEffect(() => {
               title="Términos y Condiciones de Reserva y Cancelación"
           ></Terminos>
       <div className="tour-main">
-        <div className='titulo_tour'><h1>{tour.nombre}</h1> <div className='precio'>Desde: ${precioMostrar.toLocaleString()} COP X Persona</div></div>
+        
+        <div className='titulo_tour'><p>sitio turístico</p><h1>{tour.nombre}</h1> <span></span> <div className='precio'>Desde: ${precioMostrar.toLocaleString()} COP X Persona</div></div>
         <div className="tour-gallery"  data-aos="fade-down">
           <div className="main-image-container">
                 <button className="nav-arrow left" onClick={prevImage}>❮</button>
@@ -401,7 +404,15 @@ useEffect(() => {
         </div>
 
         <div className="tour-info-block" data-aos="fade-up-right">
-          <div className="tour-icons">
+          <div className='container_descripcion' data-aos="fade-left">
+            <h2>{t('acerca_titulo')}</h2>
+            <p className='descripcion_tour'>
+                {tour.descripcion}
+            </p>
+            
+
+          </div>
+           <div className="tour-icons">
             <div><i className="bi bi-stopwatch"></i><p><strong>Duración:</strong><br />{tour.tiempo}</p></div>
             <div><i className="bi bi-person-dash"></i><p><strong>Cantidad Minima Personas:</strong><br />{tour.cantidadMinima}</p></div>
             <div><i className="bi bi-calendar-date"></i><p><strong>Tours al día:</strong><br />{tour.toursPorDia}</p></div>
@@ -409,7 +420,7 @@ useEffect(() => {
             <div><i className="bi bi-translate"></i><p><strong>Idioma:</strong><br />{tour.idioma}</p></div>
             <div><i className="bi bi-pin-map-fill"></i><p><strong>Lugar de Salida:</strong><br />{tour.salida}</p></div>
           </div>
-           <h2>Incluido:</h2>
+             <h2>Incluido:</h2>
           <ul className="lista_incluidos">
             {incluidos.length > 0 &&
               incluidos.map((incluido, index) => (
@@ -431,18 +442,13 @@ useEffect(() => {
               ))
             }           
           </ul>
+         
+        
 
 
 
           
-          <div className='container_descripcion' data-aos="fade-left">
-            <h2>{t('acerca_titulo')}</h2>
-            <p className='descripcion_tour'>
-                {tour.descripcion}
-            </p>
-            
-
-          </div>
+          
           
             
  
@@ -516,6 +522,21 @@ useEffect(() => {
             value={nombreUsuario} 
             onChange={(e) => setNombreUsuario(e.target.value)}>
           </input>
+          <label>Idioma:</label>
+          <select
+            className="input"
+            value={idioma}
+            onChange={(e) => setIdioma(e.target.value)}
+          >
+            <option value="">Selecciona un idioma</option>
+
+            {tour?.idioma &&
+              tour.idioma.split("/").map((idioma, index) => (
+                <option key={index} value={idioma.trim()}>
+                  {idioma.trim()}
+                </option>
+              ))}
+          </select>
           <label>Correo:</label>
           <input placeholder='Correo:' className='input'
           value={correoUsuario} 
