@@ -38,37 +38,37 @@ function Tours(){
     {
       id: "1",
       label: "Rutas cafeteras",
-      img: "https://cocoratours.com.co/wp-content/uploads/2022/09/tour-valle-dle-cocora-1.jpg",      // opcional
+      img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/7b/8f/64/caption.jpg?w=500&h=400&s=1",      // opcional
     },
     {
       id: "2",
       label: "Experiencias de senderismo  privadas",
-      img: "https://cocoratours.com.co/wp-content/uploads/2022/08/pasadia-valle-del-cocora-y-salento-1.jpg",
+      img: "https://cdn.getyourguide.com/image/format=auto,fit=contain,gravity=auto,quality=60,width=1440,height=650,dpr=1/tour_img/4c3da771a8af41b49b18b11c2c26e0bee40e4b32982966e00d8ebd4185435049.jpg",
     },
     {
       id: "3",
       label: "Experiencias  senderismo (compartidas)",
-      img: "https://cocoratours.com.co/wp-content/uploads/2022/09/la-carbonera-desde-salento.jpg",
+      img: "https://www.quindioecotours.com/wp-content/uploads/2020/07/Carbonera-2.jpg",
     },
     {
       id: "4",
       label: "⁠Experiencias de aventura",
-      img: "https://cocoratours.com.co/wp-content/uploads/2025/09/finca-cafetera-el-ocaso-reservar-3.jpg.webp",
+      img: "https://www.valledelcocora.com.co/w/wp-content/uploads/2024/07/Caballos.jpg",
     },
     {
       id: "5",
       label: "⁠Parques temáticos",
-      img: "https://cocoratours.com.co/wp-content/uploads/2022/09/la-carbonera-desde-salento.jpg",
+      img: "https://parquedelcafe.co/wp-content/uploads/2024/12/PDC-Avix-Experiencia-012-scaled.jpg",
     },
     {
       id: "6",
       label: "⁠Experiencias gastronómicas",
-      img: "https://cocoratours.com.co/wp-content/uploads/2025/09/finca-cafetera-el-ocaso-reservar-3.jpg.webp",
+      img: "https://arracheramex.wordpress.com/wp-content/uploads/2013/09/tejaditos_trucha.jpg",
     },
     {
       id: "7",
       label: "⁠Tours con salida desde Pereira",
-      img: "https://cocoratours.com.co/wp-content/uploads/2025/09/finca-cafetera-el-ocaso-reservar-3.jpg.webp",
+      img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
     },
   ];
   
