@@ -1,5 +1,6 @@
 .tour-card {
   max-width: 300px;
+  width: 300px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.164);
@@ -7,7 +8,8 @@
   transition: transform 0.1s ease, box-shadow 0.3s ease;
   margin: 15px;
   font-family: sans-serif;
-  flex: 1 1 300px;
+  flex: 0 0 300px;
+  
 }
 
 .tour-card:hover {
@@ -37,11 +39,13 @@
   color: #222;
   
 }
-.tour-details h3:hover{
+/* .tour-details h3:hover{
   text-decoration: underline;
   color: #007bff;
+} */
+.tour-card:hover{
+  box-shadow: #36363698 0px 0px 25px 1px;
 }
-
 .tour-info {
   list-style: none;
   padding: 0;
@@ -124,4 +128,40 @@
 }
 .edit:hover,.view:hover,.delete:hover{
   transform: scale(1.1);
+}
+
+
+@media (max-width: 768px) {
+  .arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .tour-card {
+    /* 🔹 aquí ya SÍ la hacemos más pequeña de verdad */
+    max-width: 220px !important;
+    width: 220px !important;
+    flex: 0 0 220px !important;
+    margin: 10px !important;
+
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+
+  .tour-image img {
+    height: 150px; /* un poco más bajita para que se vea más compacta */
+  }
+
+  .tour-details {
+    padding: 10px;
+    
+  }
+  .tour-info{
+    display: none;
+  }
+  .reserve-button{
+    position:static;
+    bottom:0 ;
+  }
 }

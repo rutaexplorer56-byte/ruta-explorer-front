@@ -38,36 +38,43 @@ function Tours(){
     {
       id: "1",
       label: "Rutas cafeteras",
+      description: "Recorridos inmersivos por el corazón del Paisaje Cultural Cafetero, descubriendo fincas, miradores y la esencia del café colombiano.",
       img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/7b/8f/64/caption.jpg?w=500&h=400&s=1",      // opcional
     },
     {
       id: "2",
       label: "Experiencias de senderismo  privadas",
+      description:"Tours exclusivos de senderismo con guía personal, ideales para quienes buscan tranquilidad, flexibilidad y una conexión más íntima con la naturaleza.",
       img: "https://cdn.getyourguide.com/image/format=auto,fit=contain,gravity=auto,quality=60,width=1440,height=650,dpr=1/tour_img/4c3da771a8af41b49b18b11c2c26e0bee40e4b32982966e00d8ebd4185435049.jpg",
     },
     {
       id: "3",
       label: "Experiencias  senderismo (compartidas)",
+      description:"Caminatas grupales en los principales destinos naturales del Eje Cafetero, perfectas para disfrutar en compañía y conocer nuevos viajeros.",
       img: "https://www.quindioecotours.com/wp-content/uploads/2020/07/Carbonera-2.jpg",
     },
     {
       id: "4",
       label: "⁠Experiencias de aventura",
+      description:"Actividades llenas de adrenalina como cabalgatas, canopy, cuatrimotos y más, creadas para quienes buscan emoción en el Eje Cafetero.",
       img: "https://www.valledelcocora.com.co/w/wp-content/uploads/2024/07/Caballos.jpg",
     },
     {
       id: "5",
       label: "⁠Parques temáticos",
+      description:"Visitas a los parques más emblemáticos de la región, combinando diversión, cultura y naturaleza para todas las edades.",
       img: "https://parquedelcafe.co/wp-content/uploads/2024/12/PDC-Avix-Experiencia-012-scaled.jpg",
     },
     {
       id: "6",
       label: "⁠Experiencias gastronómicas",
+      description:"Degustaciones, clases y recorridos culinarios donde podrás disfrutar los sabores auténticos del Eje Cafetero.",
       img: "https://arracheramex.wordpress.com/wp-content/uploads/2013/09/tejaditos_trucha.jpg",
     },
     {
       id: "7",
       label: "⁠Tours con salida desde Pereira",
+      description:"Experiencias especialmente diseñadas para viajeros ubicados en Pereira, con transporte incluido y rutas optimizadas.",
       img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
     },
   ];
@@ -97,7 +104,15 @@ function Tours(){
     }, 4000);
     return () => clearInterval(id);
   }, [images.length]);
+const scrollLeft = (id) => {
+  const container = document.getElementById(`scroll-${id}`);
+  container.scrollBy({ left: -200, behavior: "smooth" });
+};
 
+const scrollRight = (id) => {
+  const container = document.getElementById(`scroll-${id}`);
+  container.scrollBy({ left: 200, behavior: "smooth" });
+};
 
 
     return(
@@ -127,37 +142,91 @@ function Tours(){
                       AGENCIA DE VIAJES</h1>
                   <span></span>
                 </div>
-                
-                  {mostrarTours ? (<>
+                <div className="container-tours">
+                  {tours? (categorias.map((cat) => {
+                     const toursDeCategoria = tours.filter(t => t.categoria === cat.id);
 
-                  <div className="categoria-cards-container">
-                    {categorias.map((cat) => (
-                      <div
-                        key={cat.id}
-                        className={
-                          "categoria-card" +
-                          (categoriaSeleccionada === cat.id ? " categoria-card-activa" : "")
-                        }
-                        onClick={() => {
-                          setCategoriaSeleccionada(cat.label)
-                          setnumCategoria(cat.id)
-                          setMostrarTours(!mostrarTours);
-                        }}
-                      >
-                        <div className="categoria-card-img-wrapper">
-                          <img src={cat.img} alt={cat.label} />
-                          <div className="categoria-card-overlay" />
-                          <span className="categoria-card-title">{cat.label}</span>
+  // si no hay tours → NO renderizar nada
+                  if (toursDeCategoria.length === 0) return null;
+                  const showArrows = toursDeCategoria.length > 2;
+                    return(
+                      
+                     <div className="categoria" key={cat.id}>
+                          <h2 className="titulo-categoria">{cat.label}</h2>
+                          <span className="span">{cat.description}</span>
+
+                          <div className="slider-wrapper">
+                            {showArrows && (
+                              <button
+                                className="arrow left"
+                                onClick={() => scrollLeft(cat.id)}
+                              >
+                                ◀
+                              </button>
+                            )}
+
+                            <div id={`scroll-${cat.id}`} className="tours-categoria">
+                              <FilteredTours
+                                categoria={cat.label}
+                                numCategoria={cat.id}
+                                hotel={hotel}
+                              />
+                            </div>
+
+                            {showArrows && (
+                              <button
+                                className="arrow right"
+                                onClick={() => scrollRight(cat.id)}
+                              >
+                                ▶
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                        
+                        )})):
+                        (
+                           <div className="tour-message">
+            
+                              <h2>En el momento no contamos con tours disponibles ...</h2>
+                              <h2> Si deseas reservar con nosotros te invitamos a escribirnos al siguiente numero:</h2>
+                              <h2 className='phone'>+57 3124151539</h2>
+                              <img src="https://www.mdirector.com/wp-content/uploads/2022/04/smsreservar.jpg" alt="No tours available" />
+                                             
+                            </div>
+                        )
+                  }
+                  
+
+                </div>
+
+
+{/* 
+                {tours?(
+                    categorias.map((cat) => {
+                      return(
+                        <div className="categoria" key={cat.id}>
+                        <h2 className="titulo-categoria">{cat.label}</h2>
+                        <div className="tours-categoria">
+                          <FilteredTours
+                            categoria={cat.label} 
+                            numCategoria={cat.id}
+                            hotel={hotel}
+                          />
+
+
                         </div>
                       </div>
-                    ))}
-                  </div>
-                  </>):(<>
-                    <button  className="volver_categoria" onClick={() => setMostrarTours(!mostrarTours)}> <i className="bi bi-arrow-left-circle"></i> Volver a categorias</button>
-                    <div className="container_cards">
-                    <FilteredTours categoria={categoriaSeleccionada} numCategoria={numCategoria} hotel={hotel}></FilteredTours>
-                    </div>
-                  </>)}
+                      )
+                      
+                    }
+                      
+                     
+            
+
+                  ):(<></>)} */}
+                
+                  
 
                     <section className="seccion-reserva">
                         <div className="reserva-contenido">
@@ -166,21 +235,21 @@ function Tours(){
 
                           <p className="reserva-texto">
                             ¡Planear tu próxima aventura nunca había sido tan sencillo! En 
-                            <strong>RutaExplorer</strong> te ayudamos a reservar tus experiencias de forma 
+                            <strong>Ruta Xplorer</strong> te ayudamos a reservar tus experiencias de forma 
                             rápida, flexible y segura. Para asegurar tu cupo en cualquiera de nuestros tours 
                             por el Valle del Cocora y el Eje Cafetero, solo necesitas realizar   
                             <strong> tu reserva</strong> el día que desees.
                           </p>
 
                          <p className="reserva-texto">
-                            En <strong>RutaExplorer</strong> hacemos que reservar tus actividades sea un 
+                            En <strong>Ruta Xplorer</strong> hacemos que reservar tus actividades sea un 
                             proceso sencillo y flexible, para que puedas planear tu viaje sin estrés y con 
                             total tranquilidad.
                           </p>
 
                           <p className="reserva-texto">
                             Aceptamos pagos en <strong> Pesos Colombianos </strong>, para que disfrutes 
-                            sin complicaciones sin importar de dónde nos visites. Con RutaExplorer, reservar 
+                            sin complicaciones sin importar de dónde nos visites. Con Ruta Xplorer, reservar 
                             tus actividades se convierte en un proceso fácil, confiable y diseñado para que 
                             solo te preocupes de lo más importante:
                             <br /><br />
@@ -208,7 +277,7 @@ function Tours(){
       
                     {/* CONTENEDOR DESPLAZABLE */}
                     <div className="experiencias-scroll">
-                      {tours.slice(0, 5).map((exp) => (
+                      {tours.slice(0, 4).map((exp) => (
                         <article key={exp.id} className="experiencia-card">
                           <div className="experiencia-img-wrapper">
                             <img src={exp.fotos[0]} alt={exp.titulo} />

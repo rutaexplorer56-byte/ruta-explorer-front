@@ -28,11 +28,9 @@ function FilteredTours({categoria,numCategoria,hotel}) {
   return (
     <>
 
-    <h2 className="titulo-categoria">
-        {categoria} <span>Aventura que Inspira</span>
-        </h2>
+    
     {toursFiltrados==0 ?(<>
-          <div className="tour-message">
+          {/* <div className="tour-message">
             
             <h2>En el momento no contamos con tours disponibles ...</h2>
             <h2> Si deseas reservar con nosotros te invitamos a escribirnos al siguiente numero:</h2>
@@ -42,10 +40,10 @@ function FilteredTours({categoria,numCategoria,hotel}) {
     
     
     
-          </div>
+          </div> */}
     
           </> ):(
-            
+              
               toursFiltrados.filter(tour => tour.activo === true).map(tour =>{
                 
                 const precioMostrar = tour.tipo === "compartido"
@@ -53,6 +51,7 @@ function FilteredTours({categoria,numCategoria,hotel}) {
                 : tour.precios?.length > 0
                   ? Math.min(...tour.precios.map(p => p.precioPorPersona)) // el más barato
                   : 0;
+                 
                 return (
     
                 
@@ -76,6 +75,36 @@ function FilteredTours({categoria,numCategoria,hotel}) {
                         
                         
                         }
+                        {/* {mostrarTours ? (<>
+
+                  <div className="categoria-cards-container">
+                    {categorias.map((cat) => (
+                      <div
+                        key={cat.id}
+                        className={
+                          "categoria-card" +
+                          (categoriaSeleccionada === cat.id ? " categoria-card-activa" : "")
+                        }
+                        onClick={() => {
+                          setCategoriaSeleccionada(cat.label)
+                          setnumCategoria(cat.id)
+                          setMostrarTours(!mostrarTours);
+                        }}
+                      >
+                        <div className="categoria-card-img-wrapper">
+                          <img src={cat.img} alt={cat.label} />
+                          <div className="categoria-card-overlay" />
+                          <span className="categoria-card-title">{cat.label}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  </>):(<>
+                    <button  className="volver_categoria" onClick={() => setMostrarTours(!mostrarTours)}> <i className="bi bi-arrow-left-circle"></i> Volver a categorias</button>
+                    <div className="container_cards">
+                    <FilteredTours categoria={categoriaSeleccionada} numCategoria={numCategoria} hotel={hotel}></FilteredTours>
+                    </div>
+                  </>)} */}
       
     </>
   );
