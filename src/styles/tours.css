@@ -447,7 +447,7 @@ padding-top: 3rem;
   overflow-x: auto;
   gap: 20px;
   scroll-behavior: smooth;
-  padding: 10px 50px; /* evita que las flechas tapen tarjetas */
+  padding: 10px 10px; /* evita que las flechas tapen tarjetas */
   -webkit-overflow-scrolling: touch;
 }
 

@@ -221,15 +221,15 @@ const toNumber = (v) => {
       });
 
       if (response.status === 200) {
-        toast.success("✅ Tour actualizado exitosamente");
+        toast.success(" Tour actualizado exitosamente");
         if (typeof actualizarToursPadre === "function") await actualizarToursPadre();
         setTimeout(() => onClose(), 3000);
         resetForm();
       } else {
-        toast.error("❌ Error al actualizar el Tour.");
+        toast.error(" Error al actualizar el Tour.");
       }
     } catch (error) {
-      toast.error(error?.response?.data?.mensaje || "❌ Error al actualizar el Tour.");
+      toast.error(error?.response?.data?.mensaje || " Error al actualizar el Tour.");
     }
   };
 

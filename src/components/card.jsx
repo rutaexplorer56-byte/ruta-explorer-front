@@ -75,14 +75,14 @@ const [buttons,setButtons]=useState(false)
         Authorization: `Bearer ${token}` // token debe ser tu JWT
       }
     });
-    toast.success("✅ Tour eliminado exitosamente");
+    toast.success(" Tour eliminado exitosamente");
     setTimeout(() => {
       window.location.reload();
       actualizarToursPadre() // Cambia "/destino" por la ruta a donde quieras redirigir
     }, 3000); // 3000 milisegundos = 3 segundos
     
   } catch (error) {
-    toast.error("❌ Error al eliminar el Tour. Inténtalo de nuevo.");
+    toast.error(" Error al eliminar el Tour. Inténtalo de nuevo.");
   }
 };
 
@@ -120,7 +120,7 @@ const [buttons,setButtons]=useState(false)
           <li>- Idioma: {idioma}</li>
         </ul>
         <p className="price">
-              a partir de{" "}
+              Desde{" "}
               <strong>
                 {tipo === "compartido"
                   ? `$${Number(precio).toLocaleString("es-CO", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`

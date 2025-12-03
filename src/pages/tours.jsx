@@ -106,7 +106,7 @@ function Tours(){
   }, [images.length]);
 const scrollLeft = (id) => {
   const container = document.getElementById(`scroll-${id}`);
-  container.scrollBy({ left: -200, behavior: "smooth" });
+  container.scrollBy({ left: -250, behavior: "smooth" });
 };
 
 const scrollRight = (id) => {
