@@ -9,6 +9,20 @@ import axios from "../axiosConfig";
 function Admin_tours(){
     const [modalAbierto, setModalAbierto] = useState(false);
     const [tours, setTours] = useState([]);
+    const [editId, setEditId] = useState(null);
+
+
+const abrirCrear = () => {
+  setEditId(null);
+  setModalAbierto(true);
+};
+
+const abrirEditar = (id) => {
+  setEditId(id);
+  setModalAbierto(true);
+};
+
+
 
  const obtenerTours = async () => {
 
@@ -21,15 +35,7 @@ function Admin_tours(){
       }
     };
 const actualizarTours = async () => {
-       window.location.reload();
-      try {
-        const res = await axios.get('/api/tours');
-        setTours(res.data); // aquí actualizamos el estado
-
- 
-      } catch (error) {
-        console.error('Error al obtener tours:', error);
-      }
+      await obtenerTours();
   };
   useEffect(() => {
     
@@ -40,13 +46,17 @@ const actualizarTours = async () => {
     return(
         <>
         <Header></Header>
-        <div className="container_titulo_tours">
-            <h2 className="descripcion_tours">Tus Tours</h2>
-            <button className="boton_tour" onClick={() => setModalAbierto(true)}>Crear nuevo Tour <i className="bi bi-plus-lg">   </i></button> 
-            <ModalAgregarTour isOpen={modalAbierto}  onClose={() => setModalAbierto(false) } id={null} actualizarToursPadre={actualizarTours}></ModalAgregarTour>
-        </div>
         
-        <div className="container_cards">
+        {!modalAbierto?(<>
+
+          <div className="container_titulo_tours">
+              <h2 className="descripcion_tours">Tus Tours</h2>
+              <button className="boton_tour" onClick={() => abrirCrear()}>Crear nuevo Tour <i className="bi bi-plus-lg">   </i></button> 
+              
+          </div>
+          
+          
+           <div className="container_cards">
                      {tours.map(tour =>{
 
             const precioMostrar = tour.tipo === "compartido"
@@ -70,11 +80,22 @@ const actualizarTours = async () => {
                         precios={tour.precios}
                         tipo={tour.tipo}
                         activo={tour.activo}
+                        onEdit={abrirEditar}
                         />
                     )})}
                     
 
         </div>
+        </>
+
+        ):(
+          <ModalAgregarTour isOpen={modalAbierto}  onClose={() => setModalAbierto(false) } id={editId} actualizarToursPadre={actualizarTours}></ModalAgregarTour>
+        )
+
+        }
+
+        
+       
         <Footer></Footer>
         </>
 

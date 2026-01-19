@@ -3,7 +3,8 @@
   width: 300px;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.164);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.164);
+  border: 1px solid #ddd;
   background: white;
   transition: transform 0.1s ease, box-shadow 0.3s ease;
   margin: 15px;
@@ -15,7 +16,7 @@
 .tour-card:hover {
   cursor: pointer;
 
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.048);
 }
 
 .tour-image img {
@@ -43,9 +44,7 @@
   text-decoration: underline;
   color: #007bff;
 } */
-.tour-card:hover{
-  box-shadow: #36363698 0px 0px 25px 1px;
-}
+
 .tour-info {
   list-style: none;
   padding: 0;
@@ -128,6 +127,22 @@
 }
 .edit:hover,.view:hover,.delete:hover{
   transform: scale(1.1);
+}
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 

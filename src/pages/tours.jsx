@@ -77,6 +77,12 @@ function Tours(){
       description:"Experiencias especialmente diseñadas para viajeros ubicados en Pereira, con transporte incluido y rutas optimizadas.",
       img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
     },
+    {
+      id: "8",
+      label: "⁠Tours con salida desde Filandia",
+      description:"Experiencias especialmente diseñadas para viajeros que se encuentren ubicados en Filandia",
+      img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
+    },
   ];
   
 

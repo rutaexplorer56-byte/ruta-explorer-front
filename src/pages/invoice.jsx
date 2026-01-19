@@ -149,6 +149,23 @@ import { useSearchParams } from "react-router-dom";
                   <strong>{reserva.telefono}</strong>
                 </div>
                 <div className="row">
+                  <span>Extras</span>
+                   {reserva.extras && reserva.extras.length > 0 ? (
+                    <ul className="extras-list">
+                      {reserva.extras.map((extra, i) => (
+                        <li key={i}>
+                          <strong>{extra.nombre}</strong>  
+                          {" "}x{extra.cantidad}  
+                          {" "}— ${extra.valor.toLocaleString("es-CO")} c/u  
+                          {" "}→ <b>${extra.subtotal.toLocaleString("es-CO")}</b>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <strong>Ninguno</strong>
+                  )}
+                </div>
+                <div className="row">
                   <span>Estado de la reserva</span>
                   <strong>{reserva.estado}</strong>
                 </div>

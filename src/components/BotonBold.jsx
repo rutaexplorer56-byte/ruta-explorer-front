@@ -8,8 +8,8 @@ const BotonBold = ({reference ,amount ,currency ,api ,signature}) => {
     const boldScriptId = "bold-checkout-script";
     const existingScript = document.getElementById(boldScriptId);
     const user={
-      email: "juanftoro@gmail.com",
-      fullName: "juan toro"
+      email: "",
+      fullName: ""
     }
 
     

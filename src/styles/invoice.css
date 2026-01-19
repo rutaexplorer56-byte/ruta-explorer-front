@@ -99,12 +99,14 @@ body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helve
 }
 
 .receipt-table .row span{
-  color:var(--muted);
-  font-size:14px;
+  color:rgb(39, 134, 243);
+  font-size:17px;
+  font-weight:500;
 }
 
 .receipt-table .row strong{
   font-size:14.5px;
+  font-weight: 500;
 }
 
 .receipt-total{

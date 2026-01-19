@@ -40,7 +40,7 @@
 
 
 .header a{text-decoration: none;
-    color: rgb(37, 37, 37);}
+    color: rgb(56, 56, 56);}
 
 .header{
     width: 100%;
@@ -96,7 +96,7 @@
 }
 .header ul li a{
     text-decoration: none;
-    color: rgb(37, 37, 37);
+    color: rgb(70, 70, 70);
 }
 .header h3{
      font-weight: bolder;

@@ -9,8 +9,9 @@ import { toast } from 'react-toastify';
 
 
 // eslint-disable-next-line react/prop-types
-const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,hotel}) => {
+const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,hotel,onEdit}) => {
    const [modalAbierto, setModalAbierto] = useState(false);
+   const [loadingDeleteId, setLoadingDeleteId] = useState(null);
   useEffect(() => {
   AOS.init({
     duration: 1000, // duración de la animación
@@ -85,7 +86,15 @@ const [buttons,setButtons]=useState(false)
     toast.error(" Error al eliminar el Tour. Inténtalo de nuevo.");
   }
 };
-
+const generarSlug = (texto) => {
+  return String(texto)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+};
     
 
 
@@ -120,7 +129,7 @@ const [buttons,setButtons]=useState(false)
           <li>- Idioma: {idioma}</li>
         </ul>
         <p className="price">
-              Desde{" "}
+            Desde  {" "}
               <strong>
                 {tipo === "compartido"
                   ? `$${Number(precio).toLocaleString("es-CO", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
@@ -128,19 +137,19 @@ const [buttons,setButtons]=useState(false)
                     ? `$${Number(precios[precios.length-1].precioPorPersona).toLocaleString("es-CO", { minimumFractionDigits: 0, maximumFractionDigits: 0 })} `
                     : "$0"}
               </strong>{" "}
-               COP (x) persona
+               COP x Persona <small>(el precio varia según el número de participantes)</small> 
             </p>
         <div className='buttons-container'>
           {!buttons ? (
-             <Link className="reserve-button" to={`/tour/${hotel}/${id}`}>
+             <Link className="reserve-button" to={`/tour/${(hotel||"RutaExplorer")}/${generarSlug(titulo)}`}>
               <button className="reserve-button" >Reservar</button>
               </Link>
             
           ):(
             <>
-            <button className='edit' onClick={setModalAbierto}><i className="bi bi-pencil-square"></i></button>
+            <button className='edit' onClick={() => onEdit?.(id)}><i className="bi bi-pencil-square"></i></button>
             
-            <button className='view' ><Link  to={`/tour/${id}`}><i className="bi bi-eye"></i> </Link></button>
+            <button className='view' ><Link  to={`/tour/${generarSlug(titulo)}`}><i className="bi bi-eye"></i> </Link></button>
            
             <button className='delete' onClick={()=>{eliminarTour(id)}}><i className="bi bi-trash"></i></button>
 
@@ -154,7 +163,7 @@ const [buttons,setButtons]=useState(false)
         
       </div>
     </div>
-    <ModalAgregarTour isOpen={modalAbierto}  onClose={() => setModalAbierto(false)} id={id}></ModalAgregarTour>
+    {/* <ModalAgregarTour isOpen={modalAbierto}  onClose={modalAbierto} id={id}></ModalAgregarTour> */}
     </>
   );
 };

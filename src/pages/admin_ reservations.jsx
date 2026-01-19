@@ -3,11 +3,15 @@ import Footer from "../components/footer";
 import { useEffect, useMemo, useState } from "react";
 import "../styles/Admin_reservations.css";
 import axios from "../axiosConfig";
+import * as XLSX from "xlsx";
+import { set } from "date-fns";
 
 export default function Admin_reservations() {
   const [reservas, setReservas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
+  const [detalles, setDetalles] = useState(false);
+  const [llave, setLlave] = useState("");
 
   // Filtros
   const [q, setQ] = useState("");
@@ -83,6 +87,35 @@ export default function Admin_reservations() {
       });
     }
   };
+const downloadExcel = () => {
+  // ✅ Exporta SOLO lo filtrado (no solo la página)
+  const rows = filtered.map((r) => ({
+    ID: r.id,
+    Fecha: r.fecha ? new Date(r.fecha).toLocaleDateString("es-CO") : "",
+    Estado: r.estado || "",
+    Cliente: r.nombrePersona || "",
+    Tour: r.nombreTour || "",
+    Hotel: r.hotel || "",
+    Personas: r.cantidadPersonas ?? "",
+    Total: r.total ?? r.valor ?? "",
+    Teléfono: r.telefono || "",
+    Email: r.correo || "",
+  }));
+
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Reservas");
+
+  // auto ancho simple (opcional)
+  const colWidths = Object.keys(rows[0] || {}).map((k) => ({
+    wch: Math.max(k.length, ...rows.map((r) => String(r[k] ?? "").length)) + 2,
+  }));
+  ws["!cols"] = colWidths;
+
+  const name = `reservas_filtradas_${new Date().toISOString().slice(0,10)}.xlsx`;
+  XLSX.writeFile(wb, name);
+};
+
 
 
   return (
@@ -127,6 +160,13 @@ export default function Admin_reservations() {
                 onChange={(e) => setTo(e.target.value)}
                 title="Hasta"
               />
+              <button
+                    onClick={downloadExcel}
+                    disabled={filtered.length === 0}
+                    className="table-date excel"
+                  >
+                    Descargar Excel ({filtered.length})
+                  </button>
             </div>
           </div>
 
@@ -134,60 +174,105 @@ export default function Admin_reservations() {
           {err && !loading && <p className="error" style={{ marginTop: 12 }}>{err}</p>}
 
           {/* Tabla */}
-          <table className="tabla-reservas">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Título</th>
-                <th>Nombre</th>
-                <th>Fecha</th>
-                <th>Personas</th>
-                <th>Horario</th>
-                <th>Idioma</th>
-                <th>Comisión</th>
-                <th>Telefono</th>
-                <th>Correo</th>
-                <th>Total</th>
-                <th>Pago</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pageRows.map((reserva, i) => (
-                <tr key={reserva.id}>
-                  <td className="id_table">{reserva.id}</td>
-                  <td>{reserva.nombreTour}</td>
-                  <td>{reserva.nombrePersona}</td>
-                  <td className="fecha">{reserva.fecha}</td>
-                  <td>{reserva.cantidadPersonas}</td>
-                  <td>{reserva.horario || "-"}</td>
-                  <td>{reserva.idioma || ""}</td>
-                  <td>{reserva.hotel || ""}</td>
-                  <td>{reserva.telefono || "-"}</td>
-                  <td className="correo">{reserva.correo || "-"}</td>
-                  <td>${reserva.valorTotal || "-"}</td>
-                  <td ><p className={`${reserva.estadoPago === "pago" ? "pago" : "cancelado"}`}>{`${reserva.estadoPago === "pago" ? "pago" : "Cancelado"}`}</p></td>
-                  <td className="td-estado">
-                    <div
-                      className={`estado-toggle ${reserva.estado === "finalizada" ? "finalizada" : ""}`}
-                      onClick={() => toggleEstado(reserva)}
-                      title={reserva.estado}
+          <div className="contenedor-reservas">
+
+            {pageRows.map((reservas, i) => (
+            <div key={reservas.id} className={`${detalles && llave==reservas.id ? "reserva-detalles" : "reserva"}`}>
+              <div className="header-reserva">
+                <div className={`logo-reserva ${reservas.estadoPago === "pago" ?"" : "cancelado"}`}>
+                  {reservas.estadoPago === "pago" ?(<i className="bi bi-coin"></i>):(<i className="bi bi-x-circle"></i>)}
+                  
+
+                </div>
+                <div className="titulo-reserva">
+                  <h3 className="nombre-reserva">{reservas.nombreTour}</h3>
+                  <p className="id-reserva">#{reservas.id} </p>
+                  <p className="idioma-reserva"><i className="bi bi-translate"></i> {reservas.idioma}</p>
+                </div>
+                <div className="boton-reserva">
+                  <div
+                      className={`estado-toggle ${reservas.estado === "finalizada" ? "finalizada" : ""}`}
+                      onClick={() => toggleEstado(reservas)}
+                      title={reservas.estado}
                       role="button"
                       aria-label="Cambiar estado"
-                      style={{ opacity: savingIds.has(reserva.id) ? 0.6 : 1, pointerEvents: savingIds.has(reserva.id) ? "none" : "auto" }}
+                      style={{ opacity: savingIds.has(reservas.id) ? 0.6 : 1, pointerEvents: savingIds.has(reservas.id) ? "none" : "auto" }}
                     />
-                    <p className={`${reserva.estado === "finalizada" ? "pago" : "pendiente"}`}>{reserva.estado}</p>
-                  </td>
-                </tr>
-              ))}
+                    <p className={`${reservas.estado === "finalizada" ? "pago" : "pendiente"}`}>{reservas.estado}</p>
+
+
+                </div>
+                <div className="info-reserva">
+                  <p className="fecha-reserva"><i className="bi bi-calendar4-week"></i> {reservas?.fecha}</p>
+                  <p className="horario-reserva"><i className="bi bi-stopwatch"></i> {reservas?.horario}</p>
+                  <p className="personas-reserva"><i className="bi bi-ticket-perforated"></i>  {reservas?.cantidadPersonas} Personas</p>
+                  <p className="precio-reserva">${reservas?.valorTotal} COP</p>
+                </div>
+                <div className="detalles">
+                  <button className="btn-detalles" onClick={()=>{
+                    setDetalles(!detalles) 
+                    setLlave(reservas.id)}}>{detalles && llave==reservas.id ?"Ocultar Detalles":"Mostrar Detalles"}</button>
+                </div>
+              </div>
+              <div className="body-reserva">
+                <div className="titulos-detalles">
+                  <p className="detalle-titulo">Referencia de la reserva</p>
+                  <p className="detalle-titulo">Nombre</p>
+                  <p className="detalle-titulo">Correo</p> 
+                  <p className="detalle-titulo">Teléfono</p> 
+                  <p className="detalle-titulo">Idioma</p> 
+                  <p className="detalle-titulo">Hotel</p> 
+                  <p className="detalle-titulo">Cantidad de personas</p>
+                  <p className="detalle-titulo">Extras</p>
+                  <p className="detalle-titulo">Total</p>
+                  <p className="detalle-titulo">Estado del Pago</p>  
+
+                </div>
+                <div className="detalle-reserva">
+                  <p className="detalle-info">{reservas.id}</p>
+                  <p className="detalle-info">{reservas.nombrePersona}</p>
+                  <p className="detalle-info">{reservas.correo}</p> 
+                  <p className="detalle-info">{reservas.telefono}</p> 
+                  <p className="detalle-info">{reservas.idioma}</p> 
+                  <p className="detalle-info">{reservas.hotel}</p> 
+                  <p className="detalle-info">{reservas.cantidadPersonas}</p>
+                  <div className="detalle-info">
+                    {reservas.extras && reservas.extras.length > 0 ? (
+                    <ul className="extras-list">
+                      {reservas.extras.map((extra, i) => (
+                        <li key={i}>
+                          <strong>{extra.nombre}</strong>  
+                          {" "}x{extra.cantidad}  
+                          {" "}— ${extra.valor.toLocaleString("es-CO")} c/u  
+                          {" "}→ <b>${extra.subtotal.toLocaleString("es-CO")}</b>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <strong>Ninguno</strong>
+                  )}
+                  </div>
+                  <p className="detalle-info">${reservas.valorTotal}</p>  
+                  <p className={`${reservas.estadoPago === "pago" ? "pago" : "pago-cancelado"} `}>{reservas.estadoPago === "pago" ? "pago" : "Cancelado"}</p>
+                </div>
+
+
+
+              </div>
+
+            </div>
+             ))}
+
+
+          </div>
+         
 
               {pageRows.length === 0 && !loading && (
                 <tr>
                   <td colSpan="7" className="empty">Sin resultados.</td>
                 </tr>
               )}
-            </tbody>
-          </table>
+            
 
           {/* Pie + paginación */}
           <div className="table-foot">
