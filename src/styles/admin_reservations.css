@@ -239,6 +239,9 @@ border-radius: 5px;
 .cancelado{
   background-color: rgb(250, 48, 48);
 }
+.pago-pendiente{
+  background-color: rgb(251, 191, 36);
+}
 .titulo-reserva{
   width: 70%;
   height: 50px;

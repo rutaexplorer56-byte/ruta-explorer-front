@@ -179,8 +179,8 @@ const downloadExcel = () => {
             {pageRows.map((reservas, i) => (
             <div key={reservas.id} className={`${detalles && llave==reservas.id ? "reserva-detalles" : "reserva"}`}>
               <div className="header-reserva">
-                <div className={`logo-reserva ${reservas.estadoPago === "pago" ?"" : "cancelado"}`}>
-                  {reservas.estadoPago === "pago" ?(<i className="bi bi-coin"></i>):(<i className="bi bi-x-circle"></i>)}
+                <div className={`logo-reserva ${reservas.estadoPago === "pago" ?"" : "pago-pendiente"}`}>
+                  {reservas.estadoPago === "pago" ?(<i className="bi bi-coin"></i>):(<i className="bi bi-hourglass-split"></i>)}
                   
 
                 </div>
@@ -253,7 +253,7 @@ const downloadExcel = () => {
                   )}
                   </div>
                   <p className="detalle-info">${reservas.valorTotal}</p>  
-                  <p className={`${reservas.estadoPago === "pago" ? "pago" : "pago-cancelado"} `}>{reservas.estadoPago === "pago" ? "pago" : "Cancelado"}</p>
+                  <p className={`${reservas.estadoPago === "pago" ? "pago" : "pendiente"} `}>{reservas.estadoPago === "pago" ? "pago" : "Pendiente"}</p>
                 </div>
 
 
