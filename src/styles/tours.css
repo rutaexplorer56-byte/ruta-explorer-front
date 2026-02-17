@@ -445,6 +445,7 @@ padding-top: 3rem;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  height: auto;
   gap: 20px;
   scroll-behavior: smooth;
   padding: 10px 10px; /* evita que las flechas tapen tarjetas */

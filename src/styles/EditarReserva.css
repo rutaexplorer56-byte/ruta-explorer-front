@@ -1,0 +1,156 @@
+/* EditarReserva.css */
+
+.er-wrap{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #f6f7fb;
+}
+
+.er-card{
+  width: 100%;
+  max-width: 760px;
+  background: #fff;
+  border: 1px solid #e6e8ef;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 6px 24px rgba(16, 24, 40, 0.06);
+}
+
+.er-header{
+  margin-bottom: 14px;
+}
+
+.er-title{
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.er-subtitle{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.er-alert{
+  background: #ffe8e8;
+  border: 1px solid #ffb3b3;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: #7a1a1a;
+  margin: 12px 0;
+}
+
+.er-info{
+  border: 1px dashed #e6e8ef;
+  border-radius: 14px;
+  padding: 12px;
+  background: #fafbff;
+  margin: 12px 0 16px;
+}
+
+.er-info-row{
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.er-info-label{
+  width: 70px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.er-info-value{
+  font-size: 13px;
+  color: #111827;
+  font-weight: 600;
+}
+
+.er-form{
+  display: grid;
+  gap: 14px;
+}
+
+.er-grid{
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px){
+  .er-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.er-field{
+  display: grid;
+  gap: 6px;
+}
+
+.er-label{
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.er-input{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  font-size: 14px;
+  background: #fff;
+}
+
+.er-input:focus{
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.er-help{
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.er-warn{
+  color: #9a6a00;
+}
+
+.er-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.er-btn{
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.er-primary{
+  background: #2563eb;
+  color: #fff;
+}
+
+.er-primary:disabled{
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+.er-ghost{
+  background: transparent;
+  border-color: #d1d5db;
+  color: #111827;
+}

@@ -294,7 +294,7 @@ const scrollRight = (id) => {
                             <p className="experiencia-descripcion">{exp.descripcion}</p>
 
                             
-                              <Link className="experiencia-link" to={`/tour/${hotel}/${exp.id}`}>
+                              <Link className="experiencia-link" to={`/tour/${hotel}/${exp.nombre}`}>
                               Leer más <span>➜</span>
                               </Link>
                           

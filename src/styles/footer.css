@@ -13,8 +13,10 @@
     height: auto;
 }
 .logo img{
-    width: 170px;
-    height: 195px;
+    border-radius: 45%;
+    margin: 10px;
+    width: 160px;
+    height: 165px;
     margin: 0px auto;
 }
 .logo {

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import GoogleTranslate from './language';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo_nuevo.png';
 import { toast } from "react-toastify";
 function Header(){
     useEffect(() => {
@@ -68,7 +69,7 @@ function Header(){
             </div>
             <header className="header">
                 <div className={`boton ${btnMenu?`voltear`:``} `} onClick={toggleClase}><i className="bi bi-chevron-double-down"></i></div>
-                <Link to="https://rutaxplorer.com"><img src='https://rutaxplorer.com/wp-content/uploads/2023/07/RUTA-XPLORER-2-03-1536x717.png'></img></Link>
+                <Link to="https://rutaxplorer.com"><img src={logo}></img></Link>
                   <ul className={`${btnMenu ? 'menu' : ''}`}>
               {menuAdmin ? (
                 <>

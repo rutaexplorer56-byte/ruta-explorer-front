@@ -10,7 +10,28 @@
   overflow: auto;
 
 }
-
+.btn-editar{
+  width: fit-content;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: rgb(239, 153, 41);;
+  color: rgb(247, 247, 247);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+}
+.btn-eliminar{
+  width: fit-content;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #f0322b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+}
 
 /* ----- Toolbar ----- */
 .table-toolbar{
@@ -120,6 +141,7 @@ border-bottom: 1px solid #eef0f3;
   cursor: pointer;
   transition: background .25s ease;
   flex-shrink: 0;
+  margin-right: 10px;
 }
 .tabla-reservas tr:nth-child(even) {
   background-color: #dddddd;
@@ -266,7 +288,7 @@ border-radius: 5px;
   width: 20%;
 }
 .boton-reserva{
-  width: 20%;
+  width: fit-content;
   height: 50px;;
   background-color: rgb(255, 255, 255);
   margin-left: auto;
@@ -274,11 +296,13 @@ border-radius: 5px;
 .info-reserva{
   width: 79%;
   display: flex;
-  gap: 10px;
+  gap:10px;
   height: 30px;
   margin-top:5px ;
   background-color: rgb(255, 255, 255);
+  justify-content:flex-start;
 }
+
 .detalles{
   width: 20%;
   height: 30px;

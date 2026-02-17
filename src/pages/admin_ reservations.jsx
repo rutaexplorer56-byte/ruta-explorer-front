@@ -5,6 +5,9 @@ import "../styles/Admin_reservations.css";
 import axios from "../axiosConfig";
 import * as XLSX from "xlsx";
 import { set } from "date-fns";
+import ConfirmModal from "../components/modalConfirmacion";
+import EditarReserva from "../components/editarReserva";
+import { toast } from "react-toastify";
 
 export default function Admin_reservations() {
   const [reservas, setReservas] = useState([]);
@@ -18,6 +21,14 @@ export default function Admin_reservations() {
   const [estado, setEstado] = useState("Todos");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
+  const[editar, setEditar] = useState(true);
+  const [idReserva, setIdReserva] = useState(null);
+
+  const [openConfirm, setOpenConfirm] = useState(false);
+const [reservaAEliminar, setReservaAEliminar] = useState(null);
+const [loadingDelete, setLoadingDelete] = useState(false);
 
   // Paginación (front)
   const PAGE_SIZE = 10;
@@ -40,7 +51,7 @@ export default function Admin_reservations() {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [editar]);
 
   // Filtrado
   const filtered = useMemo(() => {
@@ -87,6 +98,91 @@ export default function Admin_reservations() {
       });
     }
   };
+
+
+
+ const pedirConfirmacionPago = (reserva) => {
+  setReservaSeleccionada(reserva);
+  setModalOpen(true);
+} 
+
+const confirmarCambioPago = async () => {
+  await toggleEstadoPago(reservaSeleccionada);
+  setModalOpen(false);
+  setReservaSeleccionada(null);
+};
+const toggleEstadoPago = async (reserva) => {
+  const nuevo = reserva.estadoPago === "pago" ? "pendiente" : "pago";
+
+  // Optimistic update
+  setReservas((curr) =>
+    curr.map((r) =>
+      r.id === reserva.id ? { ...r, estadoPago: nuevo } : r
+    )
+  );
+
+  setSavingIds((s) => new Set([...s, reserva.id]));
+
+  try {
+    await axios.put(`/api/reservas/${reserva.id}`, {
+      estadoPago: nuevo,
+    });
+  } catch (error) {
+    console.error("Error al actualizar estadoPago:", error);
+    // rollback
+    setReservas((curr) =>
+      curr.map((r) =>
+        r.id === reserva.id ? { ...r, estadoPago: reserva.estadoPago } : r
+      )
+    );
+    toast.error("No se pudo actualizar el estado de pago. Inténtalo de nuevo.");
+  } finally {
+    setSavingIds((s) => {
+      const copy = new Set(s);
+      copy.delete(reserva.id);
+      return copy;
+    });
+    
+  }
+};
+const pedirConfirmacionEliminar = (id) => {
+  setReservaAEliminar(id);
+  setOpenConfirm(true);
+};
+
+const cerrarConfirmacion = () => {
+  if (loadingDelete) return; // evita cerrar mientras elimina
+  setOpenConfirm(false);
+  setReservaAEliminar(null);
+};
+
+const confirmarEliminarReserva = async () => {
+  if (!reservaAEliminar) return;
+
+  try {
+    setLoadingDelete(true);
+
+    await axios.delete(`/api/reservas/${reservaAEliminar}`);
+
+    toast.success("Reserva eliminada exitosamente");
+    setReservas((curr) => curr.filter((r) => r.id !== reservaAEliminar));
+
+    setOpenConfirm(false);
+    setReservaAEliminar(null);
+  } catch (error) {
+    console.error("Error al eliminar reserva:", error);
+    toast.error(
+      error?.response?.data?.message ||
+      error?.response?.data?.mensaje ||
+      "No se pudo eliminar la reserva. Inténtalo de nuevo."
+    );
+  } finally {
+    setLoadingDelete(false);
+  }
+};
+
+
+
 const downloadExcel = () => {
   // ✅ Exporta SOLO lo filtrado (no solo la página)
   const rows = filtered.map((r) => ({
@@ -117,11 +213,33 @@ const downloadExcel = () => {
 };
 
 
+// console.log("Reservas filtradas para Excel:", filtered);
 
   return (
     <>
+    <ConfirmModal
+      open={openConfirm}
+      onClose={cerrarConfirmacion}
+      onConfirm={confirmarEliminarReserva}
+      titulo="Eliminar reserva"
+      mensaje="¿Estás seguro de que deseas eliminar esta reserva? Esta acción no se puede deshacer."
+      loading={loadingDelete}
+    />
+    <ConfirmModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={confirmarCambioPago}
+        titulo="Confirmar cambio de estado de pago"
+        mensaje={`¿Deseas marcar esta reserva como ${
+          reservaSeleccionada?.estadoPago === "pago"
+            ? "pendiente"
+            : "pagada"
+        }?`}
+      />
       <Header />
-      <h2 className="descripcion_tours" style={{ textAlign: "center" }}>Tus reservas</h2>
+      {editar ? (
+        <>
+         <h2 className="descripcion_tours" style={{ textAlign: "center" }}>Tus reservas</h2>
 
       <div className="container_reservations">
         <div className="tabla-container">
@@ -179,15 +297,30 @@ const downloadExcel = () => {
             {pageRows.map((reservas, i) => (
             <div key={reservas.id} className={`${detalles && llave==reservas.id ? "reserva-detalles" : "reserva"}`}>
               <div className="header-reserva">
-                <div className={`logo-reserva ${reservas.estadoPago === "pago" ?"" : "pago-pendiente"}`}>
-                  {reservas.estadoPago === "pago" ?(<i className="bi bi-coin"></i>):(<i className="bi bi-hourglass-split"></i>)}
-                  
-
+                <div
+                  className={`logo-reserva ${
+                    reservas.estadoPago === "pago" ? "" : "pago-pendiente"
+                  }`}
+                  onClick={() => pedirConfirmacionPago(reservas)}
+                  role="button"
+                  title={reservas.estadoPago}
+                  style={{
+                    cursor: "pointer",
+                    opacity: savingIds.has(reservas.id) ? 0.6 : 1,
+                    pointerEvents: savingIds.has(reservas.id) ? "none" : "auto",
+                  }}
+                >
+                  {reservas.estadoPago === "pago" ? (
+                    <i className="bi bi-coin"></i>
+                  ) : (
+                    <i className="bi bi-hourglass-split"></i>
+                  )}
                 </div>
                 <div className="titulo-reserva">
                   <h3 className="nombre-reserva">{reservas.nombreTour}</h3>
                   <p className="id-reserva">#{reservas.id} </p>
                   <p className="idioma-reserva"><i className="bi bi-translate"></i> {reservas.idioma}</p>
+                  
                 </div>
                 <div className="boton-reserva">
                   <div
@@ -203,11 +336,17 @@ const downloadExcel = () => {
 
                 </div>
                 <div className="info-reserva">
+                  
                   <p className="fecha-reserva"><i className="bi bi-calendar4-week"></i> {reservas?.fecha}</p>
                   <p className="horario-reserva"><i className="bi bi-stopwatch"></i> {reservas?.horario}</p>
                   <p className="personas-reserva"><i className="bi bi-ticket-perforated"></i>  {reservas?.cantidadPersonas} Personas</p>
                   <p className="precio-reserva">${reservas?.valorTotal} COP</p>
+                  <button className="btn-editar" onClick={()=>{setIdReserva(reservas.id); setEditar(!editar)}} >Editar</button>
+                  <button className="btn-eliminar" onClick={() => pedirConfirmacionEliminar(reservas.id)}>Eliminar</button>
+
                 </div>
+                
+                
                 <div className="detalles">
                   <button className="btn-detalles" onClick={()=>{
                     setDetalles(!detalles) 
@@ -229,7 +368,7 @@ const downloadExcel = () => {
 
                 </div>
                 <div className="detalle-reserva">
-                  <p className="detalle-info">{reservas.id}</p>
+                  <p className="detalle-info">{reservas.referenciaPago}</p>
                   <p className="detalle-info">{reservas.nombrePersona}</p>
                   <p className="detalle-info">{reservas.correo}</p> 
                   <p className="detalle-info">{reservas.telefono}</p> 
@@ -309,19 +448,14 @@ const downloadExcel = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> </>
+      ):(<EditarReserva onClose={()=>setEditar(!editar)} id={idReserva} ></EditarReserva>)}
+
+     
 
       <Footer />
     </>
   );
 }
 
-function formatDate(iso) {
-  if (!iso) return "-";
-  const d = new Date(iso);
-  if (isNaN(d.getTime())) return iso;
-  const dd = String(d.getDate()).padStart(2, "0");
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const yyyy = d.getFullYear();
-  return `${dd}/${mm}/${yyyy}`;
-}
+
