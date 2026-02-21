@@ -358,6 +358,7 @@ const downloadExcel = () => {
                   <p className="detalle-titulo">Referencia de la reserva</p>
                   <p className="detalle-titulo">Nombre</p>
                   <p className="detalle-titulo">Correo</p> 
+                  <p className="detalle-titulo">Documento</p> 
                   <p className="detalle-titulo">Teléfono</p> 
                   <p className="detalle-titulo">Idioma</p> 
                   <p className="detalle-titulo">Hotel</p> 
@@ -370,7 +371,8 @@ const downloadExcel = () => {
                 <div className="detalle-reserva">
                   <p className="detalle-info">{reservas.referenciaPago}</p>
                   <p className="detalle-info">{reservas.nombrePersona}</p>
-                  <p className="detalle-info">{reservas.correo}</p> 
+                  <p className="detalle-info">{reservas.correo}</p>
+                  <p className="detalle-info">{reservas.tipoDocumento}: {reservas.numeroDocumento}</p> 
                   <p className="detalle-info">{reservas.telefono}</p> 
                   <p className="detalle-info">{reservas.idioma}</p> 
                   <p className="detalle-info">{reservas.hotel}</p> 

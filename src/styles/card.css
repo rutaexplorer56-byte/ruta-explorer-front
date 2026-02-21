@@ -24,11 +24,24 @@
   height: 200px;
   object-fit: cover;
   display: block;
+  position: relative;
   transition: all 0.2s ease;
 }
-.tour-card:hover>.tour-image img {
-  transform: scale(1.1);
+.shadow {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: rgba(48, 125, 249, 0.571);
+  transition: height 0.3s ease;
 }
+
+.tour-card:hover > .tour-image .shadow {
+  height: 200px;
+}
+
 
 .tour-details {
   padding: 16px;
@@ -37,7 +50,7 @@
 .tour-details h3 {
   font-size: 1.1rem;
   margin: 8px 0 12px;
-  color: #222;
+  color: #525252;
   
 }
 /* .tour-details h3:hover{
@@ -166,6 +179,9 @@
 
   .tour-image img {
     height: 150px; /* un poco más bajita para que se vea más compacta */
+  }
+  .tour-card:hover > .tour-image .shadow {
+    height: 150px;
   }
 
   .tour-details {

@@ -1,0 +1,52 @@
+.language-switch {
+  display: flex;
+  gap: 12px;
+}
+
+.flag {
+  width: 40px;
+  height: 40px;
+  border-radius: 60px;
+  border: 2px solid white;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Bandera Colombia */
+.flag-es {
+  background-image: url("../assets/es.png");
+}
+
+/* Bandera USA */
+.flag-en {
+  background-image: url("../assets/en.png");
+}
+
+/* Bandera Francia */
+.flag-fr {
+  background-image: url("../assets/fr.png");
+}
+
+.flag:hover {
+  transform: scale(1.05);
+}
+
+.flag.active {
+  border: 2px solid #007bff;
+  box-shadow: 0 0 8px rgba(0,123,255,0.4);
+}
+
+@media (max-width: 768px) {
+  .flag {
+  width: 80px;
+  height: 80px;
+  border-radius: 60px;
+  border: 2px solid white;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+}

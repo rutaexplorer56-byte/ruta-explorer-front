@@ -25,7 +25,9 @@ const Tour = () => {
   const [telefonoUsuario,setTelefonoUsuario]=useState('')
  
   const [admin,setAdmin]=useState(false)
-       const { t } = useTranslation();
+         const { i18n } = useTranslation();
+  const { t } = useTranslation();
+  const lang = (i18n.language || "es").split("-")[0];
       useEffect(() => {
       AOS.init({
         duration: 1000, // duración de la animación
@@ -71,6 +73,8 @@ const Tour = () => {
   const[activo,setActivo]=useState(false)
   const [horariosConReserva, setHorariosConReserva] = useState(new Set());
   const [extrasSeleccionados, setExtrasSeleccionados] = useState({});
+  const [tipoDocumento, setTipoDocumento] = useState("cedula");
+  const [numeroDocumento, setNumeroDocumento] = useState("");
   // Abrir modal
   const abrirModal = () => setIsModalOpen(true);
 
@@ -124,7 +128,7 @@ const fetchTour = async () => {
 
     fetchTour();
     
-  }, [nombre]);
+  }, [lang,nombre]);
   
 
 
@@ -268,7 +272,7 @@ const construirExtrasDetalle = () => {
     toast.info("Por favor selecciona un horario disponible o cambia la fecha.");
     return;
   }
-  if (!selectedDate || !selectedTime || !nombreUsuario || !correoUsuario  ) {
+  if (!selectedDate || !selectedTime || !nombreUsuario || !correoUsuario || !tipoDocumento || !numeroDocumento) {
     toast.info("Por favor completa todos los campos antes de reservar.", {
             position: "top-right"
             });
@@ -307,7 +311,10 @@ const construirExtrasDetalle = () => {
       cantidadPersonas:  tour.tipo === "privado" ? selectedPersonas : adults ,//esto
       valorTotal: totalFinal , //esto
       tourId: tour.id,
-      hotel:`${hotel} - ${recepcionista}`,      extras: extrasDetalle
+      hotel:`${hotel} - ${recepcionista}`,      
+      extras: extrasDetalle,
+      tipoDocumento: tipoDocumento,
+      numeroDocumento: numeroDocumento
     });
 
    if (response.status === 201 || response.status === 200) {
@@ -450,7 +457,7 @@ const ICONOS = {
           ></Terminos>
       <div className="tour-main">
         
-        <div className='titulo_tour'><p>sitio turístico</p><h1>{tour.nombre}</h1> <span></span> <div className='precio'>Desde: ${precioMostrar.toLocaleString()} COP x Persona</div></div>
+        <div className='titulo_tour'><p>{t("tour.tipoTuristico")}</p><h1>{tour.nombre}</h1> <span></span> <div className='precio'>{t("card.desde")}: ${precioMostrar.toLocaleString()} {t("card.moneda")}</div></div>
         <div className="tour-gallery"  data-aos="fade-down">
           <div className="main-image-container">
             
@@ -484,47 +491,89 @@ const ICONOS = {
         </div>
 
         <div className="tour-info-block" data-aos="fade-up-right">
-          <div className='container_descripcion' data-aos="fade-left">
-            <h2>{t('acerca_titulo')}</h2>
-            <p className='descripcion_tour'>
-                {tour.descripcion}
-            </p>
-            
+  <div className='container_descripcion' data-aos="fade-left">
+    <h2>{t("tour.descripcion")}</h2>
+    <p className='descripcion_tour'>
+      {tour.descripcion}
+    </p>
+  </div>
 
-          </div>
-           <div className="tour-icons">
-            <div><i className="bi bi-stopwatch"></i><p><strong>Duración:</strong><br />{tour.tiempo}</p></div>
-            <div><i className="bi bi-person-dash"></i><p><strong>Cantidad Minima Personas:</strong><br />{tour.cantidadMinima}</p></div>
-            <div><i className="bi bi-calendar-date"></i><p><strong>Tours al día:</strong><br />{tour.toursPorDia}</p></div>
-            <div><i className="bi bi-clipboard2-check"></i><p><strong>Horarios:</strong><br />{tour.salidas}</p></div>
-            <div><i className="bi bi-translate"></i><p><strong>Idioma:</strong><br />{tour.idioma}</p></div>
-            <div><i className="bi bi-pin-map-fill"></i><p><strong>Lugar de Salida:</strong><br />{tour.salida}</p></div>
-          </div>
-             <h2>Incluido:</h2>
-          <ul className="lista_incluidos">
-            {incluidos.length > 0 &&
-              incluidos.map((incluido, index) => (
-                <li key={index}>
-                  <i className="bi bi-check-circle"></i> {incluido}
-                </li>
-              ))
-            }
-            
-            
-          </ul>
-          <h2>Recomendaciones:</h2>
-          <ul className="lista_recomendaciones">
-            {recomendaciones.length > 0 &&
-              recomendaciones.map((incluido, index) => (
-                <li key={index}>
-                  <i className="bi bi-info-circle"></i> {incluido}
-                </li>
-              ))
-            }           
-          </ul>
+  <div className="tour-icons">
+    <div>
+      <i className="bi bi-stopwatch"></i>
+      <p>
+        <strong>{t("tour.duracion")}</strong><br />
+        {tour.tiempo}
+      </p>
+    </div>
 
-          <div className="itinerario">
-      <h3>Itinerario</h3>
+    <div>
+      <i className="bi bi-person-dash"></i>
+      <p>
+        <strong>{t("tour.cantidadMinima")}</strong><br />
+        {tour.cantidadMinima}
+      </p>
+    </div>
+
+    <div>
+      <i className="bi bi-calendar-date"></i>
+      <p>
+        <strong>{t("tour.toursPorDia")}</strong><br />
+        {tour.toursPorDia}
+      </p>
+    </div>
+
+    <div>
+      <i className="bi bi-clipboard2-check"></i>
+      <p>
+        <strong>{t("tour.horarios")}</strong><br />
+        {tour.salidas}
+      </p>
+    </div>
+
+    <div>
+      <i className="bi bi-translate"></i>
+      <p>
+        <strong>{t("tour.idioma")}</strong><br />
+        {tour.idioma}
+      </p>
+    </div>
+
+    <div>
+      <i className="bi bi-pin-map-fill"></i>
+      <p>
+        <strong>{t("tour.lugarSalida")}</strong><br />
+        {tour.salida}
+      </p>
+    </div>
+  </div>
+
+  <h2>{t("tour.incluido")}</h2>
+
+  <ul className="lista_incluidos">
+    {incluidos.length > 0 &&
+      incluidos.map((incluido, index) => (
+        <li key={index}>
+          <i className="bi bi-check-circle"></i> {incluido}
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>{t("tour.recomendaciones")}</h2>
+
+  <ul className="lista_recomendaciones">
+    {recomendaciones.length > 0 &&
+      recomendaciones.map((item, index) => (
+        <li key={index}>
+          <i className="bi bi-info-circle"></i> {item}
+        </li>
+      ))
+    }
+  </ul>
+
+  <div className="itinerario">
+    <h3>{t("tour.itinerario")}</h3>
 
             {(pasos || []).map((p, index) => (
 
@@ -559,8 +608,8 @@ const ICONOS = {
 
       <div className="tour-sidebar" data-aos="fade-up-left">
         <div className="tour-reservation">
-            <p className='titulo_calendario'>Reserva</p>
-          <label>Fecha:</label>
+            <p className='titulo_calendario'>{t("tour.reserva")}</p>
+          <label>{t("tour.fecha")}:</label>
           <div className="calendar-overlay">
             <DatePicker 
               inline
@@ -573,9 +622,9 @@ const ICONOS = {
 
             />
           </div>
-          <label>Horario</label>
+          <label>{t("tour.horario")}:</label>
           <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
-            <option value="">Selecciona un horario</option>
+            <option value="">{t("tour.seleccionaHorario")}</option>
             {/* {availableTimes.map((time, index) => (
               <option key={index} value={time}>{time}</option>
             ))} */}
@@ -633,20 +682,13 @@ const ICONOS = {
                   ))
                 }
           </select>
-          <label>Tu nombre:</label>
-          <input 
-          className='input'
-           placeholder='Nombre:' 
-            value={nombreUsuario} 
-            onChange={(e) => setNombreUsuario(e.target.value)}>
-          </input>
-          <label>Idioma:</label>
+          <label>{t("tour.idioma")}</label>
           <select
             className="input"
             value={idioma}
             onChange={(e) => setIdioma(e.target.value)}
           >
-            <option value="">Selecciona un idioma</option>
+            <option value="">{t("tour.seleccionaIdioma")}</option>
 
             {tour?.idioma &&
               tour.idioma.split("/").map((idioma, index) => (
@@ -655,30 +697,49 @@ const ICONOS = {
                 </option>
               ))}
           </select>
-          <label>Correo:</label>
-          <input placeholder='Correo:' className='input'
+          <label>{t("tour.nombre")}:</label>
+          <input 
+          className='input'
+           placeholder={t("tour.nombre")} 
+            value={nombreUsuario} 
+            onChange={(e) => setNombreUsuario(e.target.value)}>
+          </input>
+          
+          <label>{t("tour.correo")}:</label>
+          <input placeholder={t("tour.correoPlaceholder")} className='input'
           value={correoUsuario} 
           type="email"
           onChange={(e) => setCorreoUsuario(e.target.value)} required>
             
           </input>
-          <label>Telefono:</label>
-          <input placeholder='+(indicativo) - Telefono:'
+          <label>{t("tour.tipodocumento")}:</label>
+          <select className="input" value={tipoDocumento} onChange={(e) => setTipoDocumento(e.target.value)}>
+            <option value="cedula">{t("tour.cedula")}</option>
+            <option value="pasaporte">{t("tour.pasaporte")}</option>
+          </select>
+          <label>{t("tour.numeroDocumento")}:</label>
+          <input placeholder={t("tour.numeroDocumentoPlaceholder")} className='input'
+          value={numeroDocumento} 
+          onChange={(e) => setNumeroDocumento(e.target.value)} required>
+            
+          </input>  
+          <label>{t("tour.telefono")}:</label>
+          <input placeholder={t("tour.telefonoPlaceholder")}
           className='input'
           value={telefonoUsuario} 
           type='tel'
           onChange={(e) => setTelefonoUsuario(e.target.value)} required>
             
           </input>
-          <label>¿Fuiste Recomendado?</label>
+          <label>{t("tour.recomendado")}:</label>
                   <input 
                   className='recepcion input'
-                  placeholder='Ingresa el nombre de la persona o Hotel' 
+                  placeholder={t("tour.recepcionistaPlaceholder")} 
                     value={recepcionista} 
                     onChange={(e) => setRecepcionista(e.target.value)}>
                   </input>
           <div className={`extras ${activo ? ' activo': ''}` }>
-            <label className={activo ? ' label-activo': ''}onClick={()=>setActivo(!activo)}>Servicios Adicionales  {!activo ? <i className="bi bi-arrow-down-square"></i>: <i className="bi bi-arrow-up-square"></i>} </label>
+            <label className={activo ? ' label-activo': ''}onClick={()=>setActivo(!activo)}>{t("tour.serviciosAdicionales")}  {!activo ? <i className="bi bi-arrow-down-square"></i>: <i className="bi bi-arrow-up-square"></i>} </label>
               {(tour.extras || []).map((extra, i) => {
                const value = extrasSeleccionados[extra.id] || "";
 
@@ -734,7 +795,7 @@ const ICONOS = {
           {tour.tipo === "compartido" && (
             <>
               <div className="adult-counter">
-                <label>Personas:</label>
+                <label>{t("tour.personas")}:</label>
                 <div>
                   <button onClick={() =>{ handleAdultChange(-1); console.log(amount)}}>-</button>
                   <span>{adults}</span>
@@ -757,7 +818,7 @@ const ICONOS = {
           
           {tour.tipo === "privado" && (
             <>
-              <label>Selecciona número de personas:</label>
+              <label>{t("tour.seleccionaPersonas")}:</label>
               <select
               className='recepcion'
                 value={selectedEscalon|| ""}
@@ -771,7 +832,7 @@ const ICONOS = {
                 }
                 }
               >
-                <option value="">Selecciona una opción</option>
+                <option value="">{t("tour.seleccionaOpcion")}</option>
                 
                 {Array.isArray(tour.precios) &&
                   tour.precios.map((p, idx) => (
@@ -781,7 +842,7 @@ const ICONOS = {
                       data-personas={p.personas} // 👈 usar dataset
                       
                     >
-                      {p.personas} personas - ${p.precioPorPersona.toLocaleString("es-CO")} COP c/u
+                      {p.personas} {t("tour.personas")} - ${p.precioPorPersona.toLocaleString("es-CO")} COP c/u
                     </option>
                   ))}
               </select>
@@ -792,7 +853,7 @@ const ICONOS = {
                   
               {selectedEscalon && (
                 <p className="precio total">
-                  <strong>Total:</strong>{" "}
+                  <strong>{t("tour.total")}:</strong>{" "}
                   <span>${parseInt(totalFinal).toLocaleString("es-CO")}</span>
                 </p>
               )}
@@ -806,14 +867,14 @@ const ICONOS = {
             className='check-terminos'
           />
            <p onClick={abrirModal} className="btn-link">
-              Términos y Condiciones
+              {t("tour.terminosCondiciones")}
             </p>
           </div>
            
           
          
           <div className='container_bold'>
-            {!firmaBold && (<button  className={`reserve-btn ${admin ? "disable" : ""}`} disabled={admin} onClick={handleReserva}>Reservar ahora</button>)}
+            {!firmaBold && (<button  className={`reserve-btn ${admin ? "disable" : ""}`} disabled={admin} onClick={handleReserva}>{t("tour.reservarAhora")}</button>)}
             {firmaBold &&(
               <BotonBold
                 reference={referencia}

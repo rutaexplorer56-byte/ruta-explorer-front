@@ -69,6 +69,7 @@ function FilteredTours({categoria,numCategoria,hotel}) {
                             tipo={tour.tipo}
                             activo={tour.activo}
                             hotel={hotel}
+                            slug={tour.slug}
                             
                             />
                         )}))

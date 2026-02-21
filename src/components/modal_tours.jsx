@@ -204,6 +204,7 @@ const eliminarExtra = (i) => {
         toast.error("❌ Error al crear el Tour. Inténtalo de nuevo.");
       }
     } catch (error) {
+      toast.warn("Ingresa todos los campos requeridos.");
       console.log("❌ Error en la petición:");
       console.log("Mensaje:", error.message);
       console.log("Response completa:", error.response);

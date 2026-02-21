@@ -1,0 +1,160 @@
+{
+  "language": "Langue",
+  "languages": {
+    "es": "Espagnol",
+    "en": "Anglais",
+    "fr": "Français"
+  },
+  "nav": {
+    "tours": "Tours"
+  },
+   "inicio": "Accueil",
+  "nosotros": "À propos",
+  "servicios": "Services",
+  "tours": "Tours",
+  "contacto": "Contact",
+  "pagos": "Paiements",
+  "reservas": "Réservations",
+  "comentarios": "Commentaires",
+  "bienvenido": "Bienvenue",
+  "cerrar_sesion": "Se déconnecter",
+  "siguenos": "Suivez-nous",
+
+  "hero": {
+  "main": "¡Explorez des destinations, vivez des expériences : Ruta Xplorer, votre compagnon de voyage !",
+  "subtitle_1": "DANS LA RÉGION DU CAFÉ",
+  "subtitle_2": "OPÉRATEUR TOURISTIQUE DANS LA RÉGION DU CAFÉ",
+  "subtitle_3": "AGENCE DE VOYAGES"
+},
+
+"home": {
+    "tours": "TOURS",
+    "operadora": "OPÉRATEUR TOURISTIQUE",
+    "agencia": "AGENCE DE VOYAGES"
+  },
+   "categories": {
+    "coffeeRoutes": {
+      "label": "Routes du Café",
+      "description": "Des circuits immersifs au cœur du Paysage Culturel du Café, à la découverte de fincas, de points de vue et de l’essence du café colombien."
+    },
+    "privateHiking": {
+      "label": "Expériences de Randonnée Privées",
+      "description": "Des randonnées exclusives avec guide personnel, idéales pour ceux qui recherchent le calme, la flexibilité et une connexion plus intime avec la nature."
+    },
+    "sharedHiking": {
+      "label": "Expériences de Randonnée (Partagées)",
+      "description": "Des randonnées en groupe vers les principales destinations naturelles de la région du café, parfaites pour profiter ensemble et rencontrer de nouveaux voyageurs."
+    },
+    "adventure": {
+      "label": "Expériences d’Aventure",
+      "description": "Des activités riches en adrénaline comme l’équitation, la tyrolienne, les quads et bien plus, conçues pour ceux qui cherchent des sensations dans la région du café."
+    },
+    "themeParks": {
+      "label": "Parcs à Thème",
+      "description": "Des visites des parcs les plus emblématiques de la région, mêlant amusement, culture et nature pour tous les âges."
+    },
+    "gastronomy": {
+      "label": "Expériences Gastronomiques",
+      "description": "Dégustations, cours et circuits culinaires pour savourer les saveurs authentiques de la région du café."
+    },
+    "fromPereira": {
+      "label": "Tours au Départ de Pereira",
+      "description": "Des expériences conçues pour les voyageurs à Pereira, avec transport inclus et itinéraires optimisés."
+    },
+    "fromFilandia": {
+      "label": "Tours au Départ de Filandia",
+      "description": "Des expériences conçues pour les voyageurs qui se trouvent à Filandia."
+    }
+  },
+   "booking": {
+    "title": "Réservez facilement & profitez de la magie de la région du café",
+    "p1": "Planifier votre prochaine aventure n’a jamais été aussi simple ! Chez Ruta Xplorer, nous vous aidons à réserver vos expériences de manière rapide, flexible et sécurisée. Pour garantir votre place dans l’un de nos tours dans la Vallée de Cocora et la région du café, il vous suffit d’effectuer votre réservation le jour de votre choix.",
+    "p2": "Chez Ruta Xplorer, nous rendons la réservation de vos activités simple et flexible, afin que vous puissiez planifier votre voyage sans stress et en toute tranquillité.",
+    "p3": "Nous acceptons les paiements en Pesos colombiens, afin que vous puissiez profiter sans complication, peu importe d’où vous venez. Avec Ruta Xplorer, réserver vos activités devient un processus simple et fiable conçu pour que vous ne vous préoccupiez que de l’essentiel : vivre une expérience inoubliable au cœur de la région du café."
+  ,"highlight": "Vivre une expérience inoubliable au cœur de la région du café."
+
+},
+
+    "sectionLabel": "TOURS",
+    "sectionTitle": "QUI POURRAIENT VOUS INTÉRESSER"
+    ,
+
+
+  "direccion": "Salento, Quindío - Colombie",
+  "correos": "rutaxplorer@gmail.com",
+  "telefonos": "+57 312 415 1539",
+
+  "boletin": "Newsletter",
+  "mensaje_boletin": "Abonnez-vous pour recevoir promotions et nouveautés",
+  "correo": "Entrez votre adresse e-mail",
+  "suscribirme": "S'abonner",
+
+  "derechos": "© 2025 Ruta Xplorer. Tous droits réservés.",
+   "tour": {
+    "descripcion": "Description :",
+    "duracion": "Durée :",
+    "cantidadMinima": "Nombre minimum de personnes :",
+    "toursPorDia": "Tours par jour :",
+    "horarios": "Horaires :",
+    "idioma": "Langue :",
+    "lugarSalida": "Lieu de départ :",
+    "incluido": "Inclus :",
+    "recomendaciones": "Recommandations :",
+    "itinerario": "Itinéraire"
+    ,"reserva": "Réservation",
+
+    "fecha": "Date",
+    "horario": "Horaire",
+    "seleccionaHorario": "Sélectionnez un horaire",
+    "nombre": "Votre nom",
+    "tipoTuristico": "Site Touristique",
+    "tipodocumento": "Type de document",
+    "cedula": "Carte d’identité",
+    "pasaporte": "Passeport",
+    "numeroDocumento": "Numéro de document",
+    "numeroDocumentoPlaceholder": "Entrez votre numéro de document",
+    "seleccione": "Sélectionner",
+
+    "seleccionaIdioma": "Sélectionnez une langue",
+    "correo": "E-mail",
+    "correoPlaceholder": "E-mail",
+    "telefono": "Téléphone",
+    "telefonoPlaceholder": "+(indicatif) - Téléphone",
+    "recomendado": "Avez-vous été recommandé ?",
+    "recepcionistaPlaceholder": "Entrez le nom de la personne ou de l’hôtel",
+    "serviciosAdicionales": "Services supplémentaires",
+    "personas": "Personnes",
+    "seleccionaPersonas": "Sélectionnez le nombre de personnes",
+    "seleccionaOpcion": "Sélectionnez une option",
+    "total": "Total",
+    "terminosCondiciones": "Termes et Conditions",
+    "reservarAhora": "Réserver maintenant"
+  },
+  "terms": {
+    "title": "Termes et Conditions",
+    "cerrar": "Fermer",
+
+    "reservasPagosTitle": "Réservations et Paiements :",
+    "reservasPagosText": "Les réservations sont confirmées après paiement intégral via notre passerelle de paiement sécurisée. Le montant payé garantit la disponibilité du service à la date sélectionnée.",
+
+    "cancelacionesTitle": "Annulations et Remboursements :",
+    "cancelacion1": "Les annulations effectuées plus de 48 heures à l’avance peuvent être reprogrammées sans pénalité ou remboursées.",
+    "cancelacion2": "En cas de remboursement, 14 % du montant total payé sera déduit pour couvrir les frais de transaction et administratifs.",
+    "cancelacion3": "Les annulations effectuées moins de 48 heures à l’avance ou l’absence le jour du tour ne sont pas remboursables.",
+    "cancelacion4": "Si le service ne peut être réalisé en raison des conditions météorologiques ou de causes indépendantes de la société, une reprogrammation ou un bon d’utilisation future sera proposé.",
+
+    "responsabilidadTitle": "Responsabilité :",
+    "responsabilidadText": "Nous garantissons qualité et sécurité dans nos opérations. Nous ne sommes pas responsables de la perte d’objets personnels ni des retards causés par des cas de force majeure. En effectuant l’achat, le client déclare avoir lu et accepté ces termes et conditions."
+  },
+  "card": {
+    "maxPersonas": "Nombre maximum de personnes",
+    "horarios": "Horaires",
+    "duracion": "Durée",
+    "idioma": "Langue",
+    "desde": "À partir de",
+    "moneda": "COP par Personne",
+    "precioVariable": "le prix varie selon le nombre de participants",
+    "reservar": "Réserver"
+  }
+  
+}

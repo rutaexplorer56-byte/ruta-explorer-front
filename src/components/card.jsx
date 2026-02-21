@@ -5,13 +5,15 @@ import { Link } from 'react-router-dom';
 import ModalAgregarTour from './modal_tours';
 import axios from "../axiosConfig";
 import { toast } from 'react-toastify';
+import { useTranslation } from "react-i18next";
 
 
 
 // eslint-disable-next-line react/prop-types
-const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,hotel,onEdit}) => {
+const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,hotel,slug,onEdit}) => {
    const [modalAbierto, setModalAbierto] = useState(false);
    const [loadingDeleteId, setLoadingDeleteId] = useState(null);
+   const { t } = useTranslation();
   useEffect(() => {
   AOS.init({
     duration: 1000, // duración de la animación
@@ -104,6 +106,7 @@ const generarSlug = (texto) => {
     
     <div className="tour-card" data-aos="fade-up-right">
       <div className="tour-image">
+        <div className='shadow'></div>
         <img src={imagen} alt={titulo} />
       </div>
       <div className="tour-details">
@@ -121,35 +124,51 @@ const generarSlug = (texto) => {
             }
        
            
-        <h3>{titulo}</h3>
-        <ul className="tour-info">
-          <li>- Cantidad máxima de personas:{personasMax}</li>
-          <li>- Horarios: {horarios}</li>
-          <li>- Duración: {duracion}</li>
-          <li>- Idioma: {idioma}</li>
-        </ul>
-        <p className="price">
-            Desde  {" "}
-              <strong>
-                {tipo === "compartido"
-                  ? `$${Number(precio).toLocaleString("es-CO", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
-                  : precios?.length > 0
-                    ? `$${Number(precios[precios.length-1].precioPorPersona).toLocaleString("es-CO", { minimumFractionDigits: 0, maximumFractionDigits: 0 })} `
+                    <h3>{titulo}</h3>
+
+              <ul className="tour-info">
+                <li>- {t("card.maxPersonas")}: {personasMax}</li>
+                <li>- {t("card.horarios")}: {horarios}</li>
+                <li>- {t("card.duracion")}: {duracion}</li>
+                <li>- {t("card.idioma")}: {idioma}</li>
+              </ul>
+
+              <p className="price">
+                {t("card.desde")}{" "}
+                <strong>
+                  {tipo === "compartido"
+                    ? `$${Number(precio).toLocaleString("es-CO", {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                      })}`
+                    : precios?.length > 0
+                    ? `$${Number(precios[precios.length - 1].precioPorPersona).toLocaleString("es-CO", {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                      })}`
                     : "$0"}
-              </strong>{" "}
-               COP x Persona <small>(el precio varia según el número de participantes)</small> 
-            </p>
-        <div className='buttons-container'>
-          {!buttons ? (
-             <Link className="reserve-button" to={`/tour/${(hotel||"RutaExplorer")}/${generarSlug(titulo)}`}>
-              <button className="reserve-button" >Reservar</button>
-              </Link>
+                </strong>{" "}
+                {t("card.moneda")}
+                <small>({t("card.precioVariable")})</small>
+              </p>
+
+              <div className="buttons-container">
+                {!buttons ? (
+                  <Link
+                    className="reserve-button"
+                    to={`/tour/${hotel || "RutaExplorer"}/${slug}`}
+                  >
+                    <button className="reserve-button">
+                      {t("card.reservar")}
+                    </button>
+                  </Link>
+  
             
           ):(
             <>
             <button className='edit' onClick={() => onEdit?.(id)}><i className="bi bi-pencil-square"></i></button>
             
-            <button className='view' ><Link  to={`/tour/${generarSlug(titulo)}`}><i className="bi bi-eye"></i> </Link></button>
+            <button className='view' ><Link  to={`/tour/${slug}`}><i className="bi bi-eye"></i> </Link></button>
            
             <button className='delete' onClick={()=>{eliminarTour(id)}}><i className="bi bi-trash"></i></button>
 

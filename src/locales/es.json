@@ -1,0 +1,155 @@
+{
+  "language": "Idioma",
+  "languages": {
+    "es": "Español",
+    "en": "Inglés",
+    "fr": "Francés"
+  },
+  "nav": {
+    "tours": "Tours"
+  },
+  "hero": {
+  "main": "¡Explora destinos, vive experiencias: Ruta Xplorer tu compañero de viaje!",
+  "subtitle_1": "EN EL EJE CAFETERO",
+  "subtitle_2": "OPERADORA TURÍSTICA EN EL EJE CAFETERO",
+  "subtitle_3": "AGENCIA DE VIAJES"
+},
+"home": {
+    "tours": "TOURS",
+    "operadora": "OPERADORA TURÍSTICA",
+    "agencia": "AGENCIA DE VIAJES"
+  },
+   "categories": {
+    "coffeeRoutes": {
+      "label": "Rutas cafeteras",
+      "description": "Recorridos inmersivos por el corazón del Paisaje Cultural Cafetero, descubriendo fincas, miradores y la esencia del café colombiano."
+    },
+    "privateHiking": {
+      "label": "Experiencias de senderismo privadas",
+      "description": "Tours exclusivos de senderismo con guía personal, ideales para quienes buscan tranquilidad, flexibilidad y una conexión más íntima con la naturaleza."
+    },
+    "sharedHiking": {
+      "label": "Experiencias senderismo (compartidas)",
+      "description": "Caminatas grupales en los principales destinos naturales del Eje Cafetero, perfectas para disfrutar en compañía y conocer nuevos viajeros."
+    },
+    "adventure": {
+      "label": "Experiencias de aventura",
+      "description": "Actividades llenas de adrenalina como cabalgatas, canopy, cuatrimotos y más, creadas para quienes buscan emoción en el Eje Cafetero."
+    },
+    "themeParks": {
+      "label": "Parques temáticos",
+      "description": "Visitas a los parques más emblemáticos de la región, combinando diversión, cultura y naturaleza para todas las edades."
+    },
+    "gastronomy": {
+      "label": "Experiencias gastronómicas",
+      "description": "Degustaciones, clases y recorridos culinarios donde podrás disfrutar los sabores auténticos del Eje Cafetero."
+    },
+    "fromPereira": {
+      "label": "Tours con salida desde Pereira",
+      "description": "Experiencias especialmente diseñadas para viajeros ubicados en Pereira, con transporte incluido y rutas optimizadas."
+    },
+    "fromFilandia": {
+      "label": "Tours con salida desde Filandia",
+      "description": "Experiencias especialmente diseñadas para viajeros que se encuentren ubicados en Filandia."
+    }
+  },
+  "booking": {
+    "title": "Reserva fácil & disfruta de la magia del Eje Cafetero",
+    "p1": "¡Planear tu próxima aventura nunca había sido tan sencillo! En Ruta Xplorer te ayudamos a reservar tus experiencias de forma rápida, flexible y segura. Para asegurar tu cupo en cualquiera de nuestros tours por el Valle del Cocora y el Eje Cafetero, solo necesitas realizar tu reserva el día que desees.",
+    "p2": "En Ruta Xplorer hacemos que reservar tus actividades sea un proceso sencillo y flexible, para que puedas planear tu viaje sin estrés y con total tranquilidad.",
+    "p3": "Aceptamos pagos en Pesos Colombianos, para que disfrutes sin complicaciones sin importar de dónde nos visites. Con Ruta Xplorer, reservar tus actividades se convierte en un proceso fácil y confiable, diseñado para que solo te preocupes de lo más importante: vivir una experiencia inolvidable en el corazón del Eje Cafetero."
+    ,"highlight": "Vivir una experiencia inolvidable en el corazón del Eje Cafetero."
+},
+    "sectionLabel": "TOURS",
+    "sectionTitle": "QUE TE PUEDAN INTERESAR"
+    ,
+    
+  "menu": "Menú",
+  "inicio": "Inicio",
+  "nosotros": "Nosotros",
+  "servicios": "Servicios",
+  "tours": "Tours",
+  "contacto": "Contacto",
+  "pagos": "Pagos",
+
+  "direccion": "Salento, Quindío - Colombia",
+  "correos": "rutaxplorer@gmail.com",
+  "telefonos": "+57 312 415 1539",
+
+  "boletin": "Boletín",
+  "mensaje_boletin": "Suscríbete para recibir promociones y novedades",
+  "correo": "Ingresa tu correo electrónico",
+  "suscribirme": "Suscribirme",
+
+  "derechos": "© 2025 Ruta Xplorer. Todos los derechos reservados."
+  , "tour": {
+    "descripcion": "Descripción:",
+    "tipoTuristico": "Sitio Turístico",
+    "duracion": "Duración:",
+    "cantidadMinima": "Cantidad mínima personas:",
+    "toursPorDia": "Tours al día:",
+    "horarios": "Horarios:",
+    "idioma": "Idioma:",
+    "lugarSalida": "Lugar de salida:",
+    "incluido": "Incluido:",
+    "recomendaciones": "Recomendaciones:",
+    "itinerario": "Itinerario",
+    "reserva": "Reserva",
+     "tipodocumento": "Tipo de documento",
+    "cedula": "Cédula",
+    "pasaporte": "Pasaporte",
+    "numeroDocumento": "Número de documento",
+    "numeroDocumentoPlaceholder": "Ingrese su número de documento",
+   
+
+    "fecha": "Fecha",
+    "horario": "Horario",
+    "seleccionaHorario": "Selecciona un horario",
+    "nombre": "Tu nombre",
+
+    "seleccionaIdioma": "Selecciona un idioma",
+    "correo": "Correo",
+    "correoPlaceholder": "Correo",
+    "telefono": "Teléfono",
+    "telefonoPlaceholder": "+(indicativo) - Teléfono",
+    "recomendado": "¿Fuiste recomendado?",
+    "recepcionistaPlaceholder": "Ingresa el nombre de la persona o Hotel",
+    "serviciosAdicionales": "Servicios Adicionales",
+    "personas": "Personas",
+    "seleccionaPersonas": "Selecciona número de personas",
+    "seleccionaOpcion": "Selecciona una opción",
+    "total": "Total",
+    "terminosCondiciones": "Términos y Condiciones",
+    "reservarAhora": "Reservar ahora"
+    
+  },
+    "terms": {
+    "title": "Términos y Condiciones",
+    "cerrar": "Cerrar",
+
+    "reservasPagosTitle": "Reservas y Pagos:",
+    "reservasPagosText": "Las reservas se confirman con el pago total del servicio a través de nuestra pasarela de pago segura. El valor pagado garantiza la disponibilidad del servicio en la fecha seleccionada.",
+
+    "cancelacionesTitle": "Cancelaciones y Devoluciones:",
+    "cancelacion1": "Cancelaciones con más de 48 horas de anticipación podrán reprogramarse sin penalidad o solicitar reembolso.",
+    "cancelacion2": "En caso de reembolso, se descontará un 14% del valor total pagado, correspondiente a costos de transacción y gastos administrativos.",
+    "cancelacion3": "Cancelaciones con menos de 48 horas de anticipación o la no presentación el día del tour no son reembolsables.",
+    "cancelacion4": "Si el servicio no puede realizarse por condiciones climáticas o causas ajenas a la empresa, se ofrecerá reprogramación o bono para uso futuro.",
+
+    "responsabilidadTitle": "Responsabilidad:",
+    "responsabilidadText": "Garantizamos calidad y seguridad en la operación. No nos hacemos responsables por pérdida de objetos personales ni retrasos ocasionados por causas de fuerza mayor. Al realizar la compra, el cliente declara haber leído y aceptado estos términos y condiciones."
+  },
+  "card": {
+    "maxPersonas": "Cantidad máxima de personas",
+    "horarios": "Horarios",
+    "duracion": "Duración",
+    "idioma": "Idioma",
+    "desde": "Desde",
+    "moneda": "COP x Persona",
+    "precioVariable": "el precio varía según el número de participantes",
+    "reservar": "Reservar"
+  }
+
+  
+  
+}

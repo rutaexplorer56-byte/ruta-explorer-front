@@ -1,0 +1,164 @@
+{
+  "language": "Language",
+  "languages": {
+    "es": "Spanish",
+    "en": "English",
+    "fr": "French"
+  },
+  "nav": {
+    "tours": "Tours"
+  },
+  "inicio": "Home",
+  "nosotros": "About us",
+  "servicios": "Services",
+  "tours": "Tours",
+  "contacto": "Contact",
+  "pagos": "Payments",
+  "reservas": "Bookings",
+  "comentarios": "Comments",
+  "bienvenido": "Welcome",
+  "cerrar_sesion": "Log out",
+  "siguenos": "Follow us",
+
+  "hero": {
+  "main": "¡Explore destinations, live experiences: Ruta Xplorer your travel companion!",
+  "subtitle_1": "IN THE COFFEE REGION",
+  "subtitle_2": "TOUR OPERATOR IN THE COFFEE REGION",
+  "subtitle_3": "TRAVEL AGENCY"
+},
+"home": {
+    "tours": "TOURS",
+    "operadora": "TOUR OPERATOR",
+    "agencia": "TRAVEL AGENCY"
+  },
+    "categories": {
+    "coffeeRoutes": {
+      "label": "Coffee Routes",
+      "description": "Immersive tours through the heart of the Coffee Cultural Landscape, discovering farms, viewpoints, and the essence of Colombian coffee."
+    },
+    "privateHiking": {
+      "label": "Private Hiking Experiences",
+      "description": "Exclusive hiking tours with a personal guide—ideal for those seeking calm, flexibility, and a closer connection with nature."
+    },
+    "sharedHiking": {
+      "label": "Shared Hiking Experiences",
+      "description": "Group hikes to the main natural destinations of the Coffee Region—perfect to enjoy with others and meet new travelers."
+    },
+    "adventure": {
+      "label": "Adventure Experiences",
+      "description": "Adrenaline-filled activities like horseback riding, zip-lining, ATVs, and more—made for those seeking excitement in the Coffee Region."
+    },
+    "themeParks": {
+      "label": "Theme Parks",
+      "description": "Visits to the region’s most iconic parks, combining fun, culture, and nature for all ages."
+    },
+    "gastronomy": {
+      "label": "Gastronomic Experiences",
+      "description": "Tastings, classes, and culinary tours where you can enjoy the authentic flavors of the Coffee Region."
+    },
+    "fromPereira": {
+      "label": "Tours Departing from Pereira",
+      "description": "Experiences designed for travelers staying in Pereira, with transportation included and optimized routes."
+    },
+    "fromFilandia": {
+      "label": "Tours Departing from Filandia",
+      "description": "Experiences designed for travelers who are staying in Filandia."
+    }
+  },
+  "booking": {
+    "title": "Book easily & enjoy the magic of Colombia’s Coffee Region",
+    "p1": "Planning your next adventure has never been this easy! At Ruta Xplorer, we help you book your experiences in a fast, flexible, and secure way. To secure your spot on any of our tours through the Cocora Valley and the Coffee Region, you only need to make your booking on the day you prefer.",
+    "p2": "At Ruta Xplorer, we make booking your activities a simple and flexible process, so you can plan your trip stress-free and with total peace of mind.",
+    "p3": "We accept payments in Colombian Pesos, so you can enjoy without hassle no matter where you visit from. With Ruta Xplorer, booking your activities becomes an easy and reliable process designed so you only focus on what matters most: living an unforgettable experience in the heart of Colombia’s Coffee Region."
+  ,"highlight": "Live an unforgettable experience in the heart of Colombia’s Coffee Region."
+
+},
+
+    "sectionLabel": "TOURS",
+    "sectionTitle": "YOU MAY BE INTERESTED IN"
+    ,
+  "menu": "Menu",
+
+
+  "direccion": "Salento, Quindío - Colombia",
+  "correos": "rutaxplorer@gmail.com",
+  "telefonos": "+57 312 415 1539",
+
+  "boletin": "Newsletter",
+  "mensaje_boletin": "Subscribe to receive promotions and updates",
+  "correo": "Enter your email address",
+  "suscribirme": "Subscribe",
+
+  "derechos": "© 2025 Ruta Xplorer. All rights reserved.",
+   "tour": {
+    "descripcion": "Description:",
+    "duracion": "Duration:",
+    "cantidadMinima": "Minimum number of people:",
+    "toursPorDia": "Tours per day:",
+    "horarios": "Schedules:",
+    "idioma": "Language",
+    "lugarSalida": "Departure location:",
+    "incluido": "Included:",
+    "recomendaciones": "Recommendations:",
+    "itinerario": "Itinerary"
+    ,"reserva": "Booking",
+
+    "fecha": "Date",
+    "horario": "Time",
+    "seleccionaHorario": "Select a time",
+    "nombre": "Your name",
+    "tipoTuristico": "Tourist Site",
+    "tipodocumento": "Document type",
+    "cedula": "ID Card",
+    "pasaporte": "Passport",
+    "numeroDocumento": "Document number",
+    "numeroDocumentoPlaceholder": "Enter your document number",
+
+    "seleccionaIdioma": "Select a language",
+    "correo": "Email",
+    "correoPlaceholder": "Email",
+    "telefono": "Phone",
+    "telefonoPlaceholder": "+(country code) - Phone",
+    "recomendado": "Were you referred?",
+    "recepcionistaPlaceholder": "Enter the person's name or hotel",
+    "serviciosAdicionales": "Additional Services",
+    "personas": "People",
+    "seleccionaPersonas": "Select number of people",
+    "seleccionaOpcion": "Select an option",
+    "total": "Total",
+    "terminosCondiciones": "Terms & Conditions",
+    "reservarAhora": "Book now"
+
+  },
+   "terms": {
+    "title": "Terms and Conditions",
+    "cerrar": "Close",
+
+    "reservasPagosTitle": "Bookings and Payments:",
+    "reservasPagosText": "Bookings are confirmed upon full payment through our secure payment gateway. The amount paid guarantees service availability on the selected date.",
+
+    "cancelacionesTitle": "Cancellations and Refunds:",
+    "cancelacion1": "Cancellations made more than 48 hours in advance may be rescheduled without penalty or refunded.",
+    "cancelacion2": "In case of refund, 14% of the total paid amount will be deducted for transaction and administrative costs.",
+    "cancelacion3": "Cancellations made less than 48 hours in advance or no-shows on the day of the tour are non-refundable.",
+    "cancelacion4": "If the service cannot be carried out due to weather conditions or causes beyond the company's control, rescheduling or a future-use voucher will be offered.",
+
+    "responsabilidadTitle": "Liability:",
+    "responsabilidadText": "We guarantee quality and safety in our operations. We are not responsible for loss of personal belongings or delays caused by force majeure. By making the purchase, the client declares having read and accepted these terms and conditions."
+  },
+   "card": {
+    "maxPersonas": "Maximum number of people",
+    "horarios": "Schedules",
+    "duracion": "Duration",
+    "idioma": "Language",
+    "desde": "From",
+    "moneda": "COP per Person",
+    "precioVariable": "price varies depending on the number of participants",
+    "reservar": "Book"
+  }
+
+  
+  
+
+  
+}

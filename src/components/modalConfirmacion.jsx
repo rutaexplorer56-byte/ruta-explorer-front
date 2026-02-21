@@ -13,7 +13,7 @@ export default function ConfirmModal({
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div
-        className="modal-content"
+        className="modal-contenido"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-header">

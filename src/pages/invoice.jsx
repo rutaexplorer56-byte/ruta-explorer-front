@@ -145,6 +145,10 @@ import { useSearchParams } from "react-router-dom";
                   <strong>{reserva.correo}</strong>
                 </div>
                 <div className="row">
+                  <span>Documento</span>
+                  <strong>{reserva.tipoDocumento}: {reserva.numeroDocumento}</strong>
+                </div>
+                <div className="row">
                   <span>telefono</span>
                   <strong>{reserva.telefono}</strong>
                 </div>

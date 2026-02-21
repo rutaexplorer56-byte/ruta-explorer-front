@@ -35,7 +35,7 @@
 }
 
 /* Contenedor principal */
-.modal-content {
+.modal-contenido {
   position: relative;
   width: fit-content;
   max-height: 86vh;

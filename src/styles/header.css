@@ -101,15 +101,15 @@
     color: rgb(70, 70, 70);
 }
 .header h3{
-     font-weight: bolder;
     font-size: 20px;
     font-family: sans-serif;
     cursor: pointer;
-    color: rgb(49, 49, 49);
+    color: rgb(69, 69, 69);
 }
 .header h3 i{
     color: #08ACEF;
 }
+
 .header .button{
     height: 54px;
     width: 110px;
@@ -232,7 +232,7 @@
     
     
     transition: all 0.3s ease;
-    height: 200px;
+    height: 250px;
     overflow: hidden;
     transition: all 0.3s;
 

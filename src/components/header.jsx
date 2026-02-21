@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo_nuevo.png';
 import { toast } from "react-toastify";
+import LanguageSelect from "../components/LanguajeSelect";
 function Header(){
     useEffect(() => {
       AOS.init({
@@ -88,7 +89,8 @@ function Header(){
                   <li><a href='https://rutaxplorer.com/contacto/'>{t('contacto')}</a></li>
                   <li><a href='https://checkout.bold.co/payment/LNK_QO3ZYM10UC'>{t('pagos')}</a></li>
                   <a href='https://api.whatsapp.com/send?phone=3124151539'><h3 ><i className="bi bi-whatsapp"></i> 3124151539</h3></a>
-                  <button href='https://rutaxplorer.com/app/' className='button'>{t('reservar')}</button>
+                 
+                  <LanguageSelect />
                  
                 </>
               )}
