@@ -6,7 +6,7 @@
   padding: 30px;
   flex-wrap: wrap;
   font-family: 'Poppins', sans-serif;
-  background-color: #444;
+  background-color: rgb(33, 33, 33);
 
 
   
@@ -16,7 +16,7 @@
 .tour-main {
   flex: 2;
   min-width: 300px;
-  background-color: #444;
+
   padding: 20px;
 }
 .titulo_tour{
@@ -166,13 +166,13 @@
 .tour-sidebar {
  flex: 0.7;
   min-width: 340px;
-  background: #575757;
+  background-color: #2e2e2e;
   padding: 20px;
   margin: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
   height: fit-content;
-  border: 1px solid rgb(197, 197, 197);
+  border: 1px solid rgb(62, 62, 62);
   position: sticky;
   top: 200px;
   align-self: flex-start;
@@ -207,13 +207,14 @@
   gap: 8px;
   margin: 10px 0px;
   
+  
 }
 
 .adult-counter div {
   display: flex;
   align-items: center;
   gap: 10px;
-  
+  color: white;
 }
 
 .adult-counter button {
@@ -223,6 +224,7 @@
   border-radius: 4px;
   border: 1px solid #007bff;
   color: #08ACEF;
+  background-color: rgb(33, 33, 33);
 }
 .adult-counter button:hover{
     background-color: #08ACEF;
@@ -345,7 +347,7 @@
   border-radius: 8px;
   font-size: 14px;
   font-family: sans-serif;
-  background-color: #444;
+  background-color: rgb(33, 33, 33);
   margin-top: 8px;
   margin-bottom: 5px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
@@ -374,7 +376,7 @@
   border: none;
   margin-top: 5px;
   border-radius: 8px;
-  background-color: #444;
+  background-color: rgb(33, 33, 33);
   color: white;
 
 }
@@ -474,7 +476,7 @@
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-    background-color: #444;
+    background-color: rgb(33, 33, 33);
 }
 .img_logo{
     max-width: 200px;
@@ -482,7 +484,7 @@
 .precio {
     display: flex;
     justify-content: space-between;
-    color: rgb(66, 66, 66);
+    color: rgb(255, 255, 255);
 }
 .total{
    margin-top: 8px;
@@ -637,7 +639,7 @@
     .tour-sidebar {
  flex: 1;
   min-width: 320px;
-  background: #f9f9f9;
+
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.274);

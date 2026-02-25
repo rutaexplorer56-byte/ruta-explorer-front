@@ -94,7 +94,7 @@
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-    background-color: #444;
+    background-color: rgb(33, 33, 33);
 }
 .img_logo{
     max-width: 200px;

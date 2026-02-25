@@ -430,6 +430,7 @@ const ICONOS = {
 
 
 
+
   if (cargando) return <img src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif" alt="No tours available" />;
 
   return (
