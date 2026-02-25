@@ -10,7 +10,8 @@ import { set } from "date-fns";
 import FilteredTours from "../components/filteredTours";
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
+import imagen from "../assets/paisaje_hero.png";
+import GoogleReviews from "../components/GoogleReviews";
 function Tours(){
 
   const { i18n } = useTranslation();
@@ -34,11 +35,8 @@ function Tours(){
   const [mostrarTours, setMostrarTours] = useState(true);
 
   const images = [
-    "https://upload.wikimedia.org/wikipedia/commons/2/2c/Filandia.jpg",
-    "https://listsbylukiih.com/wp-content/uploads/2025/02/cocora-valley-colombia-mirador-2-trees.webp",
-    "https://bucketlistbri.com/wp-content/uploads/2018/03/DSC07841-min-min.jpg"
-    ,"https://admin.kunapak.com/uploads/imagenes/47556c0d72642b8a15b5563514eb47aeab0f9ad2.jpg",
-    "https://manwiththemovingcamera.com/wp-content/uploads/Main-pic-IMG_9763.jpg"
+    imagen
+
   ];
 
 
@@ -128,13 +126,19 @@ const scrollRight = (id) => {
   const container = document.getElementById(`scroll-${id}`);
   container.scrollBy({ left: 200, behavior: "smooth" });
 };
-console.log("tours en tours.jsx:", tours);
+const seccionRef = useRef(null);
+
+  const scrollToSection = () => {
+    seccionRef.current?.scrollIntoView({
+      behavior: "smooth"
+    });
+  };
 
     return(
             <>
             <Header></Header>
             <div className="container_tours">
-                <div className="hero-slider fade"data-aos="fade-down">
+                {/* <div className="hero-slider fade"data-aos="fade-down">
                     {images.map((src, i) => (
                       <div
                         key={i}
@@ -142,32 +146,51 @@ console.log("tours en tours.jsx:", tours);
                         style={{ backgroundImage: `url(${src})` }}
                       ><span className="bg">
                         </span>
-                        <h1 className="titulo">
-                      {t("hero.main")}
-                      <br />
-                      {t("hero.subtitle_1")}
-                      <br />
-                      <div>
-                        {t("hero.subtitle_2")}
-                        <br />
-                        {t("hero.subtitle_3")}
-                      </div>
-                    </h1>
+                        <div className="titulo">
+                        " {t("hero.title")}"
+
+                      
+                      
+                        
+                        <ul className="hero-incluidos"> 
+                           <li>{t("hero.features.unique")}</li>
+                          <li> - {t("hero.features.transport")} - </li>
+                          <li>{t("hero.features.guides")}</li>
+                          
+                        </ul>
+                        <div className="botones-hero">
+                          <button className="btn-reservar-hero" onClick={scrollToSection}>
+                            {t("hero.buttons.reserve")}
+                            
+                          </button>
+
+                          <button className="btn-whatsapp-hero">
+                            <i className="bi bi-whatsapp"></i>
+                            <a href="https://wa.me/573124151539?text=Hola%20RutaExplorer%2C%20estoy%20interesado%20en%20reservar%20un%20tour.%20¿Podrían%20ayudarme%3F" target="_blank" rel="noopener noreferrer">
+                            {t("hero.buttons.contact")}</a>
+                          </button>
+                          
+                        </div>
+                        
+                       
+                        
+                      
+                    </div>
                       </div>
                     ))}
 
                     
-                  </div>
+                  </div> */}
                
                 <div className="titulo-tours">
                 <p>{t("home.tours")}</p>
-                <h1>
+                <h1 className="titulo-tours">
                   {t("home.operadora")} <br />
                   {t("home.agencia")}
                 </h1>
                 <span></span>
               </div>
-                <div className="container-tours">
+                <div className="container-tours" ref={seccionRef}>
                   {tours? (categorias.map((cat) => {
                      const toursDeCategoria = tours.filter(t => t.categoria === cat.id);
 
@@ -251,6 +274,7 @@ console.log("tours en tours.jsx:", tours);
             
 
                   ):(<></>)} */}
+                  
                 
                   
 
@@ -285,12 +309,17 @@ console.log("tours en tours.jsx:", tours);
 
 
                    <div className="titulo-tours">
+                  <p>Comentarios</p>
+                  <h1>Ellos ya vivieron la aventura en Quindío - Colombia</h1>
+                  <span></span>
+                </div>
+                <GoogleReviews></GoogleReviews>
+
+                <div className="titulo-tours">
                   <p>{t("sectionLabel")}</p>
                   <h1>{t("sectionTitle")}</h1>
                   <span></span>
                 </div>
-
-                
 
                  <section className="experiencias-section">
                    
@@ -308,7 +337,7 @@ console.log("tours en tours.jsx:", tours);
                             <p className="experiencia-descripcion">{exp.descripcion}</p>
 
                             
-                              <Link className="experiencia-link" to={`/tour/${hotel}/${exp.nombre}`}>
+                              <Link className="experiencia-link" to={`/tour/${hotel}/${exp.slug}`}>
                               Leer más <span>➜</span>
                               </Link>
                           

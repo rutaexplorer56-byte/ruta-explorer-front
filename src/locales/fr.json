@@ -24,7 +24,18 @@
   "main": "¡Explorez des destinations, vivez des expériences : Ruta Xplorer, votre compagnon de voyage !",
   "subtitle_1": "DANS LA RÉGION DU CAFÉ",
   "subtitle_2": "OPÉRATEUR TOURISTIQUE DANS LA RÉGION DU CAFÉ",
-  "subtitle_3": "AGENCE DE VOYAGES"
+  "subtitle_3": "AGENCE DE VOYAGES",
+  "title": "Nous ne vendons pas des visites, nous créons des expériences avec impact",
+    "features": {
+      "unique": "Expériences uniques",
+      "transport": "Transport sécurisé",
+      "guides": "Guides experts"},
+"buttons": {
+      "reserve": "Réservez votre tour",
+      "contact": "Contactez-nous"
+    }
+
+  
 },
 
 "home": {

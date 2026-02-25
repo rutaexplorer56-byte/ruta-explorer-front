@@ -12,8 +12,18 @@
   "main": "¡Explora destinos, vive experiencias: Ruta Xplorer tu compañero de viaje!",
   "subtitle_1": "EN EL EJE CAFETERO",
   "subtitle_2": "OPERADORA TURÍSTICA EN EL EJE CAFETERO",
-  "subtitle_3": "AGENCIA DE VIAJES"
+  "subtitle_3": "AGENCIA DE VIAJES",
+   "title": "No vendemos visitas, creamos experiencias con impacto",
+    "features": {
+      "unique": "Experiencias únicas",
+      "transport": "Transporte seguro",
+      "guides": "Guías expertos"} ,"buttons": {
+      "reserve": "Reserva tu Tour",
+      "contact": "Contáctanos"
+    }
 },
+
+   
 "home": {
     "tours": "TOURS",
     "operadora": "OPERADORA TURÍSTICA",

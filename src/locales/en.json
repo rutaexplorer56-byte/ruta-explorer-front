@@ -24,7 +24,15 @@
   "main": "¡Explore destinations, live experiences: Ruta Xplorer your travel companion!",
   "subtitle_1": "IN THE COFFEE REGION",
   "subtitle_2": "TOUR OPERATOR IN THE COFFEE REGION",
-  "subtitle_3": "TRAVEL AGENCY"
+  "subtitle_3": "TRAVEL AGENCY",
+  "title": "We don’t sell visits, we create experiences with impact",
+    "features": {
+      "unique": "Unique experiences",
+      "transport": "Safe transportation",
+      "guides": "Expert guides"},"buttons": {
+      "reserve": "Book your tour",
+      "contact": "Contact us"
+    }
 },
 "home": {
     "tours": "TOURS",

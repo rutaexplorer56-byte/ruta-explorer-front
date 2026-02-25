@@ -1,16 +1,23 @@
 
 .tour-page {
-    margin: 15px;
+
   display: flex;
   gap: 20px;
   padding: 30px;
   flex-wrap: wrap;
   font-family: 'Poppins', sans-serif;
+  background-color: #444;
+
+
+  
+  
 }
 
 .tour-main {
   flex: 2;
   min-width: 300px;
+  background-color: #444;
+  padding: 20px;
 }
 .titulo_tour{
     display: flex;
@@ -26,7 +33,7 @@
 }
 .titulo_tour p{
     font-size: 20px;
-    color: #007fc9;
+    color: #08ACEF;
     margin-bottom: 5px;
     font-weight: 500;
     
@@ -35,14 +42,14 @@
     font-size: 35px;
     font-weight: bold;
     margin: 0px;
-    color: #021841;
+    color: #ffffff;
    
   }
   .titulo_tour span{
     display: block;
     width: 100px;
     height: 3px;
-    background-color: #007fc9;
+    background-color: #08ACEF;
     border-radius: 2px;  
     margin-top: 15px;
    }
@@ -113,13 +120,18 @@
     align-items: center;
     border-right: 0px solid rgb(197, 197, 197);
     padding-right: 8px;
-    color: #464646;
+    color: #08ACEF;
 }
 .tour-icons div i{
-  border: 1px solid #525252; padding: 5px; border-radius: 7px;
+  border: 1px solid #3abaf1; padding: 5px; border-radius: 7px;
     transform: scale(1.4);
-    color: #007bff;
+    color: #ffffff;
     margin-right: 4px;
+}
+.tour-icons div p span{
+    display: block;
+    
+    color: #ffffff;
 }
 .lista_incluidos{
     list-style: none;
@@ -128,12 +140,12 @@
 }
 .lista_incluidos li{
     margin-bottom: 3px;
-    color: gray;
+    color: rgb(255, 255, 255);
 
 }
 .lista_incluidos li i{
-    color: rgb(3, 128, 24);
-    background-color: rgba(23, 255, 34, 0.308);
+    color: rgb(32, 254, 69);
+    background-color: rgba(9, 109, 14, 0.644);
     border-radius: 70%;
 }
 .lista_recomendaciones{
@@ -143,30 +155,31 @@
 }
 .lista_recomendaciones li{
     margin-bottom: 3px;
-    color: gray;
+    color: rgb(255, 255, 255);
 
 }
 .lista_recomendaciones li i{
-    color: rgb(255, 147, 46);
-    background-color: rgba(243, 194, 32, 0.308);
+    color: rgb(255, 123, 0);
+    background-color: rgba(90, 70, 4, 0.874);
     border-radius: 70%;
 }
 .tour-sidebar {
  flex: 0.7;
   min-width: 340px;
-  background: #f9f9f9;
+  background: #575757;
   padding: 20px;
+  margin: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
   height: fit-content;
   border: 1px solid rgb(197, 197, 197);
   position: sticky;
-  top: 30px;
+  top: 200px;
   align-self: flex-start;
   
 }
 .tour-sidebar .titulo_calendario{
-    color: #007bff;
+    color: #08ACEF;
     /* text-align: center; */
     /* z-index: 2; */
     /* position: absolute; */
@@ -185,7 +198,7 @@
   font-weight: bold;
   display: block;
   margin-top: 5px;
-  color: rgb(75, 75, 75);
+  color: rgb(255, 255, 255);
 }
 
 .adult-counter {
@@ -209,11 +222,11 @@
   cursor: pointer;
   border-radius: 4px;
   border: 1px solid #007bff;
-  color: #007bff;
+  color: #08ACEF;
 }
 .adult-counter button:hover{
-    background-color: #007bff;
-    border: 1px solid #007bff ;
+    background-color: #08ACEF;
+    border: 1px solid #08ACEF ;
     padding: 4px 10px;
     font-size: 16px;
     color: #ffffff;
@@ -225,7 +238,7 @@
 }
 .reserve-btn {
   margin-top: 10px;
-  background: #007bff;
+  background: #08ACEF;
   color: white;
   padding: 12px;
   width: 100%;
@@ -247,7 +260,7 @@
   margin-top: 20px;
 }
 .tour-message .phone{
-  color: #007bff;
+  color:#08ACEF;
 }
 
 .reserve-btn:hover {
@@ -275,8 +288,9 @@
 
 .react-datepicker__input-container input:focus {
   outline: none;
-  border: 1px solid #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border: 1px solid #08ACEF;
+  box-shadow: 0 0 0 2px rgb(12, 94, 182);
+
   
 }
 
@@ -288,28 +302,33 @@
   font-size: 14px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   margin: 5px 30px;
+  background-color: #5c5c5c;
   
   
 }
 
 .react-datepicker__header {
-  background-color: #f0f8ff;
+  background-color: #4e4e4e;
   border-bottom: 1px solid #ddd;
   padding-top: 10px;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  ;
 }
 
 .react-datepicker__current-month,
 .react-datepicker-time__header,
 .react-datepicker-year-header {
   font-weight: bold;
-  color: #007bff;
+  color: #08ACEF;
+  
 }
-
+.react-datepicker__day-name{
+  color: white;
+}
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
-  background-color: #007bff;
+  background-color: #08ACEF;
   color: white;
   border-radius: 50%;
 
@@ -322,11 +341,11 @@
 .tour-reservation select {
   width: 100%;
   padding: 8px 10px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 8px;
   font-size: 14px;
   font-family: sans-serif;
-  background-color: #fff;
+  background-color: #444;
   margin-top: 8px;
   margin-bottom: 5px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
@@ -338,22 +357,34 @@
   background-position: right 10px center;
   background-size: 16px;
   cursor: pointer;
+  color: white;
 }
 
 .tour-reservation select:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #08ACEF;
   box-shadow: 0 0 0 2px rgba(8, 172, 239, 0.3);
+  
 }
 
 .tour-reservation .input{
   width: 100%;
   padding: 8px 10px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #8f8f8f; */
+  border: none;
   margin-top: 5px;
   border-radius: 8px;
+  background-color: #444;
+  color: white;
 
 }
+.tour-reservation .input:focus{
+  color: white;
+  border: none;
+  outline: 1px solid #08ACEF;
+}
+.tour-reservation .input::placeholder{
+  color: #e4e4e4;}
 .extras{
   width: 100%;
   margin: 10px 0px;
@@ -377,7 +408,7 @@
   
 }
 .extra p{
-  color: rgb(83, 83, 83);
+  color: rgb(255, 255, 255);
   font-size: 16px;
   font-weight: 500;
   width: 70%;
@@ -391,7 +422,7 @@
 }
 .extras label {
     margin-right: 8px;
-    color: #007bff;
+    color: #08ACEF
 }
 .label-activo{
     font-weight: bold;
@@ -408,21 +439,21 @@
 }
 .extra small{
     font-size: 14px;
-    color: rgb(95, 95, 95);
+    color: rgb(255, 255, 255);
     text-align: center;
     margin-top: 5px;
 
 }
 .extra input:focus{
     outline: none;
-   border: 2px solid #007bff;
+   border: 2px solid #08ACEF;
 }
 .extra p{
   font-size: 17px;
 }
 .tour-info-block h2,.container_descripcion h2{
   font-size: 23px;
-    color:#4b4b4b
+    color:#08ACEF
 }
 .container_descripcion{
     width: 90%;
@@ -430,19 +461,20 @@
 .descripcion_tour{
     padding: 10px;
     font-size: 20px;
-    color: #616161;
+    color: #ffffff;
     text-align: start;
 }
 
 .container_logos{
     margin-top: 40px;
-    border-top: 1px solid rgb(196, 196, 196);
+    border-top: 1px solid rgb(42, 41, 41);
     padding-top: 10px;
     width: 100%;
     display: flex;
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
+    background-color: #444;
 }
 .img_logo{
     max-width: 200px;
@@ -506,7 +538,7 @@
 .btn-link{
     background: none;
     border: none;
-    color: #007bff;
+    color: #08ACEF;
     
     cursor: pointer;
     font-size: 1rem;
@@ -534,7 +566,7 @@
 }
 
 .link-terminos {
-  color: #007bff;
+  color: #08ACEF;
   cursor: pointer;
   text-decoration: underline;
   background: none;
@@ -543,7 +575,7 @@
 }
 
 .link-terminos:hover {
-  color: #0056b3;
+  color: #08ACEF;
 }
 
 .itinerario h3 {
@@ -564,7 +596,7 @@
 .it-icon {
   width: 36px;
   height: 36px;
-  background: #1c91ff;
+  background: #08ACEF;
   color: #fff;
   border-radius: 50%;
   display: grid;
@@ -589,12 +621,13 @@
 
 .it-content strong {
   display: block;
+  color: #feffff;
 }
 
 .it-content p {
   margin: 0;
   font-size: 13px;
-  color: #444;
+  color: #afafaf;
 }
 @media (max-width: 480px){
     .tour-page{

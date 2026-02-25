@@ -97,7 +97,8 @@ const generarSlug = (texto) => {
     .trim()
     .replace(/\s+/g, "-");
 };
-    
+
+
 
 
 
@@ -126,12 +127,12 @@ const generarSlug = (texto) => {
            
                     <h3>{titulo}</h3>
 
-              <ul className="tour-info">
+              {/* <ul className="tour-info">
                 <li>- {t("card.maxPersonas")}: {personasMax}</li>
                 <li>- {t("card.horarios")}: {horarios}</li>
                 <li>- {t("card.duracion")}: {duracion}</li>
                 <li>- {t("card.idioma")}: {idioma}</li>
-              </ul>
+              </ul> */}
 
               <p className="price">
                 {t("card.desde")}{" "}

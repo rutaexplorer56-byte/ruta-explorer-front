@@ -1,11 +1,13 @@
 .container_tours{
   max-width: 100%;
   height: auto;
-  background-color: aliceblue;
+  background-color: rgb(33, 33, 33);
 
   /* layout simple en columna */
            /* o simplemente quita 'display' y listo */
-  overflow: visible;        /* importante: no ocultar contenido interno */
+  overflow: visible;    
+  position: relative;    /* importante: no ocultar contenido interno */
+ 
 }
 .container_img{
     width: 100%;
@@ -17,35 +19,15 @@
 }
 .container_img img{
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     filter: opacity(30%);
     border-bottom-right-radius:20px ;
     border-bottom-left-radius:20px ;
     
    
 }
-.titulo{
-    color: rgb(255, 255, 255);
-    text-align: left;
-    z-index: 2;
-    position: absolute;
-padding-left: 3rem;
-padding-top: 3rem;
-    font: 50px sans-serif;
-    width: 75%;
-    height: 100%;
-    align-items: center;
-    font-weight: 800;
-    
-}
-.titulo div{
-    margin-top: 40px;
-    font-size: 20px;
-    color: rgb(44, 206, 255);
-    font-weight: 700;
-    
-}
+
 .titulo-tours{
     width: 100%;
     text-align: center;
@@ -54,11 +36,11 @@ padding-top: 3rem;
 .titulo-tours p{
     color: rgb(35, 79, 224);
     font-size: 15px;
-    margin-top:30px;
+    padding-top:30px;
     font-weight:500;
 }
 .titulo-tours h1{
-    color: rgb(7, 3, 51);
+    color: rgb(60, 177, 255);
     font-size: 35px;
     font-weight: 700;
 }
@@ -112,7 +94,7 @@ padding-top: 3rem;
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-    background-color: rgb(255, 255, 255);
+    background-color: #444;
 }
 .img_logo{
     max-width: 200px;
@@ -132,8 +114,7 @@ padding-top: 3rem;
   left: 0;
   width: 100%;
   height: 600px;
-
-  background-size: cover;
+  background-size:cover;
   background-position: center;
   opacity: 0;
   transition: opacity 3s ease-in-out;
@@ -144,12 +125,12 @@ padding-top: 3rem;
 .bg{
     width: 100%;
     height: 600px;
-    background-color: rgba(12, 12, 12, 0.212);
+    background-color: rgba(12, 12, 12, 0.053);
     position: absolute;
     top: 0;
     left: 0;
      background: linear-gradient(
-    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.142),
     rgba(0, 0, 0, 0.55)
   ); /* 🔥 más oscuro (antes era 0.5) */
   z-index: 1;
@@ -252,7 +233,7 @@ padding-top: 3rem;
 }
 
 .experiencias-subtitle {
-  color: #6b6b6b;
+  color: #575757;
   margin-bottom: 1.5rem;
 }
 
@@ -359,15 +340,16 @@ padding-top: 3rem;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  background-color: #ffffff;
+  background-color: #17223A;
 }
 
 .reserva-contenido {
+
   flex: 1;
 }
 
 .reserva-subtitulo {
-  color: #004aad;
+  color: #57a5f3;
   font-size: 1.2rem;
   font-weight: 700;
 }
@@ -376,12 +358,12 @@ padding-top: 3rem;
   font-size: 2.2rem;
   font-weight: 800;
   margin: 0.5rem 0 1rem;
-  color: #012247;
+  color: #31adfa;
 }
 
 .reserva-texto {
   font-size: 1.05rem;
-  color: #444;
+  color: #d3d3d3;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -403,7 +385,7 @@ padding-top: 3rem;
   text-align: flex-start;
   font-size: 42px;
   font-weight: 800;
-  color: #001829;
+  color: rgb(60, 177, 255);
   margin-bottom: 15px;
   position: relative;
   text-transform: capitalize;
@@ -426,10 +408,11 @@ padding-top: 3rem;
   display: block;
   font-size: 20px;
   font-weight: 500;
-  color: #363636;
+  color: #ffffff;
   margin-top: 2px;
 }
 .container-tours{
+
   padding: 0px 5%;
   width: 100%;
 }
@@ -446,6 +429,7 @@ padding-top: 3rem;
   flex-wrap: nowrap;
   overflow-x: auto;
   height: fit-content;
+  margin-bottom: 20px;
 
   gap: 20px;
   scroll-behavior: smooth;
@@ -503,6 +487,9 @@ padding-top: 3rem;
     font-size: 20px;
     
   }
+  .botones-hero button{
+    font-size: 15px;
+  }
   .seccion-reserva {
     flex-direction: column;
     text-align: center;
@@ -522,10 +509,14 @@ padding-top: 3rem;
     
   }
   .titulo{
-      font-size: 25px;
-      padding-left: 3rem;
-      padding-top: 3rem;
+      font-size: 20px;
+      margin-top: 0;;
+
       width: 100%;
+  }
+  .titulo ul{
+    justify-content: center;
+    font-size: 15px;
   }
   .titulo div{
     font-size: 20px;
@@ -552,10 +543,10 @@ padding-top: 3rem;
     }
     .titulo{
       font-size: 25px;
-      padding-left: 1rem;
-      padding-top: 1rem;
-      width: 90%;
+
+      width: 100%;
   }
+  .titulo 
   .titulo div{
     font-size: 10px;
     

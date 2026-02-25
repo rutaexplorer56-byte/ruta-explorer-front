@@ -1,14 +1,13 @@
 .tour-card {
   max-width: 300px;
   width: 300px;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.164);
-  border: 1px solid #ddd;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.306);
+
   background: white;
   transition: transform 0.1s ease, box-shadow 0.3s ease;
   margin: 15px;
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   flex: 0 0 300px;
   
 }
@@ -21,11 +20,12 @@
 
 .tour-image img {
   width: 100%;
-  height: 200px;
+  height: 450px;
   object-fit: cover;
   display: block;
   position: relative;
   transition: all 0.2s ease;
+  
 }
 .shadow {
   position: absolute;
@@ -33,24 +33,37 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 0;
-  background: rgba(48, 125, 249, 0.571);
-  transition: height 0.3s ease;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.244), rgba(50, 50, 50, 0.24),rgba(0, 0, 0, 0.893));
+  transition:  all  0.6s ease;
 }
 
-.tour-card:hover > .tour-image .shadow {
-  height: 200px;
+.tour-card:hover  .tour-image .shadow {
+  border: 1px solid #28b2ed;
+  background: linear-gradient(to bottom, rgba(32, 32, 32, 0.379), rgba(0, 0, 0, 0.731),rgba(0, 0, 0, 0.909));
 }
+/* .tour-card:hover .tour-details {
+  color: #ffffff;
+  bottom: 100%;
+} */
 
 
 .tour-details {
+  position: absolute;
   padding: 16px;
+  bottom: 0;
+  z-index: 3;
+  left: 0;
+  color:#ddd;
+  transition: all 0.3s ease;
 }
 
 .tour-details h3 {
   font-size: 1.1rem;
-  margin: 8px 0 12px;
-  color: #525252;
+  margin: 8px 5px 25px;
+  padding-bottom:15px ;
+  color: #ffffff;
+  border-bottom: 2px solid #28b2ed;
   
 }
 /* .tour-details h3:hover{
@@ -62,8 +75,8 @@
   list-style: none;
   padding: 0;
   margin: 0 0 12px;
-  font-size: 0.9rem;
-  color: #555;
+  font-size: 15px;
+  color: #ffffff;
   height: auto;
   overflow: hidden;
    transition: all 0.2s;
@@ -79,7 +92,7 @@
 }
 
 .price {
-  color: #666;
+  color: #ffffff;
   font-size: 0.9rem;
   margin-bottom: 14px;
   
@@ -87,31 +100,41 @@
 
 .price strong {
   font-size: 1.1rem;
-  color: #14ac06;
+  color: #28b2ed;
 }
 .buttons-container{
   display: flex;
   width: 100%;
   justify-content: center;
   gap: 15px;
+  margin-bottom: 30px;
+  position: relative;
 }
 
-.reserve-button {
-  width: 100%;
+a .reserve-button {
+  width: 130px;
+  height: 35px;
   padding: 5px;
-  border: none;
-  border-radius: 6px;
-  background-color: #007bff;
+  border: 0px; 
+  
+  background-color: #44be3d;
   color: white;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  position: absolute;
+  bottom: -60px;
+  left:0px;
+  transition: all 0.6s ease;
 }
 
-.reserve-button:hover {
-  background-color: #0fb300;
-  transform: scale(1.03);
+.tour-card:hover  .reserve-button {
+  background-color: #0098b3;
+  border-radius: 6px;;
+  bottom: -30px;
+  left: 60px;
 }
+
 
 .edit,.view,.delete{
   width: 300%;
@@ -168,20 +191,21 @@
 
   .tour-card {
     /* 🔹 aquí ya SÍ la hacemos más pequeña de verdad */
-    max-width: 220px !important;
-    width: 220px !important;
+    max-width: 200px !important;
+    width: 200px !important;
     flex: 0 0 220px !important;
     margin: 10px !important;
+    height: auto;
 
     transform: scale(0.9);
     transform-origin: center;
   }
 
   .tour-image img {
-    height: 150px; /* un poco más bajita para que se vea más compacta */
+    height: 300px; 
   }
   .tour-card:hover > .tour-image .shadow {
-    height: 150px;
+    height: 300px;
   }
 
   .tour-details {
@@ -195,4 +219,10 @@
     position:static;
     bottom:0 ;
   }
+  .tour-card:hover  .reserve-button {
+  background-color: #0098b3;
+  border-radius: 6px;;
+  bottom: -30px;
+  left: 20px;
+}
 }

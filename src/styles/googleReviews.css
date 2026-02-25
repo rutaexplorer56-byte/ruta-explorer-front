@@ -1,0 +1,245 @@
+.gr-wrap{
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 12px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.gr-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.gr-business{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.gr-logo{
+  width:44px;height:44px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  background:#e9f0ff;
+  color:#1a4fd6;
+}
+
+.gr-business-title{
+  font-weight:700;
+  font-size:16px;
+  line-height:1.1;
+  color: white;
+}
+
+.gr-business-meta{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:4px;
+}
+
+.gr-total{
+  font-size:13px;
+  color:#6b7280;
+}
+
+.gr-btn{
+  padding:10px 14px;
+  border-radius:10px;
+
+
+  text-decoration:none;
+  
+  font-weight:600;
+  font-size:13px;
+  transition: transform .08s ease, box-shadow .15s ease;
+  
+  ;
+  cursor: pointer;
+  background-color: #349ffd;
+  color: white;
+}
+
+.gr-btn:hover{
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  transform: translateY(-1px);
+  background-color: #127cd8;
+  color: white;
+}
+
+.gr-carousel{
+  position:relative;
+}
+
+.gr-scroller{
+  display:flex;
+  gap:16px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding: 8px 6px;
+  border-radius:14px;
+}
+
+.gr-scroller::-webkit-scrollbar{ height: 10px; }
+.gr-scroller::-webkit-scrollbar-thumb{ background:#e5e7eb; border-radius:999px; }
+
+.gr-card{
+  flex: 0 0 320px;
+  background: white;
+  border: 1px solid #eef2f7;
+  border-radius: 16px;
+  padding: 14px;
+  scroll-snap-align:start;
+  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+  min-height: 170px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.gr-card:hover{
+  transform: scale(1.02)
+}
+.gr-card-stars{
+    color: rgb(230, 203, 6);
+    font-size: 20px;
+    
+}
+.gr-business-meta {
+    color: rgb(230, 203, 6);
+    
+}
+
+
+@media (max-width: 520px){
+  .gr-card{ flex-basis: 86%; }
+}
+
+.gr-card-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.gr-avatar{
+  width:40px;height:40px;
+  border-radius:999px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:#f3f4f6;
+  font-weight:800;
+  color:#374151;
+}
+
+.gr-avatar img{
+  width:100%;height:100%;
+  object-fit:cover;
+}
+
+.gr-user{ flex:1; min-width:0; }
+.gr-user-name{
+  font-weight:700;
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.gr-user-date{
+  font-size:12px;
+  color:#6b7280;
+  margin-top:2px;
+}
+
+.gr-google-badge{
+  width:22px;height:22px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  font-size:12px;
+  background:#f3f4f6;
+  color:#111827;
+}
+
+.gr-card-stars{ margin-top:10px; }
+
+.gr-stars{
+  display:flex;
+  gap:2px;
+  font-size:14px;
+  line-height:1;
+}
+
+.gr-star{ opacity: .25; }
+.gr-star.full{ opacity: 1; }
+.gr-star.half{ opacity: .6; } /* simple (sin SVG) */
+.gr-star.empty{ opacity: .25; }
+
+.gr-text{
+  margin: 10px 0 0 0;
+  font-size: 13px;
+  color:#111827;
+  line-height: 1.35;
+  min-height: 54px;
+}
+
+.gr-readmore{
+  margin-top: 8px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-weight: 700;
+  color:#6b7280;
+  cursor:pointer;
+}
+
+.gr-arrow{
+  position:absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width:40px;height:40px;
+  border-radius:999px;
+  border:1px solid #e5e7eb;
+  background:white;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  cursor:pointer;
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .15s ease;
+}
+
+.gr-carousel:hover .gr-arrow{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.gr-arrow.left{ left: -10px; }
+.gr-arrow.right{ right: -10px; }
+
+.gr-error{ color:#b91c1c; }
+
+.gr-skeleton-header{
+  height: 52px;
+  border-radius: 14px;
+  background: #f3f4f6;
+  margin-bottom: 14px;
+}
+.gr-skeleton-row{
+  display:flex;
+  gap:16px;
+}
+.gr-skeleton-card{
+  flex: 0 0 320px;
+  height: 180px;
+  border-radius: 16px;
+  background: #f3f4f6;
+}

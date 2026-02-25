@@ -503,7 +503,7 @@ const ICONOS = {
       <i className="bi bi-stopwatch"></i>
       <p>
         <strong>{t("tour.duracion")}</strong><br />
-        {tour.tiempo}
+        <span>{tour.tiempo}</span>
       </p>
     </div>
 
@@ -511,7 +511,8 @@ const ICONOS = {
       <i className="bi bi-person-dash"></i>
       <p>
         <strong>{t("tour.cantidadMinima")}</strong><br />
-        {tour.cantidadMinima}
+        <span>{tour.cantidadMinima}</span>
+        
       </p>
     </div>
 
@@ -519,7 +520,8 @@ const ICONOS = {
       <i className="bi bi-calendar-date"></i>
       <p>
         <strong>{t("tour.toursPorDia")}</strong><br />
-        {tour.toursPorDia}
+        <span>{tour.toursPorDia}</span>
+        
       </p>
     </div>
 
@@ -527,7 +529,8 @@ const ICONOS = {
       <i className="bi bi-clipboard2-check"></i>
       <p>
         <strong>{t("tour.horarios")}</strong><br />
-        {tour.salidas}
+        <span>{tour.salidas}</span>
+        
       </p>
     </div>
 
@@ -535,7 +538,8 @@ const ICONOS = {
       <i className="bi bi-translate"></i>
       <p>
         <strong>{t("tour.idioma")}</strong><br />
-        {tour.idioma}
+        <span>{tour.idioma}</span>
+        
       </p>
     </div>
 
@@ -543,7 +547,8 @@ const ICONOS = {
       <i className="bi bi-pin-map-fill"></i>
       <p>
         <strong>{t("tour.lugarSalida")}</strong><br />
-        {tour.salida}
+        <span>{tour.salida}</span>
+        
       </p>
     </div>
   </div>
@@ -573,7 +578,7 @@ const ICONOS = {
   </ul>
 
   <div className="itinerario">
-    <h3>{t("tour.itinerario")}</h3>
+    <h2>{t("tour.itinerario")}</h2>
 
             {(pasos || []).map((p, index) => (
 
@@ -601,10 +606,23 @@ const ICONOS = {
               </div>
             ))}
           </div>
+            </div>
+          <div style={{minWidth: "100%", height: "400px", borderRadius: "14px", overflow: "hidden", marginTop: "20px" }} data-aos="fade-up-left">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.7638939707517!2d-75.572946!3d4.6361604000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e388df9d2f6e29d%3A0x292561140c00b46b!2sSalento%20ToursRuta.Xplorer%20SAS%20Transporte%20y%20turismo!5e0!3m2!1ses-419!2sco!4v1771820613835!5m2!1ses-419!2sco"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Mapa - RutaExplorer"
+          />
+        </div>
 
  
         </div>
-      </div>
+    
 
       <div className="tour-sidebar" data-aos="fade-up-left">
         <div className="tour-reservation">
