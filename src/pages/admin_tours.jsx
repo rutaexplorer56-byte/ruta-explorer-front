@@ -80,6 +80,7 @@ const actualizarTours = async () => {
                         precios={tour.precios}
                         tipo={tour.tipo}
                         activo={tour.activo}
+                        slug={tour.slug}
                         onEdit={abrirEditar}
                         />
                     )})}

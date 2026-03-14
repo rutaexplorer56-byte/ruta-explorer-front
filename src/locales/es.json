@@ -61,6 +61,14 @@
     "fromFilandia": {
       "label": "Tours con salida desde Filandia",
       "description": "Experiencias especialmente diseñadas para viajeros que se encuentren ubicados en Filandia."
+    },
+    "carbonera": {
+      "label": "Tours a la Carbonera",
+      "description": "Explora la belleza natural de la Carbonera y sus impresionantes paisajes andinos."
+    },
+    "hotelsQuindio": {
+      "label": "Tours desde hoteles del Quindío",
+      "description": "Descubre experiencias turísticas con salida directa desde hoteles del departamento del Quindío."
     }
   },
   "booking": {

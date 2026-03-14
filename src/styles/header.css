@@ -1,9 +1,9 @@
 .container{
     width: 100%;
     height: auto;
-    /* position: absolute;
-    z-index: 8;
-     */
+    position: relative;
+    z-index: 999;
+     
 }
 
 

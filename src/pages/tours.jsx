@@ -90,6 +90,18 @@ const categorias = [
     descKey: "categories.fromFilandia.description",
     img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
   },
+  {
+    id: "9",
+    labelKey: "categories.carbonera.label",
+    descKey: "categories.carbonera.description",
+    img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
+  },
+  {
+    id: "10",
+    labelKey: "categories.hotelsQuindio.label",
+    descKey: "categories.hotelsQuindio.description",
+    img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
+  },
 ];
 
 
@@ -133,6 +145,7 @@ const seccionRef = useRef(null);
       behavior: "smooth"
     });
   };
+  console.log("Tours disponibles:", tours);
 
     return(
             <>

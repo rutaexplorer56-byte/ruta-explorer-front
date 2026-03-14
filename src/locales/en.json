@@ -71,7 +71,15 @@
     "fromFilandia": {
       "label": "Tours Departing from Filandia",
       "description": "Experiences designed for travelers who are staying in Filandia."
-    }
+    },
+      "carbonera": {
+    "label": "Tours to La Carbonera",
+    "description": "Explore the natural beauty of La Carbonera and its stunning Andean landscapes."
+  },
+  "hotelsQuindio": {
+    "label": "Tours from Quindío hotels",
+    "description": "Discover tourist experiences departing directly from hotels across the Quindío region."
+  }
   },
   "booking": {
     "title": "Book easily & enjoy the magic of Colombia’s Coffee Region",

@@ -461,6 +461,8 @@ const eliminarExtra = (i) => {
                     <option value="6">6. Experiencias gastronómicas</option>
                     <option value="7">7. Tours con salida desde Pereira</option>
                     <option value="8">8. Tours con salida desde Filandia</option>
+                    <option value="9">9. Tours a la Carbonera</option>
+                    <option value="10">10.Tours desde los Hoteles del Quindío</option>
                   </select>
                   </div>
                   <div className="campo">

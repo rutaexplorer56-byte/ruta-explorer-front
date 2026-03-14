@@ -75,7 +75,16 @@
     "fromFilandia": {
       "label": "Tours au Départ de Filandia",
       "description": "Des expériences conçues pour les voyageurs qui se trouvent à Filandia."
-    }
+    },
+      "carbonera": {
+    "label": "Excursions à La Carbonera",
+    "description": "Explorez la beauté naturelle de La Carbonera et ses paysages andins impressionnants."
+  },
+  "hotelsQuindio": {
+    "label": "Excursions depuis les hôtels du Quindío",
+    "description": "Découvrez des expériences touristiques avec départ direct depuis les hôtels du département du Quindío."
+  }
+
   },
    "booking": {
     "title": "Réservez facilement & profitez de la magie de la région du café",

@@ -14,6 +14,7 @@ const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idiom
    const [modalAbierto, setModalAbierto] = useState(false);
    const [loadingDeleteId, setLoadingDeleteId] = useState(null);
    const { t } = useTranslation();
+
   useEffect(() => {
   AOS.init({
     duration: 1000, // duración de la animación

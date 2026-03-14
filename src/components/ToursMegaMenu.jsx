@@ -62,6 +62,18 @@ const categorias = [
     descKey: "categories.fromFilandia.description",
     img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
   },
+   {
+    id: "9",
+    labelKey: "categories.carbonera.label",
+    descKey: "categories.carbonera.description",
+    img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
+  },
+  {
+    id: "10",
+    labelKey: "categories.hotelsQuindio.label",
+    descKey: "categories.hotelsQuindio.description",
+    img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
+  },
 ];
 useEffect(() => {
   const fetchTours = async () => {
@@ -96,6 +108,9 @@ useEffect(() => {
           <div className="tours-mega-loading">Cargando tours…</div>
         ) : (
           <div className="tours-mega-grid">
+
+
+            
             {categorias.map((cat) => {
               const toursFiltrados = tours.filter(
                 (tour) => tour.categoria === cat.id
@@ -110,7 +125,7 @@ useEffect(() => {
                   </h4>
 
                   <div className="tours-mega-list">
-                    {toursFiltrados.slice(0, 6).map((tour) => (
+                    {toursFiltrados.slice(0, 6).filter(tour => tour.activo === true).map((tour) => (
                       <div key={tour.id}>
                         <Link
                           to={`/tour/${hotel || "RutaExplorer"}/${tour.slug}`}
