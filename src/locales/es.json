@@ -118,6 +118,10 @@
     "pasaporte": "Pasaporte",
     "numeroDocumento": "Número de documento",
     "numeroDocumentoPlaceholder": "Ingrese su número de documento",
+    "pais": "País",
+    "paisPlaceholder": "Ingresa tu país",
+    "hotel": "Hotel",
+    "hotelPlaceholder": "Ingresa el nombre de tu hotel",
    
 
     "fecha": "Fecha",
@@ -167,6 +171,9 @@
     "precioVariable": "el precio varía según el número de participantes",
     "reservar": "Reservar"
   }
+  
+  
+
 
   
   

@@ -362,6 +362,8 @@ const downloadExcel = () => {
                   <p className="detalle-titulo">Teléfono</p> 
                   <p className="detalle-titulo">Idioma</p> 
                   <p className="detalle-titulo">Hotel</p> 
+                  <p className="detalle-titulo">Hotel del Cliente</p> 
+                  <p className="detalle-titulo">País</p> 
                   <p className="detalle-titulo">Cantidad de personas</p>
                   <p className="detalle-titulo">Extras</p>
                   <p className="detalle-titulo">Total</p>
@@ -376,6 +378,8 @@ const downloadExcel = () => {
                   <p className="detalle-info">{reservas.telefono}</p> 
                   <p className="detalle-info">{reservas.idioma}</p> 
                   <p className="detalle-info">{reservas.hotel}</p> 
+                  <p className="detalle-info">{reservas.hotelCliente}</p>
+                  <p className="detalle-info">{reservas.pais}</p>
                   <p className="detalle-info">{reservas.cantidadPersonas}</p>
                   <div className="detalle-info">
                     {reservas.extras && reservas.extras.length > 0 ? (

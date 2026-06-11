@@ -134,6 +134,10 @@
     "numeroDocumento": "Numéro de document",
     "numeroDocumentoPlaceholder": "Entrez votre numéro de document",
     "seleccione": "Sélectionner",
+        "pais": "Pays",
+    "paisPlaceholder": "Entrez votre pays",
+    "hotel": "Hôtel",
+    "hotelPlaceholder": "Entrez le nom de votre hôtel",
 
     "seleccionaIdioma": "Sélectionnez une langue",
     "correo": "E-mail",

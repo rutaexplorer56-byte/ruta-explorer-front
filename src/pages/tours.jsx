@@ -3,7 +3,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import '../styles/tours.css'
 import AOS from 'aos';
-import { useEffect,useState,useRef } from 'react';
+import { useEffect,useState,useRef, useMemo } from 'react';
 import axios from "../axiosConfig";
 import { useParams } from 'react-router-dom';
 import { set } from "date-fns";
@@ -12,7 +12,9 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import imagen from "../assets/paisaje_hero.png";
 import GoogleReviews from "../components/GoogleReviews";
+
 function Tours(){
+  const [busqueda, setBusqueda] = useState("");
 
   const { i18n } = useTranslation();
   const { t } = useTranslation();
@@ -145,55 +147,15 @@ const seccionRef = useRef(null);
       behavior: "smooth"
     });
   };
-  console.log("Tours disponibles:", tours);
+
+
+
 
     return(
             <>
             <Header></Header>
             <div className="container_tours">
-                {/* <div className="hero-slider fade"data-aos="fade-down">
-                    {images.map((src, i) => (
-                      <div
-                        key={i}
-                        className={`fade-slide ${i === slide ? "active" : ""}`}
-                        style={{ backgroundImage: `url(${src})` }}
-                      ><span className="bg">
-                        </span>
-                        <div className="titulo">
-                        " {t("hero.title")}"
-
-                      
-                      
-                        
-                        <ul className="hero-incluidos"> 
-                           <li>{t("hero.features.unique")}</li>
-                          <li> - {t("hero.features.transport")} - </li>
-                          <li>{t("hero.features.guides")}</li>
-                          
-                        </ul>
-                        <div className="botones-hero">
-                          <button className="btn-reservar-hero" onClick={scrollToSection}>
-                            {t("hero.buttons.reserve")}
-                            
-                          </button>
-
-                          <button className="btn-whatsapp-hero">
-                            <i className="bi bi-whatsapp"></i>
-                            <a href="https://wa.me/573124151539?text=Hola%20RutaExplorer%2C%20estoy%20interesado%20en%20reservar%20un%20tour.%20¿Podrían%20ayudarme%3F" target="_blank" rel="noopener noreferrer">
-                            {t("hero.buttons.contact")}</a>
-                          </button>
-                          
-                        </div>
-                        
-                       
-                        
-                      
-                    </div>
-                      </div>
-                    ))}
-
-                    
-                  </div> */}
+                
                
                 <div className="titulo-tours">
                 <p>{t("home.tours")}</p>
@@ -203,64 +165,98 @@ const seccionRef = useRef(null);
                 </h1>
                 <span></span>
               </div>
-                <div className="container-tours" ref={seccionRef}>
-                  {tours? (categorias.map((cat) => {
-                     const toursDeCategoria = tours.filter(t => t.categoria === cat.id);
 
-  // si no hay tours → NO renderizar nada
-                  if (toursDeCategoria.length === 0) return null;
-                  const showArrows = toursDeCategoria.length > 2;
-                    return(
-                      
-                     <div className="categoria" key={cat.id}>
-                          <h2 className="titulo-categoria">{t(cat.labelKey)}</h2>
-                          <span className="span">{t(cat.descKey)}</span>
-
-                          <div className="slider-wrapper">
-                            {showArrows && (
-                              <button
-                                className="arrow left"
-                                onClick={() => scrollLeft(cat.id)}
-                              >
-                                ◀
-                              </button>
-                            )}
-
-                            <div id={`scroll-${cat.id}`} className="tours-categoria">
-                              <FilteredTours
-                              key={`${lang}-${cat.id}`}
-                                categoria={cat.label}
-                                numCategoria={cat.id}
-                                hotel={hotel}
-                              />
-                            </div>
-
-                            {showArrows && (
-                              <button
-                                className="arrow right"
-                                onClick={() => scrollRight(cat.id)}
-                              >
-                                ▶
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                        
-                        )})):
-                        (
-                           <div className="tour-message">
-            
-                              <h2>En el momento no contamos con tours disponibles ...</h2>
-                              <h2> Si deseas reservar con nosotros te invitamos a escribirnos al siguiente numero:</h2>
-                              <h2 className='phone'>+57 3124151539</h2>
-                              <img src="https://www.mdirector.com/wp-content/uploads/2022/04/smsreservar.jpg" alt="No tours available" />
-                                             
-                            </div>
-                        )
-                  }
-                  
-
+             <div className="buscador-tours">
+                  <input
+                    type="text"
+                    placeholder="Buscar tour por nombre..."
+                    value={busqueda}
+                    onChange={(e) => setBusqueda(e.target.value)}
+                  />
                 </div>
+
+               <div className="container-tours" ref={seccionRef}>
+              {tours && tours.length > 0 ? (
+                busqueda.trim() !== "" ? (
+                  <div className="categoria resultados-busqueda">
+                    <div className="tours-categoria">
+                      <FilteredTours
+                        key={`${lang}-busqueda-${busqueda}`}
+                        categoria="todos"
+                        numCategoria={null}
+                        hotel={hotel}
+                        busqueda={busqueda}
+                        mostrarMensaje={true}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  categorias.map((cat) => {
+                    const toursDeCategoria = tours.filter(
+                      (tour) => tour.categoria === cat.id
+                    );
+
+                    if (toursDeCategoria.length === 0) return null;
+
+                    const showArrows = toursDeCategoria.length > 2;
+
+                    return (
+                      <div className="categoria" key={cat.id}>
+                        <h2 className="titulo-categoria">{t(cat.labelKey)}</h2>
+                        <span className="span">{t(cat.descKey)}</span>
+
+                        <div className="slider-wrapper">
+                          {showArrows && (
+                            <button
+                              className="arrow left"
+                              onClick={() => scrollLeft(cat.id)}
+                            >
+                              ◀
+                            </button>
+                          )}
+
+                          <div
+                            id={`scroll-${cat.id}`}
+                            className="tours-categoria"
+                            data-aos="fade-up-right"
+                          >
+                            <FilteredTours
+                              key={`${lang}-${cat.id}`}
+                              categoria={cat.label}
+                              numCategoria={cat.id}
+                              hotel={hotel}
+                              busqueda=""
+                            />
+                          </div>
+
+                          {showArrows && (
+                            <button
+                              className="arrow right"
+                              onClick={() => scrollRight(cat.id)}
+                            >
+                              ▶
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })
+                )
+              ) : (
+                <div className="tour-message">
+                  <h2>En el momento no contamos con tours disponibles ...</h2>
+                  <h2>
+                    Si deseas reservar con nosotros te invitamos a escribirnos al siguiente
+                    número:
+                  </h2>
+                  <h2 className="phone">+57 3124151539</h2>
+                  <img
+                    src="https://www.mdirector.com/wp-content/uploads/2022/04/smsreservar.jpg"
+                    alt="No tours available"
+                  />
+                </div>
+              )}
+            </div>
 
 
 {/* 

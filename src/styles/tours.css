@@ -142,84 +142,7 @@
   z-index: 2;
 }
 
-/* nuevo */
-/* .categoria-cards-container {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  margin: 2rem 0;
-  flex-wrap: wrap;
-}
 
-.categoria-card {
-  min-width: 350px;
-  
-  width: 25%;
-  height: 260px;
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
-  position: relative;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  
-}
-
-.categoria-card:hover {
-  transform: translateY(-6px);
-  
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
-}
-
-.categoria-card-img-wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
-
-}
-
-.categoria-card-img-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
-}
-.categoria-card:hover>.categoria-card-img-wrapper img {
-  transform: scale(1.1);
-  
-}
-.categoria-card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.336),
-    rgba(0, 0, 0, 0.65)
-  );
-  transition: all 0.5s ease;
-}
-.categoria-card:hover .categoria-card-overlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.103),
-    rgba(30, 154, 255, 0.26)
-  );
-   transition: all 0.5s ease;
-}
-
-.categoria-card-title {
-  position: absolute;
-  bottom: 40%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-align: center;
-} */
-
-/* nuevo */
 .experiencias-section {
   max-width: 100%;
   margin: 0 auto;
@@ -474,6 +397,35 @@
 
 .arrow.right {
   right:  -20px;
+}
+.buscador-tours {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.buscador-tours input {
+  width: 100%;
+  max-width: 450px;
+  padding: 12px 18px;
+  border: 1px solid #3b3b3b;
+  border-radius: 25px;
+  font-size: 15px;
+  outline: none;
+  background-color: #3b3b3b;
+  color:rgb(60, 177, 255);
+  font-size: 22px;
+}
+
+.buscador-tours input:focus {
+  border-color: #1184ff;
+}
+.tour-message{
+  margin:auto;
+  color:rgb(60, 177, 255);
+ 
+
 }
 /* Flechas */
 @media (max-width: 858px){

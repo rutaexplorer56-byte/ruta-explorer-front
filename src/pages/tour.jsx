@@ -75,6 +75,8 @@ const Tour = () => {
   const [extrasSeleccionados, setExtrasSeleccionados] = useState({});
   const [tipoDocumento, setTipoDocumento] = useState("cedula");
   const [numeroDocumento, setNumeroDocumento] = useState("");
+  const [hotelCliente, setHotelCliente] = useState("");
+  const [pais, setPais] = useState("");
   // Abrir modal
   const abrirModal = () => setIsModalOpen(true);
 
@@ -268,6 +270,10 @@ const construirExtrasDetalle = () => {
     toast.info("Por favor selecciona la fecha.");
     return;
   }
+  if (fechaNoDisponible(selectedDate)) {
+  toast.info("Esta fecha no está disponible para este tour.");
+  return;
+}
   if (!selectedTime) {
     toast.info("Por favor selecciona un horario disponible o cambia la fecha.");
     return;
@@ -301,7 +307,7 @@ const construirExtrasDetalle = () => {
    
     const response = await axios.post("/api/reservas", {
       nombreTour:tour.nombre,
-      fecha: selectedDate.toISOString().split('T')[0],
+      fecha: formatearFechaLocal(selectedDate),
       horario:selectedTime,
       salida: tour.salida,
       idioma:idioma,
@@ -314,7 +320,9 @@ const construirExtrasDetalle = () => {
       hotel:`${hotel} - ${recepcionista}`,      
       extras: extrasDetalle,
       tipoDocumento: tipoDocumento,
-      numeroDocumento: numeroDocumento
+      numeroDocumento: numeroDocumento,
+      hotelCliente:hotelCliente,
+      pais:pais
     });
 
    if (response.status === 201 || response.status === 200) {
@@ -426,6 +434,55 @@ const ICONOS = {
   transporte: "bi-hourglass-split",
   actividad: "bi-map",
   llegada: "bi-person-arms-up",
+};
+
+const limpiarComillas = (valor) => {
+  if (valor === null || valor === undefined) return "";
+
+  let limpio = String(valor).trim();
+
+  while (
+    (limpio.startsWith('"') && limpio.endsWith('"')) ||
+    (limpio.startsWith("'") && limpio.endsWith("'"))
+  ) {
+    try {
+      limpio = JSON.parse(limpio);
+      limpio = String(limpio).trim();
+    } catch {
+      limpio = limpio.slice(1, -1).trim();
+    }
+  }
+
+  return limpio;
+};
+
+const formatearFechaLocal = (date) => {
+  if (!date) return "";
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
+const fechaNoDisponible = (date) => {
+  if (!date || !tour) return false;
+
+  const fechaSeleccionada = formatearFechaLocal(date);
+  const diaSemana = String(date.getDay());
+
+  const diaBloqueado = limpiarComillas(tour.diasNoDisponibles);
+
+  const fechasBloqueadas = limpiarComillas(tour.fechasNoDisponibles)
+    .split(",")
+    .map((fecha) => fecha.trim())
+    .filter(Boolean);
+
+  return (
+    diaBloqueado === diaSemana ||
+    fechasBloqueadas.includes(fechaSeleccionada)
+  );
 };
 
 
@@ -608,7 +665,7 @@ const ICONOS = {
             ))}
           </div>
             </div>
-          <div style={{minWidth: "100%", height: "400px", borderRadius: "14px", overflow: "hidden", marginTop: "20px" }} data-aos="fade-up-left">
+          <div style={{maxWidth: "100%", height: "400px", borderRadius: "14px", overflow: "hidden", marginTop: "20px" }} data-aos="fade-up-left">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.7638939707517!2d-75.572946!3d4.6361604000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e388df9d2f6e29d%3A0x292561140c00b46b!2sSalento%20ToursRuta.Xplorer%20SAS%20Transporte%20y%20turismo!5e0!3m2!1ses-419!2sco!4v1771820613835!5m2!1ses-419!2sco"
             width="100%"
@@ -630,16 +687,26 @@ const ICONOS = {
             <p className='titulo_calendario'>{t("tour.reserva")}</p>
           <label>{t("tour.fecha")}:</label>
           <div className="calendar-overlay">
-            <DatePicker 
-              inline
-              locale="es"
-              selected={selectedDate} 
-              onChange={(date) => setSelectedDate(date)} 
-              dateFormat="dd/MM/yyyy"
-              // minDate={new Date(new Date().setDate(new Date().getDate() ))} 
-              minDate={new Date()}
+           <DatePicker
+            inline
+            locale="es"
+            selected={selectedDate}
+            onChange={(date) => {
+              if (fechaNoDisponible(date)) {
+                toast.info("Esta fecha no está disponible para este tour.");
+                return;
+              }
 
-            />
+              setSelectedDate(date);
+              setSelectedTime("");
+            }}
+            dateFormat="dd/MM/yyyy"
+            minDate={new Date()}
+            filterDate={(date) => !fechaNoDisponible(date)}
+            dayClassName={(date) =>
+              fechaNoDisponible(date) ? "fecha-no-disponible" : undefined
+            }
+          />
           </div>
           <label>{t("tour.horario")}:</label>
           <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
@@ -748,6 +815,22 @@ const ICONOS = {
           value={telefonoUsuario} 
           type='tel'
           onChange={(e) => setTelefonoUsuario(e.target.value)} required>
+            
+          </input>
+          <label>{t("tour.pais")}:</label>
+          <input placeholder={t("tour.paisPlaceholder")}
+          className='input'
+          value={pais} 
+          
+          onChange={(e) => setPais(e.target.value)} >
+            
+          </input>
+          <label>{t("tour.hotel")}:</label>
+          <input placeholder={t("tour.hotelPlaceholder")}
+          className='input'
+          value={hotelCliente} 
+          
+          onChange={(e) => setHotelCliente(e.target.value)} >
             
           </input>
           <label>{t("tour.recomendado")}:</label>

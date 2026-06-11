@@ -118,6 +118,11 @@
     "recomendaciones": "Recommendations:",
     "itinerario": "Itinerary"
     ,"reserva": "Booking",
+    "pais": "Country",
+    "paisPlaceholder": "Enter your country",
+    "hotel": "Hotel",
+    "hotelPlaceholder": "Enter the name of your hotel"
+,
 
     "fecha": "Date",
     "horario": "Time",

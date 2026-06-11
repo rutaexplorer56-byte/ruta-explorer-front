@@ -93,7 +93,7 @@ export default function GoogleReviews() {
       <div className="gr-header">
         <div className="gr-business">
           <div className="gr-logo" aria-hidden="true">
-            <img src="https://cdn.trustindex.io/assets/platform/Google/icon.svg" alt="Google" />
+            <img src="https://cdn.trustindex.io/assets/platform/Google/icon.svg" alt="Google" loading="lazy" />
           </div>
 
           <div className="gr-business-info">
@@ -127,7 +127,7 @@ export default function GoogleReviews() {
                 <div className="gr-card-top">
                   <div className="gr-avatar">
                     {r.profile_photo_url ? (
-                      <img src={r.profile_photo_url} alt={r.author_name} />
+                      <img src={r.profile_photo_url} alt={r.author_name}  loading="lazy"/>
                     ) : (
                       <span>{(r.author_name || "?").slice(0, 1).toUpperCase()}</span>
                     )}
@@ -139,7 +139,7 @@ export default function GoogleReviews() {
                   </div>
 
                   <div className="gr-google-badge" title="Google" aria-label="Google">
-                    <img src="https://cdn.trustindex.io/assets/platform/Google/icon.svg"></img>
+                    <img src="https://cdn.trustindex.io/assets/platform/Google/icon.svg" loading="lazy"></img>
                   </div>
                 </div>
 

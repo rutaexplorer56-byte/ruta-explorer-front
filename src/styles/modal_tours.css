@@ -182,10 +182,17 @@
   list-style: none;
   
 }
+.contenedor-img {
+  width: auto;
+  height: auto;
+  
+
+
+}
 .preview-item {
   position: relative;
-  display: inline-block;
-  text-align: center;
+  display: block
+
 }
 
 .preview-item img {
@@ -245,6 +252,22 @@
   background-color: #2a91ff;
   color: white;
 }
+.btn.azul:hover{
+  background-color: #007bff;
+}
+.boton-img{
+  background-color: #2a91ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  height: 30px;
+  width: 30px;
+  margin-top: 5px;
+  margin-right: 15px;
+  }
 
 .btn.verde {
   background-color: #28a745;
@@ -267,7 +290,9 @@
   border-radius: 6px;
   font-size: 14px;
 }
-
+.campo .label{
+  margin-top:10px;
+}
 .escalon button {
   background: #ff4d4d;
   color: white;
@@ -305,6 +330,83 @@
 
 .campo.full .btn.azul:hover {
   background: #0469d4;
+}
+.fecha-bloqueo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.input-fecha-bloqueo {
+  width: 180px;
+  height: 38px;
+  padding: 8px 10px;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-fecha-bloqueo:focus {
+  border-color: #11aaeb;
+  box-shadow: 0 0 0 2px rgba(255, 122, 61, 0.15);
+}
+
+.btn-agregar-fecha {
+  height: 38px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 6px;
+  background: #1da1f2;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-agregar-fecha:hover {
+  background: #0b8edb;
+}
+
+.fechas-bloqueadas-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.fecha-bloqueada-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eef7ff;
+  color: #5c5c5c;
+  border: 1px solid #b9e0ff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.btn-eliminar-fecha {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: #2493e9;
+  color: white;
+  font-size: 13px;
+  line-height: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.btn-eliminar-fecha:hover {
+  background: #d93025;
 }
 
 @media (max-width: 600px) {

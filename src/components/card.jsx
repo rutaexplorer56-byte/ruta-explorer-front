@@ -7,7 +7,7 @@ import axios from "../axiosConfig";
 import { toast } from 'react-toastify';
 import { useTranslation } from "react-i18next";
 
-
+import { optimizarImagenCloudinary } from "../utils/cloudinary";
 
 // eslint-disable-next-line react/prop-types
 const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,hotel,slug,onEdit}) => {
@@ -106,10 +106,21 @@ const generarSlug = (texto) => {
   return (
     <>
     
-    <div className="tour-card" data-aos="fade-up-right">
+    <div className="tour-card" data-aos="flip-right">
       <div className="tour-image">
         <div className='shadow'></div>
-        <img src={imagen} alt={titulo} />
+        <img
+        src={optimizarImagenCloudinary(imagen, 800)}
+        srcSet={`
+          ${optimizarImagenCloudinary(imagen, 400)} 400w,
+          ${optimizarImagenCloudinary(imagen, 800)} 800w,
+          ${optimizarImagenCloudinary(imagen, 1200)} 1200w
+        `}
+        sizes="(max-width: 768px) 90vw, 400px"
+        alt={titulo}
+        loading="lazy"
+        decoding="async"
+      />
       </div>
       <div className="tour-details">
         {buttons ?(

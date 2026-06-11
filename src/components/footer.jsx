@@ -17,7 +17,7 @@ function Footer() {
       <svg data-aos="fade" className="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#17223A" d="M0,192L720,96L1440,192L1440,320L720,320L0,320Z"></path></svg>
       <footer className="footer" data-aos="fade">
         <div className="logo">
-          <img src={logo} alt="Ruta Xplorer" />
+          <img src={logo} alt="Ruta Xplorer" loading="lazy"/>
           <div className="logos">
             <a href="https://www.facebook.com/people/Rutaxplorer/100090352211763/"><i className="bi bi-facebook"></i></a>
             <a href="https://api.whatsapp.com/send?phone=3124151539"><i className="bi bi-whatsapp"></i></a>

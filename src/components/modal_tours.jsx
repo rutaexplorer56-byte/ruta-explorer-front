@@ -10,6 +10,7 @@ const ModalAgregarTour = ({ isOpen, onClose, id, actualizarToursPadre }) => {
    const [actualizarImagenes, setActualizarImagenes] = useState([]);
    const [tour, setTour] = useState(null);
    const [activo, setActivo] = useState("a");
+   const [imagenesEditadas, setImagenesEditadas] = useState(false);
 
    const [loadingCreate, setLoadingCreate] = useState(false);
 
@@ -43,6 +44,10 @@ const eliminarImagenExistente = (index) => {
     itinerario: '',            // texto largo
     reservaUltimaHora: false,
     extras: [{ nombre: "", valor: "", maxCantidad: 1 }],
+     diasNoDisponibles: '',
+  fechasNoDisponibles: [],
+  fechaNoDisponibleTemp: '',
+    
   });
 
   // -----------------------
@@ -62,46 +67,65 @@ const toNumber = (v) => {
   return Number(limpio) || 0;   // Convierte a número exacto
 };
 // const toNumber = (v) => Number(String(v).replace(/[^\d.-]/g, '')) || 0;
-  const handleImageChange = (e) => {
-    const archivosNuevos = Array.from(e.target.files);
-    const disponibles = 7 - imagenes.length;
-    const archivosLimitados = archivosNuevos.slice(0, disponibles);
+const handleImageChange = (e) => {
+  const archivosNuevos = Array.from(e.target.files);
 
+  const totalActual =
+    (actualizarImagenes?.length || 0) + (imagenes?.length || 0);
 
-      // ✅ Validar tamaño máximo por archivo
-      const archivoGrande = archivosNuevos.find(
-        (file) => file.size > MAX_FILE_SIZE_BYTES
-      );
+  const disponibles = 7 - totalActual;
 
-      if (archivoGrande) {
-        toast.error(
-          `La imagen "${archivoGrande.name}" supera los ${MAX_FILE_SIZE_MB}MB permitidos.`
-        );
-        e.target.value = ""; // limpia el input
-        return;
-      }
+  if (disponibles <= 0) {
+    toast.info("Solo puedes subir un máximo de 7 imágenes.");
+    e.target.value = "";
+    return;
+  }
 
-    const archivosConPreview = archivosLimitados.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-      name: file.name
-    }));
+  const archivoGrande = archivosNuevos.find(
+    (file) => file.size > MAX_FILE_SIZE_BYTES
+  );
 
-    setImagenes(prev => [...prev, ...archivosConPreview]);
-    // console.log(archivosConPreview)
+  if (archivoGrande) {
+    toast.error(
+      `La imagen "${archivoGrande.name}" supera los ${MAX_FILE_SIZE_MB}MB permitidos.`
+    );
+    e.target.value = "";
+    return;
+  }
 
-    if (imagenes.length + archivosNuevos.length > 7) {
-      toast.info("Solo puedes subir un máximo de 7 imágenes.");
-    }
-  };
+  const archivosLimitados = archivosNuevos.slice(0, disponibles);
+
+  const archivosConPreview = archivosLimitados.map((file) => ({
+    file,
+    preview: URL.createObjectURL(file),
+    name: file.name,
+  }));
+
+  setImagenes((prev) => [...prev, ...archivosConPreview]);
+  setImagenesEditadas(true);
+
+  if (archivosNuevos.length > disponibles) {
+    toast.info("Solo puedes subir un máximo de 7 imágenes.");
+  }
+
+  e.target.value = "";
+};
 
   const eliminarImagen = (index) => {
     setImagenes(prev => {
       URL.revokeObjectURL(prev[index].preview);
       return prev.filter((_, i) => i !== index);
     });
+     setImagenesEditadas(true);
   };
-
+const moverImagen = (fromIndex, toIndex) => {
+  setImagenes((prev) => {
+    const copia = [...prev];
+    const [movida] = copia.splice(fromIndex, 1);
+    copia.splice(toIndex, 0, movida);
+    return copia;
+  });
+};
   // -----------------------
   // Escalones (privado)
   // -----------------------
@@ -145,147 +169,233 @@ const eliminarExtra = (i) => {
     ...prev,
     extras: prev.extras.filter((_, idx) => idx !== i)
   }));
+
+
+
+};
+
+
+const limpiarComillas = (valor) => {
+  if (valor === null || valor === undefined) return "";
+
+  let limpio = String(valor).trim();
+
+  // Quita comillas externas repetidas: "\"3\"" -> "3"
+  while (
+    (limpio.startsWith('"') && limpio.endsWith('"')) ||
+    (limpio.startsWith("'") && limpio.endsWith("'"))
+  ) {
+    try {
+      limpio = JSON.parse(limpio);
+      limpio = String(limpio).trim();
+    } catch {
+      limpio = limpio.slice(1, -1).trim();
+    }
+  }
+
+  return limpio;
 };
   // -----------------------
   // Submit (crear)
   // -----------------------
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-     if (loadingCreate) return; // evita doble submit
-  setLoadingCreate(true);
-    const data = new FormData();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Si tipo es compartido, limpiar precios; si es privado, limpiar precio fijo
+  if (loadingCreate) return;
+
+  setLoadingCreate(true);
+
+  const data = new FormData();
+
   const payload = {
     ...formData,
-     reservaUltimaHora: !!formData.reservaUltimaHora,
-    precio: formData.tipo === 'compartido' ? toNumber(formData.precio) : 0,
-    precios: formData.tipo === 'privado'
-      ? formData.precios.map(p => ({
-          personas: toNumber(p.personas),
-          precioPorPersona: toNumber(p.precioPorPersona),
-        }))
-      : [],
-  };
-    for (const key in payload) {
-      if (key === "precios") {
-        data.append("precios", JSON.stringify(payload.precios));
-      } else if (key === "extras"){
-        continue;
-        
-      }else{
-        data.append(key, payload[key])
-      }
-    }
-    data.append("extras", JSON.stringify(formData.extras));
 
-    imagenes.forEach((img) => data.append('imagenes', img.file));
-    console.group("FORMDATA DEBUG");
-      for (const [key, value] of data.entries()) {
-        console.log(key, value);
-      }
-      console.groupEnd();
- 
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post('/api/tours', data, {
-        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` }
-      });
-       
-      if (response.status === 200 || response.status === 201) {
-        toast.success("Tour creado exitosamente");
-        if (typeof actualizarToursPadre === "function")  
-        setTimeout(() => onClose(), 3000);
-         await actualizarToursPadre()
-        resetForm();
-          navigate("/admin/tours");
-        
-      } else {
-        toast.error("❌ Error al crear el Tour. Inténtalo de nuevo.");
-      }
-    } catch (error) {
-      toast.warn("Ingresa todos los campos requeridos.");
-      console.log("❌ Error en la petición:");
-      console.log("Mensaje:", error.message);
-      console.log("Response completa:", error.response);
-      console.log("Status:", error?.response?.status);
-      console.log("Data:", error?.response?.data);
-      console.log("Headers:", error?.response?.headers);
-      toast.error(error?.response?.data?.mensaje );
-    }finally {
-      setLoadingCreate(false);
-    }
+    reservaUltimaHora: !!formData.reservaUltimaHora,
+
+    precio:
+      formData.tipo === "compartido"
+        ? toNumber(formData.precio)
+        : 0,
+
+    precios:
+      formData.tipo === "privado"
+        ? formData.precios.map((p) => ({
+            personas: toNumber(p.personas),
+            precioPorPersona: toNumber(p.precioPorPersona),
+          }))
+        : [],
+
+    diasNoDisponibles: limpiarComillas(formData.diasNoDisponibles),
+
+fechasNoDisponibles: Array.isArray(formData.fechasNoDisponibles)
+  ? formData.fechasNoDisponibles.map(limpiarComillas).join(",")
+  : limpiarComillas(formData.fechasNoDisponibles),
   };
 
-  // -----------------------
-  // Update (editar)
-  // -----------------------
-  const update = async () => {
-
-     if (loadingCreate) return; // evita doble submit
-  setLoadingCreate(true);
-    const data = new FormData();
-
-      const payload = {
-    ...formData,
-     reservaUltimaHora: !!formData.reservaUltimaHora,
-    precio: formData.tipo === 'compartido' ? toNumber(formData.precio) : 0,
-    precios: formData.tipo === 'privado'
-      ? formData.precios.map(p => ({
-          personas: toNumber(p.personas),
-          precioPorPersona: toNumber(p.precioPorPersona),
-        }))
-      : [],
-  };
-
-     for (const key in payload) {
+  for (const key in payload) {
     if (key === "precios") {
       data.append("precios", JSON.stringify(payload.precios));
     } else if (key === "extras") {
-      data.append("extras", JSON.stringify(payload.extras));
+      continue;
+    } else if (key === "fechaNoDisponibleTemp") {
+      continue;
     } else {
       data.append(key, payload[key]);
     }
   }
-    //funcion para convertir url a file
-    const urlToFile = async (url, index) => {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        return new File([blob], `imagen_existente_${index}.jpg`, { type: blob.type });
-      };
-     // convertirmos las iamgenes existentes de url a file   
-       for (let i = 0; i < actualizarImagenes.length; i++) {
-          const file = await urlToFile(actualizarImagenes[i], i);
-          data.append('imagenes', file);
-    }
-    const nuevasImagenes=[...actualizarImagenes,...imagenes]
 
-    nuevasImagenes.forEach((img) => data.append('imagenes', img.file));
-   
+  data.append("extras", JSON.stringify(formData.extras));
 
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.patch(`/api/tours/${id}`, data, {
-        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` }
-      });
+  imagenes.forEach((img) => {
+    data.append("imagenes", img.file);
+  });
 
-      if (response.status === 200) {
-        toast.success(" Tour actualizado exitosamente");
-        if (typeof actualizarToursPadre === "function") 
-          // await actualizarToursPadre();
+  // console.group("FORMDATA DEBUG");
+  // for (const [key, value] of data.entries()) {
+  //   console.log(key, value);
+  // }
+  // console.groupEnd();
 
-        setTimeout(() => onClose(), 3000);
-         await actualizarToursPadre()
-        resetForm();
-      } else {
-        toast.error(" Error al actualizar el Tour.");
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.post("/api/tours", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200 || response.status === 201) {
+      toast.success("Tour creado exitosamente");
+
+      if (typeof actualizarToursPadre === "function") {
+        await actualizarToursPadre();
       }
-    } catch (error) {
-      toast.error(error?.response?.data?.mensaje || " Error al actualizar el Tour.");
-    }finally {
-      setLoadingCreate(false);
+
+      resetForm();
+
+      setTimeout(() => {
+        onClose();
+        navigate("/admin/tours");
+      }, 3000);
+    } else {
+      toast.error("❌ Error al crear el Tour. Inténtalo de nuevo.");
     }
+  } catch (error) {
+    toast.warn("Ingresa todos los campos requeridos.");
+
+    console.log("❌ Error en la petición:");
+    console.log("Mensaje:", error.message);
+    console.log("Response completa:", error.response);
+    console.log("Status:", error?.response?.status);
+    console.log("Data:", error?.response?.data);
+    console.log("Headers:", error?.response?.headers);
+
+    toast.error(error?.response?.data?.mensaje || "Error al crear el tour.");
+  } finally {
+    setLoadingCreate(false);
+  }
+};
+
+  // -----------------------
+  // Update (editar)
+  // -----------------------
+const update = async () => {
+  if (loadingCreate) return;
+
+  setLoadingCreate(true);
+
+  const data = new FormData();
+
+  const payload = {
+    ...formData,
+
+    reservaUltimaHora: !!formData.reservaUltimaHora,
+
+    precio:
+      formData.tipo === "compartido"
+        ? toNumber(formData.precio)
+        : 0,
+
+    precios:
+      formData.tipo === "privado"
+        ? formData.precios.map((p) => ({
+            personas: toNumber(p.personas),
+            precioPorPersona: toNumber(p.precioPorPersona),
+          }))
+        : [],
+
+    diasNoDisponibles: limpiarComillas(formData.diasNoDisponibles),
+
+    fechasNoDisponibles: Array.isArray(formData.fechasNoDisponibles)
+      ? formData.fechasNoDisponibles.map(limpiarComillas).join(",")
+      : limpiarComillas(formData.fechasNoDisponibles),
   };
+
+  for (const key in payload) {
+    if (key === "precios") {
+      data.append("precios", JSON.stringify(payload.precios));
+    } else if (key === "extras") {
+      data.append("extras", JSON.stringify(payload.extras));
+    } else if (key === "fechaNoDisponibleTemp") {
+      continue;
+    } else {
+      data.append(key, payload[key]);
+    }
+  }
+
+  data.append(
+    "fotosExistentes",
+    JSON.stringify([...(new Set(actualizarImagenes || []))])
+  );
+
+  (imagenes || []).forEach((img) => {
+    const file = img?.file || img;
+
+    if (file instanceof File) {
+      data.append("imagenes", file);
+    }
+  });
+
+  console.group("FORMDATA UPDATE DEBUG");
+  for (const [key, value] of data.entries()) {
+    console.log(key, value);
+  }
+  console.groupEnd();
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.patch(`/api/tours/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      toast.success("Tour actualizado exitosamente");
+
+      if (typeof actualizarToursPadre === "function") {
+        await actualizarToursPadre();
+      }
+
+      resetForm();
+
+      setTimeout(() => {
+        onClose();
+      }, 3000);
+    } else {
+      toast.error("Error al actualizar el Tour.");
+    }
+  } catch (error) {
+    console.log("❌ Error actualizando tour:", error?.response?.data || error);
+    toast.error(error?.response?.data?.mensaje || "Error al actualizar el Tour.");
+  } finally {
+    setLoadingCreate(false);
+  }
+};
 
   const resetForm = () => {
     setFormData({
@@ -309,9 +419,13 @@ const eliminarExtra = (i) => {
     horaLimite: '',
     itinerario: '',
     reservaUltimaHora: false,
+     diasNoDisponibles: '',
+    fechasNoDisponibles: [],
+    fechaNoDisponibleTemp: '',
       
     });
     setImagenes([]);
+    setActualizarImagenes([]);
     setTour(null);
   };
 
@@ -353,6 +467,8 @@ const eliminarExtra = (i) => {
         horaLimite: tour.horaLimite || '',
         itinerario: tour.itinerario || '',
         reservaUltimaHora: !!tour.reservaUltimaHora,
+        diasNoDisponibles: tour.diasNoDisponibles,
+        fechasNoDisponibles: tour.fechasNoDisponibles ? tour.fechasNoDisponibles.split(",") : [],
         extras: Array.isArray(tour.extras)
       ? tour.extras
       : [{ nombre: "", valor: "", maxCantidad: 1 }],
@@ -364,8 +480,10 @@ const eliminarExtra = (i) => {
             }))
           : []
       });
-      setActualizarImagenes(tour.fotos);
+      setActualizarImagenes(Array.isArray(tour.fotos) ? [...new Set(tour.fotos)] : []);
+       setImagenes([]); // 🔥 importante
     }
+
   }, [isOpen, tour]);
 
   // Cleanup de previews
@@ -373,7 +491,7 @@ const eliminarExtra = (i) => {
     return () => {
       imagenes.forEach((img) => URL.revokeObjectURL(img.preview));
     };
-  }, [imagenes]);
+  }, []);
 
   if (!isOpen) return null;
 
@@ -635,6 +753,7 @@ const eliminarExtra = (i) => {
                         <p className="preview-titulo">Imágenes existentes:</p>
                         <ol>
                           {actualizarImagenes.map((img, index) => (
+                            
                             <li key={index} className="preview-item">
                               <img src={img} alt={`foto - ${index}`} />
                               <button
@@ -645,8 +764,11 @@ const eliminarExtra = (i) => {
                                 ✖
                               </button>
                             </li>
+                          
+                            
                           ))}
                         </ol>
+                       
                       </div>
                     )}
                     
@@ -656,6 +778,7 @@ const eliminarExtra = (i) => {
                         <p className="preview-titulo">Imágenes seleccionadas:</p>
                         <ol>
                           {imagenes.map((img, index) => (
+                            <div key={index} className='contenedor-img'>
                             <li key={index} className="preview-item">
                               <img src={img.preview} alt={img.name} />
                               <button
@@ -665,7 +788,22 @@ const eliminarExtra = (i) => {
                               >
                                 ✖
                               </button>
+                              
                             </li>
+                              <button className='boton-img' type="button" onClick={() => moverImagen(index, index - 1)} disabled={index === 0}>
+                              ↑
+                            </button>
+
+                            <button
+                            className='boton-img'
+                              type="button"
+                              onClick={() => moverImagen(index, index + 1)}
+                              disabled={index === imagenes.length - 1}
+                            >
+                              ↓
+                            </button>
+                            
+                            </div>
                           ))}
                         </ol>
                       </div>
@@ -781,9 +919,93 @@ const eliminarExtra = (i) => {
                     className='check'
                   />
                 <p  className="titulo-check">
-                    Una vez realizada la primera reserva para una franja horaria, se elimina la hora limite, permitiendo que se hagan más reservas hata la hora de inicio del tour o del cierre de esa franja horaria.               </p>
+                    Una vez realizada la primera reserva para una franja horaria, se elimina la hora limite, permitiendo que se hagan más reservas hasta la hora de inicio del tour o del cierre de esa franja horaria.               </p>
                 </div>
               </div>
+              <div className="campo">
+                  <label className="label">Deshabilitar los tours por Dias (opcional)</label>
+                  <select
+                    name="diasNoDisponibles"
+                    value={formData.diasNoDisponibles}
+                    onChange={handleChange}
+                  >
+                    <option value="">Ningún día bloqueado</option>
+                    <option value="0">Domingo</option>
+                    <option value="1">Lunes</option>
+                    <option value="2">Martes</option>
+                    <option value="3">Miércoles</option>
+                    <option value="4">Jueves</option>
+                    <option value="5">Viernes</option>
+                    <option value="6">Sábado</option>
+                  </select>
+                  
+              </div>
+              <div className="campo">
+              <label className="label">Deshabilitar tours por fecha específica</label>
+
+              <div className="fecha-bloqueo-row">
+                <input
+                  type="date"
+                  name="fechaNoDisponibleTemp"
+                  value={formData.fechaNoDisponibleTemp}
+                  onChange={handleChange}
+                  className="input-fecha-bloqueo"
+                />
+
+                <button
+                  type="button"
+                  className="btn-agregar-fecha"
+                  onClick={() => {
+                    if (!formData.fechaNoDisponibleTemp) return;
+
+                    if (
+                      formData.fechasNoDisponibles.includes(
+                        formData.fechaNoDisponibleTemp
+                      )
+                    ) {
+                      return;
+                    }
+
+                    setFormData((prev) => ({
+                      ...prev,
+                      fechasNoDisponibles: [
+                        ...prev.fechasNoDisponibles,
+                        prev.fechaNoDisponibleTemp,
+                      ],
+                      fechaNoDisponibleTemp: "",
+                    }));
+                  }}
+                >
+                  Agregar
+                </button>
+              </div>
+
+              {Array.isArray(formData.fechasNoDisponibles) &&
+                formData.fechasNoDisponibles.length > 0 && (
+                  <div className="fechas-bloqueadas-lista">
+                    {formData.fechasNoDisponibles.map((fecha) => (
+                      <span key={fecha} className="fecha-bloqueada-item">
+                        {fecha}
+
+                        <button
+                          type="button"
+                          className="btn-eliminar-fecha"
+                          onClick={() => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              fechasNoDisponibles: Array.isArray(prev.fechasNoDisponibles)
+                                ? prev.fechasNoDisponibles.filter((item) => item !== fecha)
+                                : [],
+                            }));
+                          }}
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+            </div>
               <div className="acciones">
                 <button type="button" className="btn cancelar" onClick={()=>onClose()}>Cancelar</button>
                 {id

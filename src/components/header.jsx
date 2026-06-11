@@ -90,7 +90,7 @@ useEffect(() => {
             </div>
             <header className="header">
                 <div className={`boton ${btnMenu?`voltear`:``} `} onClick={toggleClase}><i className="bi bi-chevron-double-down"></i></div>
-                <Link to="https://rutaxplorer.com"><img src={logo}></img></Link>
+                <Link to="https://rutaxplorer.com"><img src={logo} loading="lazy"></img></Link>
                   <ul className={`${btnMenu ? 'menu' : ''}`}>
               {menuAdmin ? (
                 <>
