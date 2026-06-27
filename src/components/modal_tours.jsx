@@ -32,6 +32,7 @@ const eliminarImagenExistente = (index) => {
     recomendaciones: '',
     salida: '',
     categoria: '',
+    subCategoria: '',
     salidas: '',
     tiempo: '',
     precio: '',
@@ -406,6 +407,7 @@ const update = async () => {
       recomendaciones: '',
       salida: '',
       categoria: '',
+      subCategoria: '',
       salidas: '',
       tiempo: '',
       precio: '',
@@ -464,6 +466,7 @@ const update = async () => {
         toursPorDia: tour.toursPorDia?.toString?.() || '',
         cantidadMinima: tour.cantidadMinima ?? 1,
         tipo: tour.tipo || 'compartido',
+        subCategoria: tour.subCategoria || '',
         horaLimite: tour.horaLimite || '',
         itinerario: tour.itinerario || '',
         reservaUltimaHora: !!tour.reservaUltimaHora,
@@ -583,6 +586,23 @@ const update = async () => {
                     <option value="10">10.Tours desde los Hoteles del Quindío</option>
                   </select>
                   </div>
+                   <div className="campo">
+                    <label>Sub Categoría</label>
+                  <select
+                    name="subCategoria"
+                    value={formData.subCategoria}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Seleccione una Sub categoría…</option>
+
+                    <option value="1">1. Salidas desde Salento</option>
+                    <option value="2">2. Salidas desde Pereira</option>
+                    <option value="3">3. Salidas desde Hoteles en el Quindío</option>
+                    
+                  </select>
+                  </div>
+                 
                   <div className="campo">
                     <label>Idioma</label>
                     <input

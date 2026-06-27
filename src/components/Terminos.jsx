@@ -10,7 +10,7 @@ const Terminos = ({ isOpen, onClose }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-contente" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{t("terms.title")}</h2>
           <button

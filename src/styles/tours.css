@@ -1,7 +1,7 @@
 .container_tours{
   max-width: 100%;
   height: auto;
-  background-color: rgb(33, 33, 33);
+
 
   /* layout simple en columna */
            /* o simplemente quita 'display' y listo */
@@ -94,7 +94,7 @@
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-    background-color: rgb(33, 33, 33);
+    background-color: rgb(255, 255, 255);
 }
 .img_logo{
     max-width: 200px;
@@ -347,21 +347,239 @@
 }
 
 .tours-categoria {
+  width: 100%;
   max-width: 100%;
   display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  height: fit-content;
-  margin-bottom: 20px;
-
   gap: 20px;
+
+  overflow-x: hidden;
+  overflow-y: visible;
+
+  height: auto;
+  margin-bottom: 20px;
+  padding: 10px 0;
   scroll-behavior: smooth;
-  overflow-y: hidden;
-  padding: 10px 10px; /* evita que las flechas tapen tarjetas */
-  -webkit-overflow-scrolling: touch;
 }
 
+/* ============================= */
+/* LAYOUT FILTROS + TOURS */
+/* ============================= */
 
+.tours-layout-filtros {
+  width: 100%;
+  max-width: 1200px;
+  margin: 25px auto 0;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ============================= */
+/* SIDEBAR FILTROS */
+/* ============================= */
+
+.filtros-sidebar {
+  background: #ffffff;
+  border: 1px solid #e8edf3;
+  border-radius: 10px;
+  padding: 22px 18px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  position: sticky;
+  top: 90px;
+}
+
+.filtros-sidebar h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1f2d44;
+  margin: 0 0 22px;
+}
+
+/* ============================= */
+/* GRUPOS DE FILTROS */
+/* ============================= */
+
+.filtro-grupo {
+  border-bottom: 1px solid #edf1f5;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.filtro-grupo:last-of-type {
+  border-bottom: none;
+  margin-bottom: 18px;
+}
+
+.filtro-grupo h4 {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1f2d44;
+  margin: 0 0 14px;
+}
+
+/* ============================= */
+/* CHECKS / RADIOS */
+/* ============================= */
+
+.filtro-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  color: #5f6b7a;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.filtro-check input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #2f80d8;
+}
+
+.filtro-check span {
+  line-height: 1.2;
+}
+
+.filtro-check:hover span {
+  color: #2f80d8;
+}
+
+/* ============================= */
+/* RANGO DE PRECIO */
+/* ============================= */
+
+.filtro-range {
+  width: 100%;
+  cursor: pointer;
+  accent-color: #2f80d8;
+}
+
+.precio-rango {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #5f6b7a;
+  font-weight: 600;
+}
+
+/* ============================= */
+/* BOTÓN LIMPIAR */
+/* ============================= */
+
+.btn-limpiar-filtros {
+  width: 100%;
+  border: none;
+  background: #f1f5f9;
+  color: #1f2d44;
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-limpiar-filtros:hover {
+  background: #2f80d8;
+  color: #ffffff;
+}
+
+/* ============================= */
+/* LISTADO DE TOURS */
+/* ============================= */
+
+.tours-listado {
+  width: 100%;
+  min-width: 0;
+}
+
+.tours-listado .tours-categoria {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: visible;
+  padding: 0;
+  margin: 0;
+}
+
+.tours-listado .tour-card-list {
+  width: 100%;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 992px) {
+  .tours-layout-filtros {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .filtros-sidebar {
+    position: static;
+    top: auto;
+  }
+
+  .filtros-sidebar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .filtros-sidebar h3 {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .btn-limpiar-filtros {
+    grid-column: 1 / -1;
+  }
+
+  .filtro-grupo {
+    border-bottom: none;
+    border-right: 1px solid #edf1f5;
+    padding-bottom: 0;
+    padding-right: 18px;
+    margin-bottom: 0;
+  }
+
+  .filtro-grupo:last-of-type {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .tours-layout-filtros {
+    padding: 0 10px;
+  }
+
+  .filtros-sidebar {
+    display: block;
+    padding: 20px 16px;
+  }
+
+  .filtro-grupo {
+    border-right: none;
+    border-bottom: 1px solid #edf1f5;
+    padding-right: 0;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+  }
+
+  .filtro-grupo:last-of-type {
+    border-bottom: none;
+  }
+}
 
 .tours-categoria::-webkit-scrollbar {
   display: none;
@@ -409,12 +627,12 @@
   width: 100%;
   max-width: 450px;
   padding: 12px 18px;
-  border: 1px solid #3b3b3b;
+  border: 1px solid #ffffff;
   border-radius: 25px;
   font-size: 15px;
   outline: none;
-  background-color: #3b3b3b;
-  color:rgb(60, 177, 255);
+  background-color: #f0f0f0;
+  color:rgb(46, 46, 46);
   font-size: 22px;
 }
 
@@ -426,6 +644,192 @@
   color:rgb(60, 177, 255);
  
 
+}
+
+.experiencias-reservadas {
+  width: 100%;
+  max-width: 1200px;
+  margin: 35px auto 45px;
+  padding: 0 20px;
+}
+
+.experiencias-reservadas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.experiencias-reservadas-header h2 {
+  font-size: 22px;
+  font-weight: 900;
+  color: #1f2d44;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.experiencias-reservadas-header h2 span {
+  font-size: 18px;
+  margin-right: 6px;
+}
+
+.experiencias-reservadas-header button {
+  border: none;
+  background: transparent;
+  color: #2f80d8;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.experiencias-reservadas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.experiencia-reservada-card {
+  background: #ffffff;
+  border: 1px solid #e8edf3;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.07);
+  transition: 0.25s ease;
+}
+
+.experiencia-reservada-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.13);
+}
+
+.experiencia-reservada-img {
+  width: 100%;
+  height: 145px;
+  position: relative;
+  overflow: hidden;
+}
+
+.experiencia-reservada-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.experiencia-badge {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  background: #2f80d8;
+  color: white;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 6px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.experiencia-reservada-info {
+  padding: 13px 14px 15px;
+}
+
+.experiencia-reservada-info h3 {
+  font-size: 15px;
+  font-weight: 900;
+  color: #1f2d44;
+  line-height: 1.25;
+  margin: 0 0 10px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.experiencia-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.experiencia-meta span {
+  font-size: 12px;
+  font-weight: 700;
+  color: #5f6b7a;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.experiencia-reservada-info p {
+  font-size: 13px;
+  color: #5f6b7a;
+  margin: 0;
+}
+
+.experiencia-reservada-info p strong {
+  color: #1f2d44;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+/* Responsive */
+
+@media (max-width: 1024px) {
+  .experiencias-reservadas-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .experiencias-reservadas {
+    padding: 0 14px;
+  }
+
+  .experiencias-reservadas-header {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .experiencias-reservadas-header h2 {
+    font-size: 18px;
+  }
+
+  .experiencias-reservadas-header button {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .experiencias-reservadas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .experiencia-reservada-img {
+    height: 115px;
+  }
+
+  .experiencia-reservada-info {
+    padding: 10px;
+  }
+
+  .experiencia-reservada-info h3 {
+    font-size: 13px;
+  }
+
+  .experiencia-meta span {
+    font-size: 10px;
+  }
+
+  .experiencia-reservada-info p {
+    font-size: 11px;
+  }
+
+  .experiencia-reservada-info p strong {
+    font-size: 12px;
+  }
 }
 /* Flechas */
 @media (max-width: 858px){
@@ -560,7 +964,237 @@
   margin: 30px 0;
   color: #ebebeb;
 }
+/* ============================= */
+/* SECCIÓN SALIDAS / CATEGORÍAS */
+/* ============================= */
 
+.salidas-section {
+  width: 100%;
+  max-width: 1150px;
+  margin: 45px auto 40px;
+  padding: 0 20px;
+}
+
+.salidas-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.salidas-header h2 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #1f2d44;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.salidas-header p {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0 auto;
+  max-width: 620px;
+  line-height: 1.5;
+}
+
+/* GRID DE LAS 3 CARDS */
+
+.salidas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;
+}
+
+/* CARD */
+
+.salida-card {
+  background: #ffffff;
+  border-radius: 4px;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.salida-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+}
+
+/* IMAGEN SUPERIOR */
+
+.salida-img-wrapper {
+  width: 100%;
+  height: 165px;
+  overflow: hidden;
+}
+
+.salida-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ÍCONO CIRCULAR */
+
+.salida-icon {
+  width: 62px;
+  height: 62px;
+  background: #4e8fd8;
+  color: #ffffff;
+  border-radius: 50%;
+  border: 5px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin: -31px auto 10px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* CONTENIDO */
+
+.salida-content {
+  padding: 0 22px 26px;
+}
+
+.salida-content h3 {
+  font-size: 23px;
+  font-weight: 800;
+  color: #1f2d44;
+  margin: 12px 0 12px;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.salida-content p {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 auto 22px;
+  min-height: 42px;
+}
+
+/* BOTÓN */
+
+.salida-btn {
+  background: #4e8fd8;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  padding: 11px 22px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.salida-btn:hover {
+  background: #3578c8;
+  transform: translateY(-2px);
+}
+
+/* ============================= */
+/* VISTA DESPUÉS DE SELECCIONAR */
+/* ============================= */
+
+.tours-filtrados-categoria {
+  width: 100%;
+  max-width: 1150px;
+  margin: 35px auto 0;
+  padding: 0 20px;
+}
+
+.titulo-categoria-seleccionada {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.titulo-categoria-seleccionada h2 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #1f2d44;
+  margin: 12px 0 8px;
+  text-transform: uppercase;
+}
+
+.titulo-categoria-seleccionada span {
+  display: block;
+  font-size: 15px;
+  color: #6b7280;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.volver-categorias {
+  background: transparent;
+  color: #4e8fd8;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: color 0.2s ease;
+}
+
+.volver-categorias:hover {
+  color: #3578c8;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 992px) {
+  .salidas-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .salidas-header h2 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 768px) {
+  .salidas-section {
+    margin: 35px auto 30px;
+    padding: 0 15px;
+  }
+
+  .salidas-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .salida-img-wrapper {
+    height: 190px;
+  }
+
+  .salidas-header h2 {
+    font-size: 23px;
+  }
+
+  .salidas-header p {
+    font-size: 14px;
+  }
+
+  .salida-content h3 {
+    font-size: 21px;
+  }
+
+  .titulo-categoria-seleccionada h2 {
+    font-size: 24px;
+  }
+}
 @media (max-width: 768px) {
   .categorias-cards-grid {
     grid-template-columns: 1fr;

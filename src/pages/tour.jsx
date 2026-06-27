@@ -518,7 +518,16 @@ const fechaNoDisponible = (date) => {
 
 
 
-  if (cargando) return <img src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif" alt="No tours available" />;
+
+if (cargando) {
+  return (
+    <div className="loader-container">
+      <div className="loader-rutaxplorer"></div>
+      <p>Cargando experiencias...</p>
+    </div>
+  );
+}
+
 
   return (
     
@@ -739,7 +748,7 @@ const fechaNoDisponible = (date) => {
           />
           </div>
           <label>{t("tour.horario")}:</label>
-          <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
+          <select  className="select-horario" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
             <option value="">{t("tour.seleccionaHorario")}</option>
             {/* {availableTimes.map((time, index) => (
               <option key={index} value={time}>{time}</option>

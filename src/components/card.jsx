@@ -1,5 +1,5 @@
 import '../styles/card.css';
-import AOS from 'aos';
+// import AOS from 'aos';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalAgregarTour from './modal_tours';
@@ -15,12 +15,12 @@ const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idiom
    const [loadingDeleteId, setLoadingDeleteId] = useState(null);
    const { t } = useTranslation();
 
-  useEffect(() => {
-  AOS.init({
-    duration: 1000, // duración de la animación
-    once: true,     // solo una vez al entrar al viewport
-  });
-}, []);
+//   useEffect(() => {
+//   AOS.init({
+//     duration: 1000, // duración de la animación
+//     once: true,     // solo una vez al entrar al viewport
+//   });
+// }, []);
 const [buttons,setButtons]=useState(false)
   // 👇 estado local para el activo/inactivo y “guardando”
   const [activoLocal, setActivoLocal] = useState(!!activo);
@@ -45,7 +45,7 @@ const [buttons,setButtons]=useState(false)
   }, [activo, id]);
 
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+  
     const token = localStorage.getItem('token');
     if (token) setButtons(true);
   }, []);
@@ -104,100 +104,116 @@ const generarSlug = (texto) => {
 
 
   return (
-    <>
-    
-    <div className="tour-card" data-aos="flip-right">
-      <div className="tour-image">
-        <div className='shadow'></div>
+  <>
+    <div className="tour-card-list" >
+      <div className="tour-card-img">
         <img
-        src={optimizarImagenCloudinary(imagen, 800)}
-        srcSet={`
-          ${optimizarImagenCloudinary(imagen, 400)} 400w,
-          ${optimizarImagenCloudinary(imagen, 800)} 800w,
-          ${optimizarImagenCloudinary(imagen, 1200)} 1200w
-        `}
-        sizes="(max-width: 768px) 90vw, 400px"
-        alt={titulo}
-        loading="lazy"
-        decoding="async"
-      />
-      </div>
-      <div className="tour-details">
-        {buttons ?(
-         <div
-              className={`estado-toggle ${activoLocal ? 'finalizada' : 'inactivo'}`}
-              onClick={toggleActivo}
-              title={activoLocal ? 'Activo' : 'Inactivo'}
-              role="button"
-              aria-label="Cambiar estado del tour"
-              style={{ opacity: saving ? 0.6 : 1, pointerEvents: saving ? 'none' : 'auto' }}
-            ></div>
-            ):(<></>)
+          src={optimizarImagenCloudinary(imagen, 800)}
+          srcSet={`
+            ${optimizarImagenCloudinary(imagen, 400)} 400w,
+            ${optimizarImagenCloudinary(imagen, 800)} 800w,
+            ${optimizarImagenCloudinary(imagen, 1200)} 1200w
+          `}
+          sizes="(max-width: 768px) 100vw, 320px"
+          alt={titulo}
+          loading="lazy"
+          decoding="async"
+        />
 
-            }
-       
-           
-                    <h3>{titulo}</h3>
-
-              {/* <ul className="tour-info">
-                <li>- {t("card.maxPersonas")}: {personasMax}</li>
-                <li>- {t("card.horarios")}: {horarios}</li>
-                <li>- {t("card.duracion")}: {duracion}</li>
-                <li>- {t("card.idioma")}: {idioma}</li>
-              </ul> */}
-
-              <p className="price">
-                {t("card.desde")}{" "}
-                <strong>
-                  {tipo === "compartido"
-                    ? `$${Number(precio).toLocaleString("es-CO", {
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0,
-                      })}`
-                    : precios?.length > 0
-                    ? `$${Number(precios[precios.length - 1].precioPorPersona).toLocaleString("es-CO", {
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0,
-                      })}`
-                    : "$0"}
-                </strong>{" "}
-                {t("card.moneda")}
-                <small>({t("card.precioVariable")})</small>
-              </p>
-
-              <div className="buttons-container">
-                {!buttons ? (
-                  <Link
-                    className="reserve-button"
-                    to={`/tour/${hotel || "RutaExplorer"}/${slug}`}
-                  >
-                    <button className="reserve-button">
-                      {t("card.reservar")}
-                    </button>
-                  </Link>
-  
-            
-          ):(
-            <>
-            <button className='edit' onClick={() => onEdit?.(id)}><i className="bi bi-pencil-square"></i></button>
-            
-            <button className='view' ><Link  to={`/tour/${slug}`}><i className="bi bi-eye"></i> </Link></button>
-           
-            <button className='delete' onClick={()=>{eliminarTour(id)}}><i className="bi bi-trash"></i></button>
-
-            </>
-          )
-
-          }
-          
-
-        </div>
         
       </div>
+
+      <div className="tour-card-info">
+        {buttons && (
+          <div
+            className={`estado-toggle ${activoLocal ? "finalizada" : "inactivo"}`}
+            onClick={toggleActivo}
+            title={activoLocal ? "Activo" : "Inactivo"}
+            role="button"
+            aria-label="Cambiar estado del tour"
+            style={{
+              opacity: saving ? 0.6 : 1,
+              pointerEvents: saving ? "none" : "auto",
+            }}
+          ></div>
+        )}
+
+        <h3>{titulo}</h3>
+
+        <div className="tour-meta">
+          <span>
+            <i className="bi bi-clock"></i>
+            {duracion}
+          </span>
+
+          {horarios && (
+            <span>
+              <i className="bi bi-calendar-event"></i>
+              {horarios}
+            </span>
+          )}
+
+          {idioma && (
+            <span>
+              <i className="bi bi-translate"></i>
+              {idioma}
+            </span>
+          )}
+        </div>
+
+        
+      </div>
+
+      <div className="tour-card-price">
+        <span className="price-label">{t("card.desde")}</span>
+
+        <strong>
+          {tipo === "compartido"
+            ? `$${Number(precio).toLocaleString("es-CO", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })}`
+            : precios?.length > 0
+            ? `$${Number(
+                precios[precios.length - 1].precioPorPersona
+              ).toLocaleString("es-CO", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })}`
+            : "$0"}
+        </strong>
+
+        <small>COP</small>
+        <span className="price-persona">por persona</span>
+
+        <div className="buttons-container-list">
+          {!buttons ? (
+            <Link
+              className="details-link"
+              to={`/tour/${hotel || "RutaExplorer"}/${slug}`}
+            >
+              VER DETALLES
+            </Link>
+          ) : (
+            <div className="admin-card-actions">
+              <button className="edit" onClick={() => onEdit?.(id)}>
+                <i className="bi bi-pencil-square"></i>
+              </button>
+
+              <Link className="view" to={`/tour/${slug}`}>
+                <i className="bi bi-eye"></i>
+              </Link>
+
+              <button className="delete" onClick={() => eliminarTour(id)}>
+                <i className="bi bi-trash"></i>
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
-    {/* <ModalAgregarTour isOpen={modalAbierto}  onClose={modalAbierto} id={id}></ModalAgregarTour> */}
-    </>
-  );
+  </>
+);
 };
 
 export default Card;
