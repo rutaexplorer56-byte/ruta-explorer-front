@@ -451,6 +451,140 @@
   }
 
 }
+.categorias-cards-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 26px;
+  margin: 40px 0;
+}
+
+.categoria-card {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.categoria-card:nth-child(n + 3) {
+  height: 240px;
+}
+
+.categoria-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.categoria-card.activa {
+  outline: 4px solid #1da1f2;
+}
+
+.categoria-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.categoria-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.58) 0%,
+    rgba(0, 0, 0, 0.25) 45%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+.categoria-card-content {
+  position: absolute;
+  left: 26px;
+  top: 28px;
+  right: 20px;
+  color: white;
+  z-index: 2;
+}
+
+.categoria-card-content h2 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  color: white;
+}
+
+.categoria-card-content h2 span {
+  font-size: 32px;
+  margin-left: 8px;
+}
+
+.categoria-card-content p {
+  max-width: 520px;
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #f2f2f2;
+}
+
+.titulo-categoria-seleccionada {
+  margin: 35px 0 20px;
+}
+
+.titulo-categoria-seleccionada h2 {
+  font-size: 34px;
+  color: #1da1f2;
+  margin-bottom: 8px;
+}
+
+.titulo-categoria-seleccionada span {
+  display: block;
+  color: #f8f8f8;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.titulo-categoria-seleccionada button {
+  border: none;
+  background: #1da1f2;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.mensaje-seleccion-categoria {
+  text-align: center;
+  margin: 30px 0;
+  color: #ebebeb;
+}
+
+@media (max-width: 768px) {
+  .categorias-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .categoria-card,
+  .categoria-card:nth-child(n + 3) {
+    height: 220px;
+  }
+
+  .categoria-card-content {
+    left: 20px;
+    top: 22px;
+  }
+
+  .categoria-card-content h2 {
+    font-size: 28px;
+  }
+
+  .categoria-card-content p {
+    font-size: 14px;
+  }
+}
 
 
 @media (max-width: 768px) {

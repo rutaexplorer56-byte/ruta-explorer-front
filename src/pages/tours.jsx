@@ -35,7 +35,7 @@ function Tours(){
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
   const [numCategoria, setnumCategoria] = useState("");
   const [mostrarTours, setMostrarTours] = useState(true);
-
+// const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
   const images = [
     imagen
 
@@ -48,64 +48,73 @@ const categorias = [
     id: "1",
     labelKey: "categories.coffeeRoutes.label",
     descKey: "categories.coffeeRoutes.description",
-    img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/7b/8f/64/caption.jpg?w=500&h=400&s=1",
+    img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/7b/8f/64/caption.jpg?w=900&h=600&s=1",
+    alt: "Ruta cafetera en Salento y el Eje Cafetero",
   },
   {
     id: "2",
     labelKey: "categories.privateHiking.label",
     descKey: "categories.privateHiking.description",
-    img: "https://cdn.getyourguide.com/image/format=auto,fit=contain,gravity=auto,quality=60,width=1440,height=650,dpr=1/tour_img/4c3da771a8af41b49b18b11c2c26e0bee40e4b32982966e00d8ebd4185435049.jpg",
+    img: "https://planesquindio.com/wp-content/uploads/2026/05/caminatas-por-el-quindio.webp",
+    alt: "Senderismo privado en paisajes naturales del Quindío",
   },
   {
     id: "3",
     labelKey: "categories.sharedHiking.label",
     descKey: "categories.sharedHiking.description",
-    img: "https://www.quindioecotours.com/wp-content/uploads/2020/07/Carbonera-2.jpg",
+    img: "https://turismoquindio.com/wp-content/uploads/2017/08/valle-de-cocora-salento-ejecafetero.jpg",
+    alt: "Senderismo compartido en el Valle del Cocora",
   },
   {
     id: "4",
     labelKey: "categories.adventure.label",
     descKey: "categories.adventure.description",
-    img: "https://www.valledelcocora.com.co/w/wp-content/uploads/2024/07/Caballos.jpg",
+    img: "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/11/ad/a9/15.jpg",
+    alt: "Tour de aventura a caballo en Salento",
   },
   {
     id: "5",
     labelKey: "categories.themeParks.label",
     descKey: "categories.themeParks.description",
-    img: "https://parquedelcafe.co/wp-content/uploads/2024/12/PDC-Avix-Experiencia-012-scaled.jpg",
+    img: "https://turismoquindio.com/wp-content/uploads/2017/08/krater4.jpg",
+    alt: "Parques temáticos del Eje Cafetero",
   },
   {
     id: "6",
     labelKey: "categories.gastronomy.label",
     descKey: "categories.gastronomy.description",
-    img: "https://arracheramex.wordpress.com/wp-content/uploads/2013/09/tejaditos_trucha.jpg",
+    img: "https://www.triviantes.com/wp-content/uploads/2021/04/Trucha-Salento.jpg",
+    alt: "Gastronomía típica de Salento y el Quindío",
   },
   {
     id: "7",
     labelKey: "categories.fromPereira.label",
     descKey: "categories.fromPereira.description",
-    img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
+    img: "https://www.triviantes.com/wp-content/uploads/2021/06/Salento-1200x900.jpg",
+    alt: "Tours desde Pereira hacia Salento y el Eje Cafetero",
   },
   {
     id: "8",
     labelKey: "categories.fromFilandia.label",
     descKey: "categories.fromFilandia.description",
-    img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
+    img: "https://imagescdn.citix.com.co/citix/production/tours/7ff213c0-c9c0-4dd8-b7e6-d17a39da3a2b/ad75789611820690cb0874dfa36cdbc2.jpg",
+    alt: "Tours desde Filandia Quindío",
   },
   {
     id: "9",
     labelKey: "categories.carbonera.label",
     descKey: "categories.carbonera.description",
-    img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
+    img: "https://www.quindioecotours.com/wp-content/uploads/2020/07/Carbonera-2.jpg",
+    alt: "Tour a La Carbonera con palmas de cera",
   },
   {
     id: "10",
     labelKey: "categories.hotelsQuindio.label",
     descKey: "categories.hotelsQuindio.description",
-    img: "https://elpereirano.com/wp-content/uploads/2025/02/6747cfeab9c02.r_d.1215-694-8176.jpeg",
+    img: "https://turismoquindio.com/wp-content/uploads/2017/07/hotel-las-camelias-quindio-107-800x507.jpg",
+    alt: "Tours para hoteles del Quindío",
   },
 ];
-
 
 
   useEffect(() => {
@@ -148,7 +157,9 @@ const seccionRef = useRef(null);
     });
   };
 
-
+const categoriasConTours = categorias.filter((cat) =>
+  tours?.some((tour) => tour.categoria === cat.id && tour.activo === true)
+);
 
 
     return(
@@ -175,7 +186,7 @@ const seccionRef = useRef(null);
                   />
                 </div>
 
-               <div className="container-tours" ref={seccionRef}>
+               {/* <div className="container-tours" ref={seccionRef}>
               {tours && tours.length > 0 ? (
                 busqueda.trim() !== "" ? (
                   <div className="categoria resultados-busqueda">
@@ -256,7 +267,96 @@ const seccionRef = useRef(null);
                   />
                 </div>
               )}
-            </div>
+            </div> */}
+            <div className="container-tours" ref={seccionRef}>
+            {tours && tours.length > 0 ? (
+              <>
+                {busqueda.trim() === "" && !categoriaSeleccionada &&  (
+                  <div className="categorias-cards-grid">
+                    {categoriasConTours.map((cat) => (
+                      <div
+                        key={cat.id}
+                        className={`categoria-card ${
+                          categoriaSeleccionada?.id === cat.id ? "activa" : ""
+                        }`}
+                        onClick={() => {
+                          setCategoriaSeleccionada(cat);
+                        }}
+                      >
+                        <img src={cat.img} alt={t(cat.alt)} />
+
+                        <div className="categoria-card-overlay"></div>
+
+                        <div className="categoria-card-content">
+                          <h2>
+                            {t(cat.labelKey)} <span>🇨🇴</span>
+                          </h2>
+                          <p>{t(cat.descKey)}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {busqueda.trim() !== "" ? (
+                  <div className="categoria resultados-busqueda">
+                    <div className="tours-categoria">
+                      <FilteredTours
+                        key={`${lang}-busqueda-${busqueda}`}
+                        categoria="todos"
+                        numCategoria={null}
+                        hotel={hotel}
+                        busqueda={busqueda}
+                        mostrarMensaje={true}
+                      />
+                    </div>
+                  </div>
+                ) : categoriaSeleccionada ? (
+                  <div className="categoria tours-filtrados-categoria">
+                    <div className="titulo-categoria-seleccionada">
+                      <h2>{t(categoriaSeleccionada.labelKey)}</h2>
+                      <span>{t(categoriaSeleccionada.descKey)}</span>
+
+                      <button
+                        type="button"
+                        onClick={() => setCategoriaSeleccionada(null)}
+                      >
+                        Ver categorías
+                      </button>
+                    </div>
+
+                    <div className="tours-categoria">
+                      <FilteredTours
+                        key={`${lang}-${categoriaSeleccionada.id}`}
+                        categoria={categoriaSeleccionada.label}
+                        numCategoria={categoriaSeleccionada.id}
+                        hotel={hotel}
+                        busqueda=""
+                        mostrarMensaje={true}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mensaje-seleccion-categoria">
+                    <h2>Selecciona una categoría para ver los tours disponibles</h2>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="tour-message">
+                <h2>En el momento no contamos con tours disponibles ...</h2>
+                <h2>
+                  Si deseas reservar con nosotros te invitamos a escribirnos al siguiente
+                  número:
+                </h2>
+                <h2 className="phone">+57 3124151539</h2>
+                <img
+                  src="https://www.mdirector.com/wp-content/uploads/2022/04/smsreservar.jpg"
+                  alt="No tours available"
+                />
+              </div>
+            )}
+          </div>
 
 
 {/* 

@@ -904,6 +904,8 @@ const update = async () => {
                     <option value="180">3 Horas</option>
                     <option value="240">4 Horas</option>
                     <option value="300">5 Horas</option>
+                    <option value="720">12 Horas</option>
+                    <option value="1440">24 Horas</option>
                   </select>
                 </div>
                 

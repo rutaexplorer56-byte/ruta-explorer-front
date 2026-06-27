@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import BotonBold from "../components/BotonBold";
 import Terminos from '../components/Terminos';
-
+import { abrirBoldCheckout } from "../utils/boldCheckout";
 
 registerLocale('es', es);
 
@@ -135,26 +135,55 @@ const fetchTour = async () => {
 
 
   
-  const obtenerFirma = async (data) => {
-    try {
+  // const obtenerFirma = async (data) => {
+  //   try {
       
-        const response = await axios.post("/api/firma-bold", {
-        reference: data.reserva.referenciaPago,
-        amount: selectedEscalon || (basePrice * adults),
-        currency: "COP",
-      });
-      setFirmaBold(response.data.signature);
-      setReferencia(data.reserva.referenciaPago)
-      setFirmaBold(response.data.signature)
-      setAmount(data.reserva.valorTotal)
-      setCurrency('COP')
+  //       const response = await axios.post("/api/firma-bold", {
+  //       reference: data.reserva.referenciaPago,
+  //       amount: selectedEscalon || (basePrice * adults),
+  //       currency: "COP",
+  //     });
+  //     setFirmaBold(response.data.signature);
+  //     setReferencia(data.reserva.referenciaPago)
+  //     setFirmaBold(response.data.signature)
+  //     setAmount(data.reserva.valorTotal)
+  //     setCurrency('COP')
       
-    } catch (error) {
-      console.error("Error al obtener la firma de Bold:", error);
-    }
-  };
+  //   } catch (error) {
+  //     console.error("Error al obtener la firma de Bold:", error);
+  //   }
+  // };
 
-  
+  const obtenerFirma = async (data) => {
+  try {
+    const reserva = data.reserva;
+
+    const response = await axios.post("/api/firma-bold", {
+      reference: reserva.referenciaPago,
+      amount: reserva.valorTotal,
+      currency: "COP",
+    });
+
+    const signature = response.data.signature;
+
+    await abrirBoldCheckout({
+      apiKey: apiKey,
+      reference: reserva.referenciaPago,
+      amount: reserva.valorTotal,
+      currency: "COP",
+      signature: signature,
+      description: `Reserva ${reserva.nombreTour}`,
+      redirectionUrl: "https://rutaxplorer.com/app/invoice/",
+      
+    });
+  } catch (error) {
+    console.error("Error al iniciar pago con Bold:", error);
+
+    toast.error("No se pudo iniciar la pasarela de pago.", {
+      position: "top-right",
+    });
+  }
+};
 
   function agregarHorasDesdeCadena(cadena) {
   const nuevasHoras = cadena
@@ -255,7 +284,7 @@ const construirExtrasDetalle = () => {
  
 
 
-
+const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
  const handleReserva = async () => {
   const extrasDetalle = construirExtrasDetalle();
@@ -331,7 +360,8 @@ const construirExtrasDetalle = () => {
       toast.info("Reserva creada, creando el boton de pago...", {
         position: "top-right"
       });
-      obtenerFirma(response.data)
+      await esperar(3000);
+      await obtenerFirma(response.data)
 
     
     }
