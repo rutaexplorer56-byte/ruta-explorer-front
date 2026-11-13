@@ -1,25 +1,35 @@
+import MetodoPago from '../components/MetodoPago';
+import ReservaManual from '../components/ReservaManual';
+import { diasBloqueados } from '../utils/diasBloqueados';
+import { cotizarPago, metodosPermitidos } from '../utils/pagos';
 import  { useState,useMemo } from 'react'
-import DatePicker, { registerLocale } from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import es from 'date-fns/locale/es';
-import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
+import CalendarioReservas from '../components/CalendarioReservas';
+import GaleriaTour from '../components/GaleriaTour';
 import '../styles/tour.css';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import AOS from 'aos';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { normalizeRef, validTourSlug, getTourPublicPath, getReservationHotel, withReferral } from '../utils/tourUrls';
+import { reservaHabilitada, tarifasValidas } from '../utils/datosApi';
 import axios from "../axiosConfig";
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import BotonBold from "../components/BotonBold";
 import Terminos from '../components/Terminos';
 import { abrirBoldCheckout } from "../utils/boldCheckout";
+import Seo from "../components/Seo";
+import { tourSeoDescription } from '../utils/seoLanguages';
+import { precioAplicableExtra, detalleExtras } from "../utils/extras";
+import { aplicaPromocion, promocionVisible, precioAplicableTour } from '../utils/promociones';
+import useFechaPromocion from '../hooks/useFechaPromocion';
+import PrecioPromocion from '../components/PrecioPromocion';
+import ItinerarioTour from '../components/ItinerarioTour';
 
-registerLocale('es', es);
 
 const Tour = () => {
+  const hoyPromocion = useFechaPromocion();
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [correoUsuario, setCorreoUsuario] = useState('');
   const [telefonoUsuario,setTelefonoUsuario]=useState('')
@@ -45,15 +55,16 @@ const Tour = () => {
 
 
 
-  const { hotel,nombre} = useParams();
+  const { slug } = useParams();
+  const [searchParams] = useSearchParams();
+  const hotel = normalizeRef(searchParams.get('ref'));
   const [recepcionista,setRecepcionista]=useState('') 
   const [tour, setTour] = useState(null);
   const [cargando, setCargando] = useState(true);
-  const [fotos,setFotos]= useState("https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/4a/e8/a0/20190709-093333-largejpg.jpg?w=1200&h=1200&s=1")
+  const [errorCarga, setErrorCarga] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [adults, setAdults] = useState( 1);
-  const [mainImage, setMainImage] = useState(fotos);
   const [availableTimes, setAvailableTimes] = useState([]);
   const [incluidos,setIncluidos]=useState([]);
   const[recomendaciones,setRecomendaciones]=useState([])
@@ -64,56 +75,48 @@ const Tour = () => {
   const [apiKey, setApiKey] = useState(import.meta.env.VITE_BOLD_PUBLIC_KEY);
   const[amount,setAmount]=useState(0)
   const [selectedEscalon, setSelectedEscalon] = useState(null);
-  const [precioMostrar, setPrecioMostrar] = useState([]);
+  const [precioMostrar, setPrecioMostrar] = useState(null);
   const [selectedPersonas, setSelectedPersonas] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [aceptaTerminos, setAceptaTerminos] = useState(false);
   const [idioma, setIdioma] = useState("");
   const[activo,setActivo]=useState(false)
   const [horariosConReserva, setHorariosConReserva] = useState(new Set());
+  const [consultaReservasClave, setConsultaReservasClave] = useState('');
   const [extrasSeleccionados, setExtrasSeleccionados] = useState({});
   const [tipoDocumento, setTipoDocumento] = useState("cedula");
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [hotelCliente, setHotelCliente] = useState("");
   const [pais, setPais] = useState("");
+  const [metodoPago, setMetodoPago] = useState("bold");
+  const [creandoReserva, setCreandoReserva] = useState(false);
+  const [reservaManual, setReservaManual] = useState(null);
   // Abrir modal
   const abrirModal = () => setIsModalOpen(true);
 
   // Cerrar modal
   const cerrarModal = () => setIsModalOpen(false);
-useEffect(() => {
-  if (Array.isArray(fotos) && fotos.length > 0) {
-    setMainImage(fotos[currentIndex]);
-  }
-}, [currentIndex, fotos]);
-const nextImage = () => {
-  setCurrentIndex((prev) => (prev + 1) % fotos.length);
-};
-
-const prevImage = () => {
-  setCurrentIndex((prev) => (prev - 1 + fotos.length) % fotos.length);
-};
 
 
 useEffect(() => {
-
+const controller = new AbortController();
 const fetchTour = async () => {
-  const  generarSlug = (texto) => {
-        return texto
-          .toLowerCase()
-          .normalize("NFD")                // elimina tildes
-          .replace(/[\u0300-\u036f]/g, "")
-          .replace(/[^a-z0-9\s-]/g, "")    // elimina símbolos raros
-          .trim()
-          .replace(/\s+/g, "-");           // espacios → guiones
-      };
+  setCargando(true);
+  setErrorCarga(false);
+  setSelectedDate(null);
+  setSelectedTime('');
+  setSelectedPersonas('');
+  setSelectedEscalon(null);
+  setIdioma('');
+  setExtrasSeleccionados({});
       try {
-        console.log("Buscando tour por nombre:", generarSlug(nombre));
+        if (!validTourSlug(slug)) throw new Error('Slug de tour inválido');
         
-        const res = await axios.get(`/api/tours/nombre/${generarSlug(nombre)}`);
+        const res = await axios.get(`/api/tours/nombre/${encodeURIComponent(slug)}`, { signal: controller.signal, params: { lang } });
+        if (controller.signal.aborted) return;
         
         setTour(res.data);
+        setMetodoPago(prev => metodosPermitidos(res.data.metodosPago).includes(prev) ? prev : metodosPermitidos(res.data.metodosPago)[0] || '');
         setBasePrice(res.data.precio)
         setAdults(res.data.cantidadMinima ?? 1) // default
         
@@ -122,15 +125,19 @@ const fetchTour = async () => {
       
         
       } catch (error) {
+        if (controller.signal.aborted) return;
+        setTour(null);
+        setErrorCarga(true);
         console.error('Error al obtener tour:', error);
       } finally {
-        setCargando(false);
+        if (!controller.signal.aborted) setCargando(false);
       }
     };
 
     fetchTour();
+    return () => controller.abort();
     
-  }, [lang,nombre]);
+  }, [lang,slug]);
   
 
 
@@ -179,14 +186,14 @@ const fetchTour = async () => {
   } catch (error) {
     console.error("Error al iniciar pago con Bold:", error);
 
-    toast.error("No se pudo iniciar la pasarela de pago.", {
+    toast.error(t("avisosReserva.errorPasarela"), {
       position: "top-right",
     });
   }
 };
 
   function agregarHorasDesdeCadena(cadena) {
-  const nuevasHoras = cadena
+  const nuevasHoras = (cadena || '')
     .split('/')                    // separa por coma
     .map(hora => hora.trim())     // quita espacios extra
     .filter(hora => hora !== ''); // elimina vacíos
@@ -195,7 +202,7 @@ const fetchTour = async () => {
 }
 
 function agregarIncluidos(cadena){
-  const nuevosIncluidos = cadena
+  const nuevosIncluidos = (cadena || '')
     .split(',')                    // separa por coma
     .map(hora => hora.trim())     // quita espacios extra
     .filter(hora => hora !== '');
@@ -205,7 +212,7 @@ function agregarIncluidos(cadena){
 function agregarRecomendaciones(cadena){
   
   
-  const nuevosRecomendaciones = cadena
+  const nuevosRecomendaciones = (cadena || '')
     .split(',')                    // separa por coma
     .map(hora => hora.trim())     // quita espacios extra
     .filter(hora => hora !== '');
@@ -213,16 +220,6 @@ function agregarRecomendaciones(cadena){
   setRecomendaciones(nuevosRecomendaciones)
 }
 
-  useEffect(() => {
-    if (tour && tour.fotos && tour.fotos.length > 0) {
-      
-      setFotos(tour.fotos);
-      setMainImage(tour.fotos[0]);
-      
-      
-
-    }
-  }, [tour]);
 useEffect(() => {
   if (!tour) return;
   agregarHorasDesdeCadena(tour.salidas);
@@ -231,21 +228,26 @@ useEffect(() => {
   setPrecioMostrar(
     tour.tipo === "compartido"
       ? tour.precio
-      : tour.precios?.length > 0
-        ? tour.precios[tour.precios.length-1].precioPorPersona // último elemento
-        : 0
+      : tarifasValidas(tour.precios).at(-1)?.precioPorPersona ?? null
   );
 
 }, [tour]);
 
 
 
+const claveReservas = tour?.id && selectedDate ? `${tour.id}/${formatearFechaLocal(selectedDate)}` : '';
+const minimoPersonas = tour?.tipo === 'compartido' && consultaReservasClave === claveReservas &&
+  horariosConReserva.has(selectedTime) ? 1 : Number(tour?.cantidadMinima ?? 1);
+useEffect(() => {
+  if (tour?.tipo === 'compartido') setAdults(prev => Math.max(minimoPersonas, prev));
+}, [minimoPersonas, tour?.tipo]);
+
 const handleAdultChange = (delta) => {
   setAdults((prev) => {
     const nuevaCantidad = prev + delta;
 
     // Si existe tour y tiene definida cantidadMinima, úsala, si no usa 1
-    const min = tour?.cantidadMinima ?? 1;
+    const min = minimoPersonas;
     const max = tour?.cantidadMaxima ?? Infinity;
 
     if (nuevaCantidad < min) return min;
@@ -254,32 +256,35 @@ const handleAdultChange = (delta) => {
     return nuevaCantidad;
   });
 };
-const totalExtras = (tour?.extras || []).reduce((acc, extra) => {
-  const qty = extrasSeleccionados?.[extra.id] ?? 0;
-  return acc + qty * (Number(extra.valor) || 0);
-}, 0);
+const personasReserva = Number(tour?.tipo === "privado" ? selectedPersonas : adults);
+const tienePromocion = promocionVisible(tour, hoyPromocion);
+const promocionReserva = aplicaPromocion(tour, personasReserva, hoyPromocion);
+const extrasDetalleActual = detalleExtras(tour?.extras, extrasSeleccionados, personasReserva);
+const totalExtras = extrasDetalleActual.reduce((total, extra) => total + extra.subtotal, 0);
+
+useEffect(() => {
+  setExtrasSeleccionados(prev => {
+    const siguientes = {};
+    for (const extra of tour?.extras || []) {
+      if (precioAplicableExtra(extra, personasReserva) !== null && prev[extra.id] > 0) {
+        siguientes[extra.id] = Math.min(prev[extra.id], Number(extra.maxCantidad));
+      }
+    }
+    return siguientes;
+  });
+}, [personasReserva, tour?.extras]);
 
 const baseTotal = Number(basePrice ?? 0) * Number(adults ?? 0);
 const escalonTotal = selectedEscalon != null ? Number(selectedEscalon) : null;
 
 
-const totalFinal = (escalonTotal ?? baseTotal) + totalExtras;
+const totalTourNormal = escalonTotal ?? baseTotal;
+const totalTour = promocionReserva ? Number(tour.precioPromocion) * personasReserva : totalTourNormal;
+const pago = cotizarPago(totalTour + totalExtras, metodoPago);
+const totalFinal = pago.valorTotal;
 
 const construirExtrasDetalle = () => {
-  return (tour.extras || [])
-    .map((extra) => {
-      const cantidad = extrasSeleccionados?.[extra.id] ?? 0;
-      if (cantidad === 0) return null;
-
-      return {
-        id: extra.id,
-        nombre: extra.nombre,
-        cantidad,
-        valor: Number(extra.valor),
-        subtotal: cantidad * Number(extra.valor),
-      };
-    })
-    .filter(Boolean);
+  return extrasDetalleActual;
 };
  
 
@@ -287,6 +292,15 @@ const construirExtrasDetalle = () => {
 const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
  const handleReserva = async () => {
+  if (creandoReserva || reservaManual) return;
+  if (tour?.tipo === 'compartido' && (!Number.isInteger(adults) || adults < minimoPersonas || adults > Number(tour.cantidadMaxima))) {
+    toast.info(`Selecciona entre ${minimoPersonas} y ${tour.cantidadMaxima} personas.`);
+    return;
+  }
+  if (!reservaHabilitada(tour) || !metodosPermitidos(tour.metodosPago).includes(metodoPago) || !Number.isFinite(totalFinal) || totalFinal <= 0) {
+    toast.info(t('datosApi.noReservable'));
+    return;
+  }
   const extrasDetalle = construirExtrasDetalle();
 
   const esCorreoValido = (correo) => {
@@ -296,57 +310,59 @@ const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   
   }; 
   if (!selectedDate) {
-    toast.info("Por favor selecciona la fecha.");
+    toast.info(t("avisosReserva.fecha"));
     return;
   }
   if (fechaNoDisponible(selectedDate)) {
-  toast.info("Esta fecha no está disponible para este tour.");
+  toast.info(t("avisosReserva.fechaNoDisponible"));
   return;
 }
   if (!selectedTime) {
-    toast.info("Por favor selecciona un horario disponible o cambia la fecha.");
+    toast.info(t("avisosReserva.horario"));
     return;
   }
   if (!selectedDate || !selectedTime || !nombreUsuario || !correoUsuario || !tipoDocumento || !numeroDocumento) {
-    toast.info("Por favor completa todos los campos antes de reservar.", {
+    toast.info(t("avisosReserva.campos"), {
             position: "top-right"
             });
             
     return;
   }
-   if (!esCorreoValido(correoUsuario)) {
-    toast.info("Por favor ingresa un correo válido.");
+   if (!esCorreoValido(correoUsuario.trim())) {
+    toast.info(t("avisosReserva.correo"));
     return;
   }
   
 
   if(tour.tipo==="privado" && !selectedEscalon){
-    toast.info("Por favor selecciona la cantidad de personas.", )
+    toast.info(t("avisosReserva.personas"), )
     return;
   }
   // const isValid = await verifyDate();
   // if (!isValid) return; // Evita ejecutar lo demás
   if (!aceptaTerminos) {
 
-      toast.info("Debes aceptar los Términos y Condiciones antes de continuar.", )
+      toast.info(t("avisosReserva.terminos"), )
       return;
     }
 
   try {
    
+    setCreandoReserva(true);
     const response = await axios.post("/api/reservas", {
+      metodoPago,
       nombreTour:tour.nombre,
       fecha: formatearFechaLocal(selectedDate),
       horario:selectedTime,
       salida: tour.salida,
       idioma:idioma,
       nombrePersona: nombreUsuario,
-      correo: correoUsuario,
+      correo: correoUsuario.trim(),
       telefono:telefonoUsuario,
       cantidadPersonas:  tour.tipo === "privado" ? selectedPersonas : adults ,//esto
       valorTotal: totalFinal , //esto
       tourId: tour.id,
-      hotel:`${hotel} - ${recepcionista}`,      
+      hotel: getReservationHotel(hotel, recepcionista),      
       extras: extrasDetalle,
       tipoDocumento: tipoDocumento,
       numeroDocumento: numeroDocumento,
@@ -355,9 +371,13 @@ const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     });
 
    if (response.status === 201 || response.status === 200) {
+      if (["transferencia", "efectivo", "transferencia_sin", "efectivo_sin"].includes(response.data.reserva.metodoPago)) {
+        setReservaManual(response.data);
+        return;
+      }
       
 
-      toast.info("Reserva creada, creando el boton de pago...", {
+      toast.info(t("avisosReserva.iniciandoPago"), {
         position: "top-right"
       });
       await esperar(3000);
@@ -368,9 +388,11 @@ const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     
   } catch (error) {
     console.error("❌ Error al reservar:", error);
-     toast.error(" ❌ Error al reservar:.", {
+     toast.error(error.response?.data?.mensaje || t("avisosReserva.errorReserva"), {
             position: "top-right"
             });
+  } finally {
+    setCreandoReserva(false);
   }
 };
 const isToday = (d) => {
@@ -384,28 +406,33 @@ const isToday = (d) => {
 };
 
 useEffect(() => {
-  if (!tour?.id || !tour?.reservaUltimaHora || !selectedDate || !(availableTimes || []).length) {
+  let vigente = true;
+  if (!tour?.id || (!tour?.reservaUltimaHora && tour?.tipo !== 'compartido') || !selectedDate || !(availableTimes || []).length) {
     setHorariosConReserva(new Set());
+    setConsultaReservasClave('');
     return;
   }
 
-  const fecha = selectedDate.toISOString().slice(0, 10);
+  const fecha = formatearFechaLocal(selectedDate);
 
   Promise.allSettled(
     availableTimes.map((t) =>
       axios.get(`/api/reservas/fecha/${fecha}/${tour.id}/${encodeURIComponent(t)}`)
     )
   ).then((results) => {
+    if (!vigente) return;
     const set = new Set();
     results.forEach((r, i) => {
       if (r.status === "fulfilled") set.add(availableTimes[i]); // ese horario tiene reserva
     });
     setHorariosConReserva(set);
+    setConsultaReservasClave(`${tour.id}/${fecha}`);
 
   }
 
 );
-}, [tour?.id, tour?.reservaUltimaHora, selectedDate, availableTimes]);
+  return () => { vigente = false; };
+}, [tour?.id, tour?.tipo, tour?.reservaUltimaHora, selectedDate, availableTimes]);
 
 // "06:00 AM" | "6:00 pm" | "14:30"  ->  [hora24, minuto]
 const to24 = (s = "") => {
@@ -446,25 +473,6 @@ useEffect(() => {
   tour?.reservaUltimaHora,
   horariosConReserva
 ]);
-const parseItinerario = (str = "") =>
-  (str || "")
-    .split("-")
-    .map((item, i) => {
-      const [tipo, titulo, descripcion] = item.split("|");
-      return {
-        id: i,
-        tipo: tipo?.trim(),
-        titulo: titulo?.trim(),
-        descripcion: descripcion?.trim(),
-      };
-    });
-const pasos = parseItinerario(tour?.itinerario);
-const ICONOS = {
-  salida: "bi-geo-fill",
-  transporte: "bi-hourglass-split",
-  actividad: "bi-map",
-  llegada: "bi-person-arms-up",
-};
 
 const limpiarComillas = (valor) => {
   if (valor === null || valor === undefined) return "";
@@ -486,7 +494,7 @@ const limpiarComillas = (valor) => {
   return limpio;
 };
 
-const formatearFechaLocal = (date) => {
+function formatearFechaLocal(date) {
   if (!date) return "";
 
   const year = date.getFullYear();
@@ -502,7 +510,7 @@ const fechaNoDisponible = (date) => {
   const fechaSeleccionada = formatearFechaLocal(date);
   const diaSemana = String(date.getDay());
 
-  const diaBloqueado = limpiarComillas(tour.diasNoDisponibles);
+  const diasSemanaBloqueados = diasBloqueados(tour.diasNoDisponibles);
 
   const fechasBloqueadas = limpiarComillas(tour.fechasNoDisponibles)
     .split(",")
@@ -510,7 +518,7 @@ const fechaNoDisponible = (date) => {
     .filter(Boolean);
 
   return (
-    diaBloqueado === diaSemana ||
+    diasSemanaBloqueados.includes(diaSemana) ||
     fechasBloqueadas.includes(fechaSeleccionada)
   );
 };
@@ -528,10 +536,45 @@ if (cargando) {
   );
 }
 
+if (errorCarga || !tour) {
+  return <><Header /><main className="tour-message" role="alert">
+    <h1>{t('datosApi.tourNoDisponible')}</h1>
+    <p>{t('datosApi.intentarDespues')}</p>
+    <Link to={withReferral("/tours", hotel, searchParams)}>{t('datosApi.volverTours')}</Link>
+  </main><Footer /></>;
+}
+
 
   return (
     
     <>
+    <Seo
+      title={`${tour.nombre} | Ruta Xplorer`}
+      description={tourSeoDescription(tour.descripcion, tour.nombre, lang)}
+      image={tour.fotos?.[0]}
+      path={getTourPublicPath(validTourSlug(tour.slug) ? tour.slug : slug)}
+      type="product"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "TouristTrip",
+        name: tour.nombre,
+        description: tour.descripcion,
+        image: tour.fotos || [],
+        touristType: "Turismo de naturaleza",
+        provider: {
+          "@type": "TravelAgency",
+          name: "Ruta Xplorer",
+          url: "https://rutaxplorer.com/app/tours",
+        },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "COP",
+          price: tienePromocion ? Number(tour.precioPromocion) : Number(precioMostrar) || Number(tour.precio) || 0,
+          availability: "https://schema.org/InStock",
+          url: `https://rutaxplorer.com${getTourPublicPath(validTourSlug(tour.slug) ? tour.slug : slug)}`,
+        },
+      }}
+    />
     <Header></Header>
       {!tour ?(<>
       <div className="tour-message">
@@ -554,41 +597,17 @@ if (cargando) {
           ></Terminos>
       <div className="tour-main">
         
-        <div className='titulo_tour'><p>{t("tour.tipoTuristico")}</p><h1>{tour.nombre}</h1> <span></span> <div className='precio'>{t("card.desde")}: ${precioMostrar.toLocaleString()} {t("card.moneda")}</div></div>
-        <div className="tour-gallery"  data-aos="fade-down">
-          <div className="main-image-container">
-            
-                <button className="nav-arrow left" onClick={prevImage}>❮</button>
-                <Zoom>
-                  <img className="main-image" src={mainImage} alt="Tour principal" />
-                </Zoom>
-                <button className="nav-arrow right" onClick={nextImage}>❯</button>
-              
-              
-                
-               
-            </div>
-          <div className="thumbnail-row">
-            {Array.isArray(fotos) && fotos.length > 0 ? (
-                fotos.map((src, index) => (
-                  <img
-                    key={index}
-                    src={src}
-                    alt={`Thumbnail ${index + 1}`}
-                    className={mainImage === src ? 'thumbnail selected' : 'thumbnail'}
-                    onClick={() => {
-                      setCurrentIndex(index);
-                      setMainImage(src)}}
-                  />
-                ))
-              ) : (
-                <p>No hay imágenes disponibles</p>
-              )}
+        <div className='titulo_tour'><p>{t("tour.tipoTuristico")}</p><h1>{tour.nombre}</h1> <span></span>
+          <div className='precio'>
+            {tienePromocion ? (
+              <PrecioPromocion precioNormal={precioMostrar} precioPromocion={tour.precioPromocion} tipo={tour.tipo} />
+            ) : precioMostrar != null && Number(precioMostrar) > 0 ? <>{t("card.desde")}: ${Number(precioMostrar).toLocaleString()} {t("card.moneda")}</> : t('datosApi.precioPendiente')}
           </div>
         </div>
+        <GaleriaTour key={tour.id ?? slug} fotos={tour.fotos} nombre={tour.nombre} />
 
-        <div className="tour-info-block" data-aos="fade-up-right">
-  <div className='container_descripcion' data-aos="fade-left">
+        <div className="tour-info-block" data-aos="fade-up">
+  <div className='container_descripcion' data-aos="fade-up">
     <h2>{t("tour.descripcion")}</h2>
     <p className='descripcion_tour'>
       {tour.descripcion}
@@ -674,37 +693,9 @@ if (cargando) {
     }
   </ul>
 
-  <div className="itinerario">
-    <h2>{t("tour.itinerario")}</h2>
-
-            {(pasos || []).map((p, index) => (
-
-              <div className="it-item" key={p.id}>
-                <div className="it-left">
-                  <div className="it-icon">
-                    <i className={`bi ${ICONOS[p.tipo]}`} />
-                    
-                  </div>
-
-                  {index !== pasos.length - 1 && (
-                    <div className="it-dots">
-                      <span />
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                  )}
-                </div>
-
-                <div className="it-content">
-                  <strong>{p.titulo}</strong>
-                  <p>{p.descripcion}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+  <ItinerarioTour tour={tour} />
             </div>
-          <div style={{maxWidth: "100%", height: "400px", borderRadius: "14px", overflow: "hidden", marginTop: "20px" }} data-aos="fade-up-left">
+          <div style={{maxWidth: "100%", height: "400px", borderRadius: "14px", overflow: "hidden", marginTop: "20px" }} data-aos="fade-up">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.7638939707517!2d-75.572946!3d4.6361604000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e388df9d2f6e29d%3A0x292561140c00b46b!2sSalento%20ToursRuta.Xplorer%20SAS%20Transporte%20y%20turismo!5e0!3m2!1ses-419!2sco!4v1771820613835!5m2!1ses-419!2sco"
             width="100%"
@@ -713,7 +704,7 @@ if (cargando) {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Mapa - RutaExplorer"
+            title="Mapa - RutaXplorer"
           />
         </div>
 
@@ -721,32 +712,27 @@ if (cargando) {
         </div>
     
 
-      <div className="tour-sidebar" data-aos="fade-up-left">
+      <div className="tour-sidebar" data-aos="fade-up">
         <div className="tour-reservation">
+          {reservaManual ? <ReservaManual resultado={reservaManual} /> : <>
             <p className='titulo_calendario'>{t("tour.reserva")}</p>
           <label>{t("tour.fecha")}:</label>
-          <div className="calendar-overlay">
-           <DatePicker
-            inline
-            locale="es"
+           <CalendarioReservas
+            key={tour.id}
+            tourId={tour.id}
+            mostrarReservas={tour.mostrarReservasCalendario}
+            fechaNoDisponible={fechaNoDisponible}
             selected={selectedDate}
             onChange={(date) => {
               if (fechaNoDisponible(date)) {
-                toast.info("Esta fecha no está disponible para este tour.");
+                toast.info(t("avisosReserva.fechaNoDisponible"));
                 return;
               }
 
               setSelectedDate(date);
               setSelectedTime("");
             }}
-            dateFormat="dd/MM/yyyy"
-            minDate={new Date()}
-            filterDate={(date) => !fechaNoDisponible(date)}
-            dayClassName={(date) =>
-              fechaNoDisponible(date) ? "fecha-no-disponible" : undefined
-            }
           />
-          </div>
           <label>{t("tour.horario")}:</label>
           <select  className="select-horario" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
             <option value="">{t("tour.seleccionaHorario")}</option>
@@ -879,22 +865,30 @@ if (cargando) {
                     value={recepcionista} 
                     onChange={(e) => setRecepcionista(e.target.value)}>
                   </input>
-          <div className={`extras ${activo ? ' activo': ''}` }>
-            <label className={activo ? ' label-activo': ''}onClick={()=>setActivo(!activo)}>{t("tour.serviciosAdicionales")}  {!activo ? <i className="bi bi-arrow-down-square"></i>: <i className="bi bi-arrow-up-square"></i>} </label>
+          <div className={`extras extras-reserva ${activo ? ' activo': ''}` }>
+            <button type="button" className="extras-reserva-toggle" aria-expanded={activo} onClick={()=>setActivo(!activo)}>{t("tour.serviciosAdicionales")}  {!activo ? <i className="bi bi-chevron-down" aria-hidden="true"></i>: <i className="bi bi-chevron-up" aria-hidden="true"></i>} </button>
+            <div hidden={!activo}>
               {(tour.extras || []).map((extra, i) => {
-               const value = extrasSeleccionados[extra.id] || "";
+               const valorAplicable = precioAplicableExtra(extra, personasReserva);
+               const disponible = valorAplicable !== null;
+               const value = disponible ? extrasSeleccionados[extra.id] || "" : "";
 
 
               return (
-                <div key={extra.id || i} className="extra">
+                <div key={extra.id || i} className={`extra ${disponible ? '' : 'extra-no-disponible'}`}>
                   <p>{extra.nombre}</p>
                   
                   <div className='precios-extra'>
 
+                  <label className="extra-cantidad-label" htmlFor={`cantidad-extra-${extra.id || i}`}>{t("extras.cantidad", { nombre: extra.nombre })}</label>
                   <input
+                    id={`cantidad-extra-${extra.id || i}`}
                     type="number"
                     min={0}
+                    step={1}
                     max={extra.maxCantidad}
+                    disabled={!disponible}
+                    aria-label={t("extras.cantidad", { nombre: extra.nombre })}
                     value={value}
                     onChange={(e) => {
                   //      console.log("onChange fired:", {
@@ -906,7 +900,7 @@ if (cargando) {
                   // });
 
                       
-                      let val = Number(e.target.value);
+                      let val = Math.floor(Number(e.target.value) || 0);
 
                       if (val > extra.maxCantidad) {
                         val = extra.maxCantidad; // 🔒 límite duro
@@ -920,15 +914,19 @@ if (cargando) {
                       }));
                     }}
                   />
-                  <small>
-                  ${extra.valor.toLocaleString("es-CO")}c/u
-               
-                  Máx:{extra.maxCantidad}</small>
+                  <small className="extra-precio" aria-live="polite">
+                  {disponible ? t("extras.precio", { valor: valorAplicable.toLocaleString("es-CO"), max: extra.maxCantidad })
+                    : personasReserva > 0 ? t("extras.noDisponible", { personas: personasReserva }) : t("extras.seleccionaPersonas")}
+                  </small>
+                  {disponible && Number(value) > 0 && (
+                    <small className="extra-subtotal" aria-live="polite">{t("extras.subtotal", { valor: (valorAplicable * Number(value)).toLocaleString("es-CO") })}</small>
+                  )}
                   </div>
                   
                 </div>
               );
             })}
+              </div>
               
               
             </div> 
@@ -938,7 +936,7 @@ if (cargando) {
               <div className="adult-counter">
                 <label>{t("tour.personas")}:</label>
                 <div>
-                  <button onClick={() =>{ handleAdultChange(-1); console.log(amount)}}>-</button>
+                  <button disabled={adults <= minimoPersonas} onClick={() =>{ handleAdultChange(-1); console.log(amount)}}>-</button>
                   <span>{adults}</span>
                   <button
                     onClick={() => {handleAdultChange(1);  console.log(amount)}}
@@ -947,6 +945,7 @@ if (cargando) {
                     +
                   </button>
                 </div>
+                <small>Mínimo para esta salida: {minimoPersonas} {minimoPersonas === 1 ? 'persona' : 'personas'}.</small>
               </div>
               <p className='precio total'>
                 <strong>Total:</strong>{" "}
@@ -962,12 +961,14 @@ if (cargando) {
               <label>{t("tour.seleccionaPersonas")}:</label>
               <select
               className='recepcion'
-                value={selectedEscalon|| ""}
+                value={selectedPersonas || ""}
                 onChange={(e) => {
-
-                      setSelectedEscalon(e.target.value); // guarda el precio total
-                      setAmount(e.target.value);
-                      setSelectedPersonas(e.target.options[e.target.selectedIndex].dataset.personas);
+                      const personas = e.target.value;
+                      const tarifa = tarifasValidas(tour.precios).find(p => Number(p.personas) === Number(personas));
+                      const total = tarifa ? Number(tarifa.precioPorPersona) * Number(personas) : null;
+                      setSelectedEscalon(total);
+                      setAmount(total || 0);
+                      setSelectedPersonas(personas);
                       
                        // 👈 guarda personas
                 }
@@ -976,14 +977,14 @@ if (cargando) {
                 <option value="">{t("tour.seleccionaOpcion")}</option>
                 
                 {Array.isArray(tour.precios) &&
-                  tour.precios.map((p, idx) => (
+                  tarifasValidas(tour.precios).filter(p => p.personas >= tour.cantidadMinima && p.personas <= tour.cantidadMaxima).map((p, idx) => (
                     <option
                       key={idx}
-                      value={p.precioPorPersona * p.personas}
+                      value={p.personas}
                       data-personas={p.personas} // 👈 usar dataset
                       
                     >
-                      {p.personas} {t("tour.personas")} - ${p.precioPorPersona.toLocaleString("es-CO")} COP c/u
+                      {p.personas} {t("tour.personas")} - ${precioAplicableTour(tour, p.personas, p.precioPorPersona, hoyPromocion).toLocaleString("es-CO")} COP c/u
                     </option>
                   ))}
               </select>
@@ -1000,6 +1001,10 @@ if (cargando) {
               )}
             </>
           )}
+          {tienePromocion && personasReserva > 0 && (
+            <p aria-live="polite">{promocionReserva ? t('promocion.aplicada') : ''}</p>
+          )}
+          <MetodoPago metodo={metodoPago} onChange={setMetodoPago} pago={pago} disabled={creandoReserva} metodos={tour.metodosPago} />
           <div className='terminos-container'> 
              <input
             type="checkbox"
@@ -1015,7 +1020,8 @@ if (cargando) {
           
          
           <div className='container_bold'>
-            {!firmaBold && (<button  className={`reserve-btn ${admin ? "disable" : ""}`} disabled={admin} onClick={handleReserva}>{t("tour.reservarAhora")}</button>)}
+            {!reservaHabilitada(tour) && <p role="status">{t('datosApi.noReservable')}</p>}
+            {!firmaBold && (<button  className={`reserve-btn ${admin ? "disable" : ""}`} disabled={admin || creandoReserva || !reservaHabilitada(tour)} onClick={handleReserva}>{t(creandoReserva ? "metodosPago.creando" : "tour.reservarAhora")}</button>)}
             {firmaBold &&(
               <BotonBold
                 reference={referencia}
@@ -1029,6 +1035,7 @@ if (cargando) {
           
           
          
+          </>}
         </div>
       </div>
     </div>)
@@ -1054,5 +1061,3 @@ if (cargando) {
 };
 
 export default Tour;
-
-

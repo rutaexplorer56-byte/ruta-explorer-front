@@ -109,7 +109,7 @@
 }
 
 .er-input:focus{
-  border-color: #2563eb;
+  border-color: var(--rx-azul);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
@@ -140,7 +140,7 @@
 }
 
 .er-primary{
-  background: #2563eb;
+  background: var(--rx-azul);
   color: #fff;
 }
 

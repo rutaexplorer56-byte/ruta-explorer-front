@@ -1,6 +1,84 @@
 
 /* Estilos para el modal agregar tour */
 
+.tour-editor-modal #tour-descripcion {
+  resize: vertical;
+  max-width: 100%;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.tour-editor-modal #tour-descripcion-ayuda {
+  display: block;
+  margin-top: 6px;
+  color: #607283;
+  line-height: 1.5;
+}
+
+/* Cada paso se desplaza sin sacar el menu de la pantalla. */
+.modal-content.tour-editor-modal {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  overflow: hidden;
+}
+
+.tour-editor-modal .formulario {
+  height: min(680px, 75vh);
+  height: min(680px, 75dvh);
+  min-height: 0;
+}
+
+.tour-editor-modal .formulario > .menu,
+.tour-editor-modal .formulario > .contenedor {
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.tour-editor-modal .formulario > .menu {
+  flex: 0 0 clamp(180px, 25%, 260px);
+}
+
+.tour-editor-modal .formulario > .contenedor {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .tour-editor-modal .formulario {
+    flex-direction: column;
+  }
+
+  .tour-editor-modal .formulario > .menu {
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: 35%;
+    padding: 10px;
+  }
+
+  .tour-editor-modal .menu .btn-volver {
+    margin: 0 0 8px;
+  }
+
+  .tour-editor-modal .menu ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .tour-editor-modal .formulario > .contenedor {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
 
 .modal-content {
   background-color: #fff;
@@ -48,7 +126,7 @@
   cursor: pointer;
 }
 .check:checked{
-  accent-color: #2ab0e8;
+  accent-color: var(--rx-azul);
 
   
 }
@@ -58,13 +136,13 @@
 }
 .btn-volver {
   padding: 0.5rem 1.25rem;
-  border: 1px solid #2ab0e8;
+  border: 1px solid var(--rx-azul);
   border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
   font-size: 1rem;
   background-color: #4497e000;
-  color: #2ab0e8;
+  color: var(--rx-azul);
   margin-bottom: 20px;
   margin-left:20px ;
   transition: all 0.3s;
@@ -86,7 +164,7 @@
   to { transform: rotate(360deg); }
 }
 .btn-volver:hover {
-  background-color: #2ab0e8;
+  background-color: var(--rx-azul);
   color: white;
 }
 .formulario .menu ul{
@@ -104,7 +182,7 @@
 .formulario .menu ul .activo{
   font-weight: bold;
   color: #535353;
-  border-left: 4px solid #2ab0e8;
+  border-left: 4px solid var(--rx-azul);
 }
 .formulario .contenedor{
   width: 80%;
@@ -211,7 +289,7 @@
   position: absolute;
   top: -0px;
   right: -0px;
-  background: red;
+  background: var(--rx-rojo);
   color: white;
   border: none;
   border-radius: 50%;
@@ -226,7 +304,7 @@
 }
 
 .boton-eliminar:hover {
-  background: darkred;
+  background: var(--rx-rojo-oscuro);
 }
 
 
@@ -248,19 +326,19 @@
 }
 
 .btn.cancelar {
-  background-color: #ff4848;
+  background-color: var(--rx-rojo);
   color: #ffffff;
 }
 
 .btn.azul {
-  background-color: #2a91ff;
+  background-color: var(--rx-azul);
   color: white;
 }
 .btn.azul:hover{
-  background-color: #007bff;
+  background-color: var(--rx-azul);
 }
 .boton-img{
-  background-color: #2a91ff;
+  background-color: var(--rx-azul);
   color: white;
   border: none;
   border-radius: 6px;
@@ -274,7 +352,7 @@
   }
 
 .btn.verde {
-  background-color: #28a745;
+  background-color: var(--rx-verde);
   color: white;
 }
 /* =====================
@@ -298,7 +376,7 @@
   margin-top:10px;
 }
 .escalon button {
-  background: #ff4d4d;
+  background: var(--rx-rojo);
   color: white;
   border: none;
   border-radius: 6px;
@@ -308,7 +386,7 @@
 }
 
 .escalon button:hover {
-  background: #e60000;
+  background: var(--rx-rojo);
 }
 
 .campo.full label {
@@ -319,7 +397,7 @@
 
 .campo.full .btn.azul {
   margin-top: 8px;
-  background: #007bff;
+  background: var(--rx-azul);
   color: #fff;
   border-radius: 6px;
   border: none;
@@ -333,7 +411,7 @@
 }
 
 .campo.full .btn.azul:hover {
-  background: #0469d4;
+  background: var(--rx-azul-oscuro);
 }
 .fecha-bloqueo-row {
   display: flex;
@@ -353,7 +431,7 @@
 }
 
 .input-fecha-bloqueo:focus {
-  border-color: #11aaeb;
+  border-color: var(--rx-azul);
   box-shadow: 0 0 0 2px rgba(255, 122, 61, 0.15);
 }
 
@@ -362,7 +440,7 @@
   padding: 0 14px;
   border: none;
   border-radius: 6px;
-  background: #1da1f2;
+  background: var(--rx-azul);
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -370,7 +448,7 @@
 }
 
 .btn-agregar-fecha:hover {
-  background: #0b8edb;
+  background: var(--rx-azul-oscuro);
 }
 
 .fechas-bloqueadas-lista {
@@ -384,9 +462,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #eef7ff;
+  background: var(--rx-azul-suave);
   color: #5c5c5c;
-  border: 1px solid #b9e0ff;
+  border: 1px solid var(--rx-azul-borde);
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 13px;
@@ -398,7 +476,7 @@
   height: 18px;
   border: none;
   border-radius: 50%;
-  background: #2493e9;
+  background: var(--rx-azul);
   color: white;
   font-size: 13px;
   line-height: 18px;
@@ -410,7 +488,7 @@
 }
 
 .btn-eliminar-fecha:hover {
-  background: #d93025;
+  background: var(--rx-rojo);
 }
 
 @media (max-width: 600px) {
@@ -437,3 +515,100 @@
   }
   
 }
+.extra-editor {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 12px 0;
+  min-width: 0;
+}
+.extra-editor legend { font-weight: 600; padding: 0 8px; }
+.tour-editor-modal { border: 1px solid #dce7ed; border-radius: 14px; }
+.tour-editor-modal > h2 { color: #24465b; font-weight: 700; }
+.tour-editor-modal .formulario > .menu { background: var(--rx-azul-suave); padding: 16px 12px; }
+.tour-editor-modal .menu ul { list-style: none; padding: 0; margin: 0; }
+.tour-editor-modal .menu ul li { padding: 0; margin-bottom: 6px; }
+.tour-editor-modal .menu li button {
+  display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px;
+  border: 1px solid transparent; border-radius: 9px; background: transparent;
+  color: #40566a; text-align: left; font-size: 0.9rem; cursor: pointer;
+}
+.tour-editor-modal .menu li button span {
+  display: grid; place-items: center; flex: 0 0 26px; height: 26px;
+  border-radius: 50%; background: #fff; font-size: 0.8rem; font-weight: 700;
+}
+.tour-editor-modal .menu li button.activo { background: #fff; border: 1px solid var(--rx-azul-borde); color: var(--rx-azul-oscuro); font-weight: 700; }
+.tour-editor-modal .menu li button.activo span { background: var(--rx-azul); color: #fff; }
+.tour-editor-modal .menu li button:hover { background: #e1f1f9; }
+.tour-editor-modal .menu .btn-volver { margin: 0 0 16px; width: 100%; font-size: 0.85rem; padding: 10px; }
+.tour-editor-modal .formulario > .contenedor { padding: 24px; background: #fff; }
+.tour-editor-section-heading { padding-bottom: 18px; margin-bottom: 22px; border-bottom: 1px solid #e0e9ef; }
+.tour-editor-section-heading h3 { color: #24465b; font-size: 1.3rem; font-weight: 700; margin: 0 0 8px; }
+.tour-editor-section-heading p { margin: 0; color: #607283; font-size: 0.9rem; line-height: 1.6; }
+.tour-editor-error { padding: 14px 16px; margin-bottom: 20px; border: 1px solid var(--rx-rojo-borde); border-left: 4px solid var(--rx-rojo); border-radius: 8px; background: var(--rx-rojo-suave); color: var(--rx-rojo-oscuro); font-size: 0.9rem; line-height: 1.5; }
+.tour-editor-modal .tour-editor-subtitle { font-size: 1rem; color: #24465b; padding: 12px; margin: 24px 0 18px; background: var(--rx-azul-suave); border-radius: 8px; }
+.tour-editor-modal .campo { min-width: 0; }
+.tour-editor-modal .fila > .campo { flex: 1 1 220px; }
+.tour-editor-modal .formulario label { font-size: 0.9rem; line-height: 1.5; color: #405468; }
+.tour-editor-modal .formulario input:not([type="checkbox"]),
+.tour-editor-modal .formulario select, .tour-editor-modal .formulario textarea {
+  min-width: 0; width: 100%; box-sizing: border-box; min-height: 44px;
+  padding: 10px 12px; border: 1px solid #c8d7e2; border-radius: 8px; background: #fff; font-size: 1rem;
+}
+.tour-editor-modal .formulario input[type="checkbox"] { width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--rx-azul); }
+.tour-editor-modal :is(input, select, textarea, button):focus-visible { outline: 3px solid #89c9ed; outline-offset: 2px; }
+.tour-editor-modal :is(input, select, textarea):user-invalid { border-color: var(--rx-rojo); background: var(--rx-rojo-suave); }
+.tour-editor-modal .extra-editor, .tour-editor-modal .itinerario-editor-paso { background: #fbfdff; border: 1px solid #ccdde8; padding: 20px; }
+.tour-editor-modal :is(.extra-editor, .itinerario-editor-paso) legend { width: auto; max-width: 100%; font-size: 1rem; color: var(--rx-azul-oscuro); overflow-wrap: anywhere; }
+.tour-editor-modal .extra-tarifa { padding: 12px; border: 1px solid #e0e9ef; background: #fff; border-radius: 8px; }
+.tour-editor-modal .extra-tarifa label { margin: 0; }
+.tour-editor-modal .tour-editor-status { font-size: 0.8rem; color: #526b7d; margin: 0 0 16px; }
+.tour-editor-status strong { padding: 4px 9px; border: 1px solid #d2e4ed; border-radius: 20px; background: var(--rx-azul-suave); }
+.tour-editor-modal .btn, .tour-editor-modal .escalon button { min-height: 42px; border-radius: 8px; }
+.tour-editor-modal .campo.full .btn.azul { margin: 10px 0 0; font-size: 0.9rem; padding: 10px 16px; }
+.tour-editor-modal .extra-editor-acciones .btn.azul { margin: 0; }
+.tour-editor-modal .tour-editor-remove-rate, .tour-editor-modal .tour-editor-remove {
+  min-height: 42px; padding: 9px 12px; border: 1px solid var(--rx-rojo-borde); border-radius: 8px;
+  color: var(--rx-rojo); background: #fff; font-size: 0.85rem; cursor: pointer;
+}
+.tour-editor-modal .tour-editor-remove { background: var(--rx-rojo-suave); font-weight: 600; }
+.tour-editor-modal .escalon { padding: 12px; border: 1px solid #dce7ed; border-radius: 8px; background: #f7fafc; }
+.tour-editor-modal .escalon input { flex: 1 1 160px; }
+.tour-editor-modal .acciones { padding: 18px 0; border-top: 1px solid #dce7ed; margin-top: 28px; }
+.tour-editor-modal .fecha-bloqueo-row { flex-wrap: wrap; }
+.tour-editor-modal .fecha-bloqueo-row input { flex: 1 1 180px; }
+@media (max-width: 600px) {
+  .modal-content.tour-editor-modal { width: 96%; }
+  .tour-editor-modal .formulario > .menu { padding: 10px; max-height: 38%; }
+  .tour-editor-modal .menu ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+  .tour-editor-modal .menu li button { padding: 8px; gap: 6px; font-size: 0.78rem; height: 100%; }
+  .tour-editor-modal .menu li button span { flex-basis: 22px; height: 22px; }
+  .tour-editor-modal .menu .btn-volver { margin-bottom: 8px; }
+  .tour-editor-modal .formulario > .contenedor { padding: 16px 12px; }
+  .tour-editor-modal .fila > .campo, .tour-editor-modal .escalon input { flex: 1 1 auto; }
+  .tour-editor-modal .escalon { align-items: stretch; }
+  .tour-editor-modal .extra-editor, .tour-editor-modal .itinerario-editor-paso { padding: 12px; }
+  .tour-editor-modal .extra-editor-acciones > *, .tour-editor-modal .acciones > * { flex: 1 1 150px; }
+}
+.extra-editor p, .extra-editor small { color: #475569; font-size: 0.875rem; }
+.extra-editor label { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.extra-editor-campos, .extra-tarifa { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.extra-tarifa { grid-template-columns: 1fr 1fr auto; align-items: end; }
+.extra-editor-acciones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+.extra-editor input { width: 100%; box-sizing: border-box; }
+@media (max-width: 600px) {
+  .extra-editor-campos, .extra-tarifa { grid-template-columns: 1fr; }
+}
+.tour-editor-modal .tour-metodos-pago { min-width: 0; border: 0; padding: 0; }
+.tour-editor-modal .tour-dias-bloqueados { min-width: 0; border: 0; padding: 0; margin: 16px 0; }
+.tour-editor-modal .tour-dias-bloqueados legend { font-size: 1rem; font-weight: 700; }
+.tour-editor-modal .tour-dias-opciones { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; margin: 12px 0; }
+.tour-editor-modal .tour-dias-opciones label { display: flex; align-items: center; gap: 10px; padding: 12px; margin: 0; border: 1px solid #cddde7; border-radius: 8px; cursor: pointer; }
+.tour-editor-modal .tour-dias-opciones input[type="checkbox"] { flex: 0 0 24px; width: 24px; height: 24px; margin: 0; padding: 0; }
+.tour-editor-modal .tour-metodos-pago label { display: grid; grid-template-columns: 24px minmax(0, 1fr); align-items: start; gap: 12px; padding: 16px; margin: 12px 0; border: 1px solid #dce7ed; border-radius: 10px; cursor: pointer; }
+.tour-editor-modal .tour-metodos-pago input[type="checkbox"] { appearance: auto; box-sizing: border-box; width: 24px; height: 24px; min-width: 24px; min-height: 24px; max-width: 24px; max-height: 24px; margin: 2px 0 0; padding: 0; cursor: pointer; }
+.tour-editor-modal .tour-metodos-pago span { min-width: 0; overflow-wrap: anywhere; }
+.tour-editor-modal .tour-metodos-pago small { display: block; margin-top: 4px; color: #475569; }
+.tour-editor-modal .calendario-configuracion { display: flex; align-items: flex-start; gap: 12px; margin: 12px 0 24px; padding: 14px; border: 1px solid #dce7ed; border-radius: 10px; cursor: pointer; }
+.tour-editor-modal .calendario-configuracion input[type="checkbox"] { width: 20px; height: 20px; flex: 0 0 20px; margin: 2px 0 0; }
+.tour-editor-modal .calendario-configuracion small { display: block; margin-top: 5px; font-weight: 400; color: #64748b; }

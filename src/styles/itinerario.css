@@ -1,0 +1,34 @@
+.itinerario-editor { width: 100%; min-width: 0; margin-top: 16px; }
+.itinerario-editor > p, .itinerario-respaldo { color: #475569; font-size: 0.9rem; }
+.itinerario-respaldo { padding: 12px; border-left: 3px solid var(--rx-azul-marca); background: #f5fafd; margin: 12px 0; }
+.itinerario-respaldo details p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.itinerario-respaldo summary { cursor: pointer; }
+.itinerario-editor-paso { min-width: 0; margin: 16px 0; padding: 16px; border: 1px solid #cbd5e1; border-radius: 10px; }
+.itinerario-editor-paso legend { padding: 0 8px; font-weight: 600; }
+.itinerario-editor-paso label { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.itinerario-editor-campos { display: grid; grid-template-columns: minmax(130px, 1fr) 2fr; gap: 12px; margin-bottom: 12px; }
+.itinerario-editor-paso input, .itinerario-editor-paso select, .itinerario-editor-paso textarea { box-sizing: border-box; width: 100%; }
+.itinerario-editor-paso textarea { resize: vertical; }
+.itinerario-editor-acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.itinerario-editor-acciones button { padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; cursor: pointer; }
+.itinerario-editor-acciones button:disabled { opacity: 0.45; cursor: default; }
+.itinerario-secuencia .itinerario-lista { list-style: none; margin: 16px 0; padding: 0; }
+.itinerario-paso { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; position: relative; padding-bottom: 22px; }
+.itinerario-paso:not(:last-child)::before { content: ''; position: absolute; left: 17px; top: 36px; bottom: 0; border-left: 2px dotted #b9cbd3; }
+.itinerario-numero { background: var(--rx-azul-marca); color: #fff; border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center; font-weight: 700; font-size: 15px; }
+.itinerario-contenido { min-width: 0; padding: 0 0 5px; overflow-wrap: anywhere; }
+.itinerario-contenido .itinerario-tipo { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #475569; }
+.itinerario-secuencia .itinerario-contenido h3 { margin: 5px 0 6px; font-size: 1rem; color: #363636; }
+.itinerario-contenido p { margin: 0; font-size: 0.9rem; color: #424242; white-space: pre-wrap; }
+.itinerario-editor-acciones button { min-height: 42px; color: #315c75; }
+.itinerario-editor-acciones button.itinerario-eliminar { color: var(--rx-rojo); border-color: var(--rx-rojo-borde); background: var(--rx-rojo-suave); }
+.itinerario-editor-acciones button:hover:not(:disabled) { box-shadow: 0 0 0 2px #cbdde8; }
+.itinerario-secuencia .itinerario-contenido { padding: 14px 16px; border: 1px solid #dce7ed; background: #f8fbfd; border-radius: 10px; }
+.itinerario-secuencia .itinerario-tipo { color: var(--rx-azul-oscuro); font-weight: 600; }
+.itinerario-secuencia .itinerario-contenido p { line-height: 1.65; }
+.itinerario-secuencia .itinerario-numero { background: var(--rx-azul); box-shadow: 0 0 0 4px var(--rx-azul-suave); }
+@media (max-width: 600px) {
+  .itinerario-editor-campos { grid-template-columns: 1fr; }
+  .itinerario-editor-paso { padding: 12px; }
+  .itinerario-paso { gap: 10px; }
+}

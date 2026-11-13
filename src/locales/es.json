@@ -1,4 +1,134 @@
 {
+  "calendario": {
+    "titulo": "Elige tu fecha",
+    "anterior": "Mes anterior",
+    "siguiente": "Mes siguiente",
+    "reservas_one": "{{count}} reserva",
+    "reservas_other": "{{count}} reservas",
+    "leyenda": "+N indica reservas existentes",
+    "aclaracion": "para la fecha seleccionada",
+    "cargando": "Consultando reservas del mes…",
+    "error": "No pudimos cargar los conteos. Puedes seguir seleccionando tu fecha."
+  },
+  "datosApi": {
+    "tourNoDisponible": "No pudimos cargar este tour",
+    "intentarDespues": "Puede no estar disponible o haber un problema de conexión. Inténtalo de nuevo en unos minutos.",
+    "volverTours": "Volver a los tours",
+    "precioPendiente": "Precio por confirmar",
+    "noReservable": "Este tour todavía no tiene todos los datos necesarios para reservar. Contáctanos para consultar disponibilidad."
+  },
+  "headerMobile": {
+    "abrir": "Abrir menú",
+    "cerrar": "Cerrar menú",
+    "navegacion": "Navegación principal",
+    "idiomas": "Seleccionar idioma",
+    "verTours": "Mostrar tours disponibles",
+    "ocultarTours": "Ocultar tours disponibles"
+  },
+  "galeriaTour": {
+    "titulo": "Fotos de {{nombre}}",
+    "foto": "{{nombre}} — Foto {{numero}}",
+    "abrir": "Ampliar foto {{numero}}",
+    "verTodas": "Ver todas las fotos ({{total}})",
+    "contador": "{{numero}} de {{total}}",
+    "cerrar": "Cerrar galería",
+    "anterior": "Foto anterior",
+    "siguiente": "Foto siguiente",
+    "seleccionar": "Seleccionar una foto",
+    "vacia": "No hay imágenes disponibles",
+    "error": "No se pudo cargar la foto"
+  },
+  "accionesUI": {
+    "cancelar": "Cancelar",
+    "confirmar": "Confirmar",
+    "guardando": "Guardando…",
+    "cerrar": "Cerrar"
+  },
+  "avisosReserva": {
+    "fecha": "Por favor selecciona la fecha.",
+    "fechaNoDisponible": "Esta fecha no está disponible para este tour.",
+    "horario": "Por favor selecciona un horario disponible o cambia la fecha.",
+    "campos": "Por favor completa todos los campos antes de reservar.",
+    "correo": "Por favor ingresa un correo válido.",
+    "personas": "Por favor selecciona la cantidad de personas.",
+    "terminos": "Debes aceptar los Términos y Condiciones antes de continuar.",
+    "iniciandoPago": "Reserva creada. Preparando el pago con Bold…",
+    "errorPasarela": "No se pudo iniciar la pasarela de pago.",
+    "errorReserva": "No se pudo crear la reserva. Revisa los datos e inténtalo de nuevo."
+  },
+  "reservasPago": {
+    "transferencia_sin": "Transferencia",
+    "efectivo_sin": "Efectivo",
+    "bold": "Bold",
+    "transferencia": "Transferencia",
+    "efectivo": "Efectivo",
+    "anterior": "No registrado (reserva anterior)",
+    "estado": "Estado de pago",
+    "pendiente": "Pendiente",
+    "pago": "Pago recibido",
+    "fallido": "Fallido",
+    "confirmar": "Confirmar pago",
+    "marcarPendiente": "Marcar pago como pendiente",
+    "confirmarTitulo": "Confirmar cambio de estado de pago",
+    "confirmarMensaje": "¿Confirmas que recibiste el pago? Se enviará la confirmación al cliente.",
+    "pendienteMensaje": "¿Deseas marcar el pago de esta reserva como pendiente?",
+    "correoEnviado": "Pago confirmado. Correo enviado al cliente.",
+    "correoFallido": "El pago quedó confirmado, pero no se pudo enviar el correo al cliente.",
+    "errorEstado": "No se pudo actualizar el estado de pago. Inténtalo de nuevo."
+  },
+  "metodosPago": {
+    "transferencia_sin": "Transferencia",
+    "efectivo_sin": "Efectivo",
+    "transferencia_sinDescripcion": "Paga el total por transferencia.",
+    "efectivo_sinDescripcion": "Paga el total en efectivo. Mínimo 24 horas antes de la salida, en un punto autorizado.",
+    "seleccion": "Método de pago",
+    "bold": "Pago electrónico · Bold",
+    "boldDescripcion": "Paga de forma electrónica con Bold.",
+    "transferencia": "Transferencia directa",
+    "transferenciaDescripcion": "7 % de descuento sobre el total de la reserva, incluidos los extras.",
+    "efectivo": "Pago en efectivo",
+    "efectivoDescripcion": "7 % de descuento sobre el total de la reserva, incluidos los extras. Paga en el momento acordado para el tour.",
+    "totalOriginal": "Total antes del descuento",
+    "descuento": "Descuento por método de pago {{porcentaje}} %",
+    "totalFinal": "Total a pagar",
+    "reservaCreada": "Reserva creada",
+    "pendiente": "Estado de pago: pendiente",
+    "referencia": "Referencia de la reserva",
+    "tour": "Tour",
+    "fecha": "Fecha y horario",
+    "datosTransferencia": "Información para transferir",
+    "instruccionesTransferencia": "Transfiere el total a pagar indicado arriba y utiliza la referencia de tu reserva.",
+    "datosPendientes": "Nos pondremos en contacto contigo para facilitarte los datos bancarios. Conserva la referencia y el total a pagar.",
+    "instruccionesEfectivo": "Realiza el pago en efectivo en el momento acordado para el tour.",
+    "confirmacionPosterior": "La reserva está registrada. Recibirás la confirmación de pago cuando el administrador confirme su recepción.",
+    "banco": "Banco",
+    "tipoCuenta": "Tipo de cuenta",
+    "numeroCuenta": "Número de cuenta",
+    "titular": "Titular",
+    "documento": "Documento",
+    "creando": "Creando reserva…"
+  },
+  "itinerarioPasos": {
+    "paso": "Paso {{numero}}",
+    "tipos": { "salida": "Salida", "transporte": "Transporte", "actividad": "Actividad", "llegada": "Llegada" }
+  },
+  "promocion": {
+    "distintivo": "PROMOCIÓN",
+    "precioAnterior": "Precio normal",
+    "precioActual": "Precio promocional",
+    "porPersona": "Por persona",
+    "soloUnaPersona": "",
+    "cualquierCantidad": "Para cualquier cantidad permitida de personas",
+    "aplicada": "Promoción aplicada al tour. Los extras se calculan por separado.",
+    "noAplicaGrupo": "Desde 2 personas se aplica el precio normal del tour."
+  },
+  "extras": {
+    "cantidad": "Cantidad de {{nombre}}",
+    "precio": "${{valor}} COP c/u · Máx: {{max}}",
+    "noDisponible": "No disponible para {{personas}} personas",
+    "seleccionaPersonas": "Selecciona la cantidad de personas de la reserva",
+    "subtotal": "Subtotal: ${{valor}} COP"
+  },
   "language": "Idioma",
   "languages": {
     "es": "Español",
@@ -91,7 +221,7 @@
   "pagos": "Pagos",
 
   "direccion": "Salento, Quindío - Colombia",
-  "correos": "rutaxplorer@gmail.com",
+  "correos": "rutaexplorer@gmail.com",
   "telefonos": "+57 312 415 1539",
 
   "boletin": "Boletín",
@@ -168,7 +298,7 @@
     "idioma": "Idioma",
     "desde": "Desde",
     "moneda": "COP x Persona",
-    "precioVariable": "el precio varía según el número de participantes",
+    "precioVariable": "El precio puede variar según la cantidad de personas",
     "reservar": "Reservar"
   }
   

@@ -27,3 +27,6 @@ dist/
 build/
 dist.zip
 *.zip
+.env
+.env.*
+!.env.example

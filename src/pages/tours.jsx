@@ -1,19 +1,27 @@
 import Card from "../components/card";
 import Header from "../components/header";
+import { tarifasValidas } from '../utils/datosApi';
 import Footer from "../components/footer";
 import '../styles/tours.css'
 import AOS from 'aos';
 import { useEffect,useState,useRef, useMemo } from 'react';
 import axios from "../axiosConfig";
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import TourLink from '../components/TourLink';
+import { normalizeRef } from '../utils/tourUrls';
 import { set } from "date-fns";
 import FilteredTours from "../components/filteredTours";
-import { Link } from 'react-router-dom';
+
 import { useTranslation } from 'react-i18next';
 import imagen from "../assets/paisaje_hero.png";
 import GoogleReviews from "../components/GoogleReviews";
+import Seo from "../components/Seo";
+import PrecioPromocion from '../components/PrecioPromocion';
+import { promocionVisible } from '../utils/promociones';
+import useFechaPromocion from '../hooks/useFechaPromocion';
 
 function Tours(){
+  const hoyPromocion = useFechaPromocion();
   const [busqueda, setBusqueda] = useState("");
 
   const { i18n } = useTranslation();
@@ -29,9 +37,11 @@ function Tours(){
 
 
   const [tours, setTours] = useState([]);
+  const [errorTours, setErrorTours] = useState(false);
   const [slide, setSlide] = useState(0);
   const pausedRef = useRef(false);
-  const { hotel} = useParams();
+  const [searchParams] = useSearchParams();
+  const hotel = normalizeRef(searchParams.get('ref'));
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
   const [numCategoria, setnumCategoria] = useState("");
   const [mostrarTours, setMostrarTours] = useState(true);
@@ -137,17 +147,25 @@ const salidas = [
     descripcion: "Experiencias con recogida en hoteles de todo el Quindío.",
     img: "https://turismoquindio.com/wp-content/uploads/2017/07/hotel-las-camelias-quindio-107-800x507.jpg",
   },
+  {
+    id: "4",
+    titulo: "TERMALES",
+    descripcion: "Experiencias de descanso en aguas termales rodeadas de naturaleza.",
+    img: "https://termales.com.co/wp-content/uploads/2026/02/DSC04920-scaled.jpg",
+  },
 ];
 
 
   useEffect(() => {
     const obtenerTours = async () => {
+      setErrorTours(false);
       try {
         const res = await axios.get('/api/tours');
         
         setTours(res.data); // aquí actualizamos el estado
         
       } catch (error) {
+        setErrorTours(true);
         console.error('Error al obtener tours:', error);
       }
     };
@@ -158,7 +176,7 @@ useEffect(() => {
     try {
       const res = await axios.get("/api/tours/mas-reservados");
       setToursMasReservados(res.data);
-      consolo.log()
+      
     } catch (error) {
       console.error("Error cargando tours más reservados:", error);
     }
@@ -198,18 +216,18 @@ const salidasConTours = salidas.filter((salida) =>
 
 const obtenerPrecioMostrar = (tour) => {
   if (tour.tipo === "compartido") {
-    return Number(tour.precio || 0).toLocaleString("es-CO");
+    return tour.precio > 0 ? `$${Number(tour.precio).toLocaleString('es-CO')} COP` : t('datosApi.precioPendiente');
   }
 
-  if (tour.precios?.length > 0) {
+  if (tarifasValidas(tour.precios).length > 0) {
     const menorPrecio = Math.min(
-      ...tour.precios.map((p) => Number(p.precioPorPersona) || 0)
+      ...tarifasValidas(tour.precios).map((p) => Number(p.precioPorPersona))
     );
 
-    return menorPrecio.toLocaleString("es-CO");
+    return `$${menorPrecio.toLocaleString('es-CO')} COP`;
   }
 
-  return "0";
+  return t('datosApi.precioPendiente');
 };
 const categoriasTours = [
   { id: "1", nombre: "Rutas cafeteras" },
@@ -222,6 +240,7 @@ const categoriasTours = [
   { id: "8", nombre: "Tours con salida desde Filandia" },
   { id: "9", nombre: "Tours a la Carbonera" },
   { id: "10", nombre: "Tours desde los Hoteles del Quindío" },
+  { id: "11", nombre: "Cabalgatas" }
 ];
 
 const categoriasFiltroDisponibles = categoriasTours.filter((cat) =>
@@ -243,7 +262,13 @@ const categoriasFiltroDisponibles = categoriasTours.filter((cat) =>
 
     return(
             <>
+            <Seo
+              title="Tours en Salento y el Eje Cafetero | Ruta Xplorer"
+              description="Reserva tours en Salento, Valle del Cocora, Quindío y el Eje Cafetero. Senderismo, café, aventura y experiencias privadas con guías locales."
+              path="/app/tours"
+            />
             <Header></Header>
+            {errorTours && <p role="alert" className="container py-4">{t('datosApi.intentarDespues')}</p>}
             <div className="container_tours">
                 
                
@@ -610,19 +635,26 @@ const categoriasFiltroDisponibles = categoriasTours.filter((cat) =>
           </span>
         </div>
 
-        <p>
-          Desde{" "}
-          <strong>
-            ${obtenerPrecioMostrar(tour)} COP
-          </strong>
-        </p>
+        {promocionVisible(tour, hoyPromocion) ? (
+          <PrecioPromocion
+            precioNormal={tour.tipo === 'compartido' ? tour.precio : tour.precios?.length ? Math.min(...tour.precios.map(p => Number(p.precioPorPersona))) : 0}
+            precioPromocion={tour.precioPromocion}
+            tipo={tour.tipo}
+          />
+        ) : (
+          <p>
+            Desde{" "}
+            <strong>{obtenerPrecioMostrar(tour)}</strong>
+          </p>
+        )}
 
-        <Link
+        <TourLink
           className="experiencia-link"
-          to={`/tour/${hotel || "RutaExplorer"}/${tour.slug}`}
+          slug={tour.slug} referral={hotel}
         >
           Ver más Detalles <span>➜</span>
-        </Link>
+        </TourLink>
+        <p className="tour-card-price-notice">{t('card.precioVariable')}</p>
       </div>
     </div>
   ))}
@@ -686,7 +718,7 @@ const categoriasFiltroDisponibles = categoriasTours.filter((cat) =>
       
                     {/* CONTENEDOR DESPLAZABLE */}
                     <div className="experiencias-scroll">
-                      {tours.slice(0, 4).map((exp) => (
+                      {tours.filter(tour => tour.activo === true).slice(0, 4).map((exp) => (
                         <article key={exp.id} className="experiencia-card">
                           <div className="experiencia-img-wrapper">
                             <img src={exp.fotos[0]} alt={exp.titulo} />
@@ -697,9 +729,9 @@ const categoriasFiltroDisponibles = categoriasTours.filter((cat) =>
                             <p className="experiencia-descripcion">{exp.descripcion}</p>
 
                             
-                              <Link className="experiencia-link" to={`/tour/${hotel}/${exp.slug}`}>
+                              <TourLink className="experiencia-link" slug={exp.slug} referral={hotel}>
                               Leer más <span>➜</span>
-                              </Link>
+                              </TourLink>
                           
                           </div>
                         </article>

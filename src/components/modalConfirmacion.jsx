@@ -1,4 +1,4 @@
-import React from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/modalConfirmacion.css";
 export default function ConfirmModal({
   open,
@@ -8,6 +8,7 @@ export default function ConfirmModal({
   mensaje,
   loading = false,
 }) {
+  const { t } = useTranslation();
   if (!open) return null;
 
   return (
@@ -18,7 +19,7 @@ export default function ConfirmModal({
       >
         <div className="modal-header">
           <h2>{titulo}</h2>
-          <button className="modal-close" onClick={onClose}>
+          <button className="modal-close" onClick={onClose} aria-label={t('accionesUI.cerrar')}>
             ✕
           </button>
         </div>
@@ -29,7 +30,7 @@ export default function ConfirmModal({
 
         <div className="modal-footer">
           <button className="btn cancelar" onClick={onClose}>
-            Cancelar
+            {t('accionesUI.cancelar')}
           </button>
 
           <button
@@ -37,7 +38,7 @@ export default function ConfirmModal({
             onClick={onConfirm}
             disabled={loading}
           >
-            {loading ? "Guardando..." : "Confirmar"}
+            {t(loading ? 'accionesUI.guardando' : 'accionesUI.confirmar')}
           </button>
         </div>
       </div>

@@ -1,5 +1,7 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Tour from "./pages/tour";
+import LegacyTourRedirect from './components/LegacyTourRedirect';
+import UrlLanguage from './components/UrlLanguage';
 import Tours from "./pages/tours";
 import Admin_tours from "./pages/admin_tours";
 import Admin_reservations from "./pages/admin_ reservations";
@@ -21,20 +23,21 @@ function App(){
       
     
     
+      <UrlLanguage />
       <Routes>
         <Route path="/admin/reservations" element={<ProtectedRoute><Admin_reservations /></ProtectedRoute>} />
         <Route path="/admin/tours" element={<ProtectedRoute><Admin_tours /></ProtectedRoute>} />
         <Route path="/tours" element={<Tours />} />
         {/* <Route path="/" element={<Tours />} /> */}
         <Route path="/registro" element={<RegisterAdmin />} />
-        <Route path="/tours/:hotel" element={<Tours/>} />
+        <Route path="/tours/:hotel" element={<LegacyTourRedirect />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/tour/:hotel/:nombre" element={<Tour />} />
-        <Route path="/tour/:nombre" element={<Tour />} />
-        <Route path="/tourAdmin/:nombre" element={<Tour />} />
+        <Route path="/tour/:hotel/:slug" element={<LegacyTourRedirect />} />
+        <Route path="/tour/:slug" element={<Tour />} />
+        <Route path="/tourAdmin/:slug" element={<LegacyTourRedirect />} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/invoice/:referencia" element={<Invoice />} />
-        <Route path="*" element={<Navigate to="/tours" replace />} />
+        <Route path="*" element={<LegacyTourRedirect />} />
         
          
       </Routes>

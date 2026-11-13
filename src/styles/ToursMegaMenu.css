@@ -75,7 +75,7 @@
 }
 
 .tours-mega-link:hover {
-  color: #08ACEF;
+  color: var(--rx-azul-marca);
   transform: translateX(2px);
 }
 

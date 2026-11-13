@@ -1,0 +1,33 @@
+Options -MultiViews
+RewriteEngine On
+RewriteBase /app/
+
+# URLs antiguas de QR: redirecciones HTTP permanentes antes del fallback SPA.
+# Las query strings existentes (incluido lang) se conservan.
+RewriteRule ^tour/RutaExplorer/([a-z0-9-]+)/?$ /app/tour/$1 [R=301,L]
+# Separar el slug evita que B convierta sus guiones en %2d al escapar el origen.
+RewriteRule ^tour/([^/]+)/([a-z0-9-]+)/?$ - [E=RX_TOUR_SLUG:$2]
+RewriteRule ^tour/([^/]+)/([a-z0-9-]+)/?$ /app/tour/%{ENV:RX_TOUR_SLUG}?ref=$1 [R=301,L,QSA,B,BNP,NE]
+RewriteRule ^tourAdmin/([a-z0-9-]+)/?$ /app/tour/$1 [R=301,L]
+RewriteRule ^tours/RutaExplorer/?$ /app/tours [R=301,L]
+RewriteRule ^tours/([^/]+)/?$ /app/tours?ref=$1 [R=301,L,QSA,B,BNP,NE]
+
+# Consultar existencia/estado antes de servir la SPA. Se conserva la query original.
+RewriteRule ^tour/[^/]+/?$ tour-gateway.php [END]
+
+# Los archivos reales (JS, CSS, imágenes, sitemap y robots) se sirven directamente.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# React Router: permite abrir o recargar cualquier URL pública de la SPA.
+RewriteRule ^ index.html [L]
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|webp|png|jpg|jpeg|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "^(index\.html|sitemap\.xml|robots\.txt)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

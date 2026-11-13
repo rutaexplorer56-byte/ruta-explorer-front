@@ -106,7 +106,7 @@
     height: 40px;
     width: auto;
     padding: 8px;
-    background-color: #08ACEF;;
+    background-color: var(--rx-azul-marca);;
     color: white;
     font-size: 18px;
     border-radius: 7px;

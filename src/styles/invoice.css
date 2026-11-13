@@ -3,7 +3,7 @@
   --card:#ffffff;
   --text:#414141;
   --muted:#6b7280;
-  --ok:#10b981;
+  --ok:var(--rx-verde);
   --badge:#fff7e6;
   --badge-text:#b45309;
   --border:#c7c7c9;

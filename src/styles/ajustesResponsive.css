@@ -1,0 +1,54 @@
+/* Mantiene el contenido dentro de cada columna sin ocultar los desbordamientos. */
+.tour-page > *, .tour-card-list > *, .er-grid > *, .er-info-value { min-width: 0; }
+.tour-page :is(h1, h2, h3, p, label, small), .tour-card-list .tour-meta span { overflow-wrap: anywhere; }
+.tour-page .tour-sidebar :is(input, select, textarea) { min-width: 0; max-width: 100%; box-sizing: border-box; }
+.tour-page .tour-reservation, .tour-page .tour-gallery { min-width: 0; max-width: 100%; }
+.tour-page .main-image-container { position: relative; }
+.tour-page .main-image-container .nav-arrow { top: 50%; transform: translateY(-50%); }
+.tour-page .titulo_tour .precio { max-width: 100%; }
+.tour-page .tour-icons > div { min-width: 0; max-width: 100%; }
+.tour-card-list .tour-meta span, .tour-card-list .details-link { white-space: normal; }
+.tour-card-list .promocion-precio { width: 100%; }
+.tour-card-list .promocion-precio :is(strong, del) { white-space: normal; overflow-wrap: normal; }
+.er-card, .er-field { min-width: 0; }
+.er-info-value { overflow-wrap: anywhere; }
+.er-info-label { flex-shrink: 0; }
+.er-grid { grid-template-columns: minmax(0, 1fr); }
+.tour-editor-modal .formulario > .contenedor { overflow-wrap: anywhere; }
+.tour-editor-modal .preview-imagenes ol { padding-left: 0; }
+.tour-editor-modal .extra-editor-acciones, .tour-editor-modal .itinerario-editor-acciones { align-items: stretch; }
+
+@media (min-width: 720px) {
+  .er-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 1000px) {
+  .tour-page .tour-sidebar { flex: 1 1 100%; width: 100%; }
+}
+@media (max-width: 768px) {
+  .tour-card-list { grid-template-columns: 110px minmax(0, 1fr); }
+  .tour-card-list .tour-card-price {
+    grid-column: 1 / -1; border-left: 0; border-top: 1px solid #edf1f5;
+    padding: 12px 0 0; display: flex; flex-wrap: wrap; flex-direction: row;
+    gap: 8px 14px; align-items: center; justify-content: flex-start;
+  }
+  .tour-card-list .promocion-precio { flex: 1 1 200px; width: auto; }
+  .tour-card-list .buttons-container-list { flex: 1 1 150px; width: auto; }
+  .tour-card-list .details-link { font-size: 0.875rem; min-height: 40px; }
+  .tour-card-list .tour-card-price strong { font-size: 1.1rem; }
+  .tour-card-list .tour-card-price small { font-size: 0.8rem; }
+  .tour-card-list .tour-meta span { font-size: 0.8rem; }
+  .tour-page .tour-main, .tour-page .tour-sidebar { padding: 16px; }
+  .tour-page .titulo_tour h1 { font-size: clamp(1.5rem, 5vw, 2rem); }
+  .er-wrap { padding: 12px; }
+  .er-actions .er-btn { flex: 1 1 140px; }
+}
+@media (max-width: 600px) {
+  /* En movil, un solo desplazamiento permite recorrer todos los campos. */
+  .tour-editor-modal .formulario { height: auto; }
+  .tour-editor-modal .formulario > .menu { max-height: none; overflow: visible; }
+  .tour-editor-modal .formulario > .contenedor { overflow: visible; }
+}
+@media (max-width: 420px) {
+  .tour-card-list { grid-template-columns: 90px minmax(0, 1fr); }
+  .tour-editor-modal .extra-editor-acciones > *, .tour-editor-modal .itinerario-editor-acciones > * { flex: 1 1 100%; }
+}

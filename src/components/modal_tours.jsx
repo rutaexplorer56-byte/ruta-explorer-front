@@ -3,6 +3,13 @@ import '../styles/modal_tours.css';
 import axios from "../axiosConfig";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { prepararExtras } from "../utils/extras";
+import { validarPromocionFormulario } from "../utils/promociones";
+import '../styles/promocion.css';
+import ItinerarioEditor from './ItinerarioEditor';
+import { prepararItinerario } from '../utils/itinerario';
+import { METODOS_PAGO, metodosPermitidos } from '../utils/pagos';
+import { diasBloqueados } from '../utils/diasBloqueados';
 
 /* eslint-disable react/prop-types */
 const ModalAgregarTour = ({ isOpen, onClose, id, actualizarToursPadre }) => {
@@ -10,6 +17,7 @@ const ModalAgregarTour = ({ isOpen, onClose, id, actualizarToursPadre }) => {
    const [actualizarImagenes, setActualizarImagenes] = useState([]);
    const [tour, setTour] = useState(null);
    const [activo, setActivo] = useState("a");
+   const [errorFormulario, setErrorFormulario] = useState("");
    const [imagenesEditadas, setImagenesEditadas] = useState(false);
 
    const [loadingCreate, setLoadingCreate] = useState(false);
@@ -26,6 +34,7 @@ const eliminarImagenExistente = (index) => {
 };
   const [formData, setFormData] = useState({
     nombre: '',
+      metodosPago: metodosPermitidos(null),
     descripcion: '',
     idioma: '',
     incluido: '',
@@ -36,6 +45,10 @@ const eliminarImagenExistente = (index) => {
     salidas: '',
     tiempo: '',
     precio: '',
+    promocionActiva: false,
+    precioPromocion: '',
+    fechaInicioPromocion: '',
+    fechaFinPromocion: '',
     cantidadMaxima: '',
     toursPorDia: '',
     cantidadMinima: 1,
@@ -43,8 +56,10 @@ const eliminarImagenExistente = (index) => {
     precios: [],// [{ personas, precioPorPersona }]
     horaLimite: '',            // ej: "18:00"
     itinerario: '',            // texto largo
+    itinerarioPasos: [],
     reservaUltimaHora: false,
-    extras: [{ nombre: "", valor: "", maxCantidad: 1 }],
+    mostrarReservasCalendario: false,
+    extras: [],
      diasNoDisponibles: '',
   fechasNoDisponibles: [],
   fechaNoDisponibleTemp: '',
@@ -155,14 +170,21 @@ const moverImagen = (fromIndex, toIndex) => {
   const agregarExtra = () => {
   setFormData(prev => ({
     ...prev,
-    extras: [...prev.extras, { nombre: "", valor: "", maxCantidad: 1 }]
+    extras: [...(prev.extras || []), { nombre: "", valor: "", maxCantidad: 1, precios: [{ personas: 1, valor: "" }] }]
   }));
 };
 
 const handleExtraChange = (i, field, value) => {
-  const nuevos = [...formData.extras];
-  nuevos[i][field] = value;
-  setFormData(prev => ({ ...prev, extras: nuevos }));
+  setFormData(prev => ({ ...prev, extras: prev.extras.map((extra, index) => index === i ? { ...extra, [field]: value } : extra) }));
+};
+
+const cambiarTarifasExtra = (i, modificar) => {
+  setFormData(prev => ({
+    ...prev,
+    extras: prev.extras.map((extra, index) => index === i
+      ? { ...extra, precios: modificar(extra.precios || []) }
+      : extra),
+  }));
 };
 
 const eliminarExtra = (i) => {
@@ -204,6 +226,21 @@ const handleSubmit = async (e) => {
 
   if (loadingCreate) return;
 
+  if (!metodosPermitidos(formData.metodosPago).length) {
+    setActivo('h'); setErrorFormulario('Selecciona al menos un método de pago.');
+    toast.error('Selecciona al menos un método de pago.'); return;
+  }
+  try { validarPromocionFormulario(formData); }
+  catch (error) { setActivo("g"); setErrorFormulario(error.message); toast.error(error.message); return; }
+
+  let extras;
+  try { extras = prepararExtras(formData.extras, tour?.extras); }
+  catch (error) { setActivo("c"); setErrorFormulario(error.message); toast.error(error.message); return; }
+
+  let itinerarioPasos;
+  try { itinerarioPasos = prepararItinerario(formData.itinerarioPasos); }
+  catch (error) { setActivo("e"); setErrorFormulario(error.message); toast.error(error.message); return; }
+
   setLoadingCreate(true);
 
   const data = new FormData();
@@ -234,7 +271,13 @@ fechasNoDisponibles: Array.isArray(formData.fechasNoDisponibles)
   };
 
   for (const key in payload) {
-    if (key === "precios") {
+    if (key === "itinerario") {
+      continue; // El texto anterior se conserva, no lo sobrescribe este editor.
+    } else if (key === "metodosPago") {
+      data.append("metodosPago", JSON.stringify(formData.metodosPago));
+    } else if (key === "itinerarioPasos") {
+      data.append("itinerarioPasos", JSON.stringify(itinerarioPasos));
+    } else if (key === "precios") {
       data.append("precios", JSON.stringify(payload.precios));
     } else if (key === "extras") {
       continue;
@@ -245,7 +288,7 @@ fechasNoDisponibles: Array.isArray(formData.fechasNoDisponibles)
     }
   }
 
-  data.append("extras", JSON.stringify(formData.extras));
+  data.append("extras", JSON.stringify(extras));
 
   imagenes.forEach((img) => {
     data.append("imagenes", img.file);
@@ -305,6 +348,21 @@ fechasNoDisponibles: Array.isArray(formData.fechasNoDisponibles)
 const update = async () => {
   if (loadingCreate) return;
 
+  if (!metodosPermitidos(formData.metodosPago).length) {
+    setActivo('h'); setErrorFormulario('Selecciona al menos un método de pago.');
+    toast.error('Selecciona al menos un método de pago.'); return;
+  }
+  try { validarPromocionFormulario(formData); }
+  catch (error) { setActivo("g"); setErrorFormulario(error.message); toast.error(error.message); return; }
+
+  let extras;
+  try { extras = prepararExtras(formData.extras, tour?.extras); }
+  catch (error) { setActivo("c"); setErrorFormulario(error.message); toast.error(error.message); return; }
+
+  let itinerarioPasos;
+  try { itinerarioPasos = prepararItinerario(formData.itinerarioPasos); }
+  catch (error) { setActivo("e"); setErrorFormulario(error.message); toast.error(error.message); return; }
+
   setLoadingCreate(true);
 
   const data = new FormData();
@@ -335,10 +393,16 @@ const update = async () => {
   };
 
   for (const key in payload) {
-    if (key === "precios") {
+    if (key === "itinerario") {
+      continue;
+    } else if (key === "metodosPago") {
+      data.append("metodosPago", JSON.stringify(formData.metodosPago));
+    } else if (key === "itinerarioPasos") {
+      data.append("itinerarioPasos", JSON.stringify(itinerarioPasos));
+    } else if (key === "precios") {
       data.append("precios", JSON.stringify(payload.precios));
     } else if (key === "extras") {
-      data.append("extras", JSON.stringify(payload.extras));
+      data.append("extras", JSON.stringify(extras));
     } else if (key === "fechaNoDisponibleTemp") {
       continue;
     } else {
@@ -401,6 +465,7 @@ const update = async () => {
   const resetForm = () => {
     setFormData({
       nombre: '',
+      metodosPago: metodosPermitidos(null),
       descripcion: '',
       idioma: '',
       incluido: '',
@@ -411,16 +476,23 @@ const update = async () => {
       salidas: '',
       tiempo: '',
       precio: '',
+      promocionActiva: false,
+      precioPromocion: '',
+      fechaInicioPromocion: '',
+      fechaFinPromocion: '',
       cantidadMaxima: '',
       toursPorDia: '',
       cantidadMinima: 1,
       tipo: 'compartido',
       precios: [],
+      extras: [],
       
     // ✅ NUEVOS
     horaLimite: '',
     itinerario: '',
+    itinerarioPasos: [],
     reservaUltimaHora: false,
+    mostrarReservasCalendario: false,
      diasNoDisponibles: '',
     fechasNoDisponibles: [],
     fechaNoDisponibleTemp: '',
@@ -438,7 +510,7 @@ const update = async () => {
     if (id) {
       const obtenerTour = async () => {
         try {
-          const res = await axios.get(`/api/tours/${id}`);
+          const res = await axios.get(`/api/tours/${id}`, { params: { lang: 'es' } });
           setTour(res.data);
         } catch (err) {
           console.error('Error al obtener tour:', err);
@@ -453,6 +525,7 @@ const update = async () => {
     if (isOpen && tour) {
       setFormData({
         nombre: tour.nombre || '',
+        metodosPago: metodosPermitidos(tour.metodosPago),
         descripcion: tour.descripcion || '',
         idioma: tour.idioma || '',
         incluido: tour.incluido || '',
@@ -462,6 +535,10 @@ const update = async () => {
         salidas: tour.salidas || '',
         tiempo: tour.tiempo || '',
         precio: tour.precio || '',
+        promocionActiva: !!tour.promocionActiva,
+        precioPromocion: tour.precioPromocion ?? '',
+        fechaInicioPromocion: tour.fechaInicioPromocion || '',
+        fechaFinPromocion: tour.fechaFinPromocion || '',
         cantidadMaxima: tour.cantidadMaxima?.toString?.() || '',
         toursPorDia: tour.toursPorDia?.toString?.() || '',
         cantidadMinima: tour.cantidadMinima ?? 1,
@@ -469,12 +546,16 @@ const update = async () => {
         subCategoria: tour.subCategoria || '',
         horaLimite: tour.horaLimite || '',
         itinerario: tour.itinerario || '',
+        itinerarioPasos: Array.isArray(tour.itinerarioPasos)
+          ? [...tour.itinerarioPasos].sort((a, b) => a.orden - b.orden).map(paso => ({ ...paso }))
+          : [],
         reservaUltimaHora: !!tour.reservaUltimaHora,
+        mostrarReservasCalendario: !!tour.mostrarReservasCalendario,
         diasNoDisponibles: tour.diasNoDisponibles,
         fechasNoDisponibles: tour.fechasNoDisponibles ? tour.fechasNoDisponibles.split(",") : [],
         extras: Array.isArray(tour.extras)
-      ? tour.extras
-      : [{ nombre: "", valor: "", maxCantidad: 1 }],
+      ? tour.extras.map(extra => ({ ...extra, precios: (extra.precios || []).map(precio => ({ ...precio })) }))
+      : [],
     
         precios: Array.isArray(tour.precios)
           ? tour.precios.map(p => ({
@@ -504,25 +585,48 @@ const update = async () => {
   // -----------------------
   return (
     
-      <div className="modal-content">
+      <div className="modal-content tour-editor-modal">
         <h2>{id ? "Editar Tour" : "Agregar Tour"}</h2>
 
 
-        <form className="formulario" onSubmit={handleSubmit}>
+        <form className="formulario" onSubmit={handleSubmit} onChangeCapture={() => setErrorFormulario("")}>
           <div className='menu'>
               <button type="button" className="btn-volver " onClick={onClose}> <i className="bi bi-arrow-left"></i>  Volver a Tours</button> 
-            <ul>
-              <li className={activo==="a"? "activo":""}onClick={()=>setActivo("a")}>Información General</li>
-              <li className={activo==="b"? "activo":""}onClick={()=>setActivo("b")}>Precios</li>
-              <li className={activo==="c"? "activo":""}onClick={()=>setActivo("c")}>Extras</li>
-              <li className={activo==="d"? "activo":""}onClick={()=>setActivo("d")}>Imágenes</li>
-              <li className={activo==="e"? "activo":""}onClick={()=>setActivo("e")}>Itinerario</li>
-              <li className={activo==="f"? "activo":""}onClick={()=>setActivo("f")}>Horario limite</li>
+            <ul aria-label="Secciones del tour">
+              {[
+                ['a', 'Información general'], ['b', 'Precios'], ['h', 'Métodos de pago'], ['c', 'Extras'],
+                ['g', 'Promoción'], ['e', 'Itinerario'], ['d', 'Imágenes'],
+                ['f', 'Configuración adicional'],
+              ].map(([clave, titulo], index) => (
+                <li key={clave}>
+                  <button type="button" className={activo === clave ? 'activo' : ''}
+                    aria-current={activo === clave ? 'step' : undefined}
+                    onClick={() => setActivo(clave)}>
+                    <span aria-hidden="true">{index + 1}</span>{titulo}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
-          <div className='contenedor'>
+          <div className='contenedor' key={activo}>
+            <header className="tour-editor-section-heading">
+              <h3>{({ a: 'Información general', b: 'Precios', h: 'Métodos de pago', c: 'Extras', g: 'Promoción', e: 'Itinerario', d: 'Imágenes', f: 'Configuración adicional' })[activo]}</h3>
+              <p>{({ a: 'Presenta la experiencia y sus características.', b: 'Configura las tarifas normales del tour en pesos colombianos.', h: 'Elige cómo pueden pagar los clientes de este tour.', c: 'Organiza los servicios opcionales y sus tarifas.', g: 'Configura el precio y las fechas de la promoción.', e: 'Organiza el recorrido en el orden en que se realizará.', d: 'Revisa las fotos actuales y agrega nuevas imágenes.', f: 'Define los horarios, la disponibilidad y las condiciones de reserva.' })[activo]}</p>
+            </header>
+            {errorFormulario && <div className="tour-editor-error" role="alert">{errorFormulario}</div>}
             {activo === "a" && 
               <div>
+                <div className="fila">
+                    <div className="campo">
+                      <label>Tipo de tour</label>
+                      <select name="tipo" value={formData.tipo} onChange={handleChange} required>
+                        <option value="compartido">Compartido</option>
+                        <option value="privado">Privado</option>
+                      </select>
+                    </div>
+                  </div>
+
+                <p className="tour-editor-status">Estado: <strong>{tour?.activo === false || tour?.activo === 0 ? "Inactivo" : "Activo"}</strong></p>
                 <div className="fila">
                  <div className="campo">
                   <label>Nombre del Tour</label>
@@ -537,31 +641,6 @@ const update = async () => {
                  </div>
                  
                  
-                </div>
-                <div className="fila">
-                  <div className="campo">
-                    <label>Cantidad mínima de personas</label>
-                    <input
-                      type="number"
-                      name="cantidadMinima"
-                      value={formData.cantidadMinima}
-                      onChange={handleChange}
-                      placeholder="Ej: 1"
-                      required
-                    />
-                  </div>
-                  <div className="campo">
-                    <label>Cantidad máxima de personas</label>
-                    <input
-                      type="number"
-                      name="cantidadMaxima"
-                      value={formData.cantidadMaxima}
-                      onChange={handleChange}
-                      placeholder="Ej: 8"
-                      required
-                    />
-                  </div>
-
                 </div>
                 <div className="fila">
                   <div className="campo">
@@ -584,6 +663,7 @@ const update = async () => {
                     <option value="8">8. Tours con salida desde Filandia</option>
                     <option value="9">9. Tours a la Carbonera</option>
                     <option value="10">10.Tours desde los Hoteles del Quindío</option>
+                    <option value="11">11.Cabalgatas</option>
                   </select>
                   </div>
                    <div className="campo">
@@ -599,59 +679,30 @@ const update = async () => {
                     <option value="1">1. Salidas desde Salento</option>
                     <option value="2">2. Salidas desde Pereira</option>
                     <option value="3">3. Salidas desde Hoteles en el Quindío</option>
+                    <option value="4">4. Termales</option>
                     
                   </select>
                   </div>
                  
-                  <div className="campo">
-                    <label>Idioma</label>
-                    <input
-                      type="text"
-                      name="idioma"
-                      value={formData.idioma}
-                      onChange={handleChange}
-                      placeholder="Ej: Español/Inglés"
-                      required
-                    />
-                  </div>
+                  
 
                 </div>
                 
-                <div className="fila">
-                    <div className="campo">
-                    <label>Recomendaciones</label>
-                    <input
-                      type="text"
-                      name="recomendaciones"
-                      value={formData.recomendaciones}
-                      onChange={handleChange}
-                      placeholder="Ej: llevar agua, ropa cómoda"
-                      required
-                    />
-                  </div>
-                  <div className="campo">
-                    <label>Incluido</label>
-                    <input
-                      type="text"
-                      name="incluido"
-                      value={formData.incluido}
-                      onChange={handleChange}
-                      placeholder="Ej: almuerzo, transporte"
-                      required
-                    />
-                  </div>
-                  
-                </div>
                 <div className="campo full">
-                  <label>Descripción</label>
+                  <label htmlFor="tour-descripcion">Descripción</label>
                   <textarea
+                    id="tour-descripcion"
                     name="descripcion"
-                    rows="4"
+                    rows="7"
+                    aria-describedby="tour-descripcion-ayuda"
                     value={formData.descripcion}
                     onChange={handleChange}
                     placeholder="Describe el tour..."
                     required
                   />
+                  <small id="tour-descripcion-ayuda">
+                    Usa Enter para un salto de línea y dos veces Enter para separar párrafos.
+                  </small>
                 </div>
               
               </div>
@@ -659,15 +710,6 @@ const update = async () => {
               }
             {activo === "b" && 
               <div>
-                <div className="fila">
-                    <div className="campo">
-                      <label>Tipo de tour</label>
-                      <select name="tipo" value={formData.tipo} onChange={handleChange} required>
-                        <option value="compartido">Compartido</option>
-                        <option value="privado">Privado</option>
-                      </select>
-                    </div>
-                  </div>
                   {formData.tipo === "compartido" && (
               <div className="campo">
                 <label>Precio fijo</label>
@@ -691,62 +733,126 @@ const update = async () => {
                 <div key={i} className="fila escalon">
                   <input
                     type="number"
-                    placeholder="Personas"
+                    placeholder="Personas" aria-label="Cantidad de personas"
                     
                     value={p.personas}
                     onChange={(e) => handleEscalonChange(i, "personas", e.target.value)}
                   />
                   <input
                     type="number"
-                    placeholder="Precio por persona"
+                    placeholder="Precio por persona" aria-label="Precio por persona en COP"
                     
                     value={p.precioPorPersona}
                     onChange={(e) => handleEscalonChange(i, "precioPorPersona", e.target.value)}
                   />
-                  <button type="button" onClick={() => eliminarEscalon(i)}>✖</button>
+                  <button type="button" aria-label={`Eliminar tarifa ${i + 1}`} onClick={() => eliminarEscalon(i)}>✖</button>
                 </div>
               ))}
 
               <button type="button" className="btn azul" onClick={agregarEscalon}>
-                ➕ Agregar Campo
+                Agregar tarifa
               </button>
             </div>
           )}
+
+
 
                   
               
               
               </div>}
+            {activo === 'h' && <fieldset className="tour-metodos-pago">
+              <legend>Métodos habilitados para este tour</legend>
+              <p>Selecciona al menos uno. El cliente solo verá los métodos que marques.</p>
+              {METODOS_PAGO.map(metodo => <label key={metodo}>
+                <input type="checkbox" name="metodosPago" value={metodo}
+                  checked={formData.metodosPago.includes(metodo)} disabled={loadingCreate}
+                  onChange={e => {
+                    const checked = e.target.checked;
+                    setFormData(prev => ({ ...prev, metodosPago: checked
+                      ? METODOS_PAGO.filter(m => m === metodo || prev.metodosPago.includes(m))
+                      : prev.metodosPago.filter(m => m !== metodo) }));
+                  }} />
+                <span>{({ bold: 'Pago electrónico · Bold', transferencia: 'Transferencia · 7 % de descuento', efectivo: 'Efectivo · 7 % de descuento', transferencia_sin: 'Transferencia', efectivo_sin: 'Efectivo' })[metodo]}
+                  <small>{['transferencia', 'efectivo'].includes(metodo) ? '7 % de descuento sobre el total, incluidos los extras.' : 'Pago del total de la reserva.'}</small>
+                </span>
+              </label>)}
+              {!formData.metodosPago.length && <p role="alert">Selecciona al menos un método de pago para guardar.</p>}
+            </fieldset>}
+            {activo === "g" && <div>
+          <fieldset className="promocion-formulario">
+            <legend>Promoción</legend>
+            <label className="promocion-activar">
+              <input type="checkbox" name="promocionActiva" checked={formData.promocionActiva} onChange={handleChange} />
+              Activar promoción
+            </label>
+            {formData.promocionActiva && <>
+            <p>Durante la promoción, el total del tour se calcula multiplicando el precio promocional por la cantidad de personas, para cualquier cantidad permitida.</p>
+            <div className="fila">
+              <div className="campo">
+                <label htmlFor="precio-promocion">Precio promocional por persona (COP)</label>
+                <input id="precio-promocion" name="precioPromocion" type="number" min={1} max={2147483647} step={1}
+                  value={formData.precioPromocion} onChange={handleChange} disabled={!formData.promocionActiva} />
+              </div>
+              <div className="campo">
+                <label htmlFor="inicio-promocion">Fecha de inicio</label>
+                <input id="inicio-promocion" name="fechaInicioPromocion" type="date"
+                  value={formData.fechaInicioPromocion} onChange={handleChange} disabled={!formData.promocionActiva} />
+              </div>
+              <div className="campo">
+                <label htmlFor="fin-promocion">Fecha de finalización</label>
+                <input id="fin-promocion" name="fechaFinPromocion" type="date" min={formData.fechaInicioPromocion || undefined}
+                  value={formData.fechaFinPromocion} onChange={handleChange} disabled={!formData.promocionActiva} />
+              </div>
+            </div>
+            <p>Ambas fechas están incluidas, según la hora de Colombia. Los extras conservan sus propias tarifas.</p>
+            </>}
+          </fieldset></div>}
             {activo === "c" && 
               <div>
                 <div className="campo full">
               <label>Agregar Servicios Extras al Tour</label>
                {(formData.extras || []).map((ex, i) => (
-                <div key={i} className="fila escalon">
-                  <input
-                    type="text"
-                    placeholder="Nombre del servicio + descripción"
-                    value={ex.nombre}
-                    onChange={(e) => handleExtraChange(i, "nombre", e.target.value)}
-                  />
-
-                  <input
-                    type="number"
-                    placeholder="Precio del Servicio"
-                    value={ex.valor}
-                    onChange={(e) => handleExtraChange(i, "valor", e.target.value)}
-                  />
-
-                  <input
-                    type="number"
-                    placeholder="Cantidad máxima"
-                    min={1}
-                    value={ex.maxCantidad}
-                    onChange={(e) => handleExtraChange(i, "maxCantidad", e.target.value)}
-                  />
-
-                  <button type="button" onClick={() => eliminarExtra(i)}>✖</button>
-                </div>
+                <fieldset key={ex.id || `nuevo-${i}`} className="extra-editor">
+                  <legend>Extra {i + 1}{ex.nombre ? ` · ${ex.nombre}` : ""}</legend>
+                  <p className="tour-editor-status">Estado: <strong>{ex.activo === false || ex.activo === 0 ? "Inactivo" : "Activo"}</strong></p>
+                  <div className="extra-editor-campos">
+                    <label>Nombre del servicio
+                      <input type="text" maxLength={120} value={ex.nombre}
+                        onChange={(e) => handleExtraChange(i, "nombre", e.target.value)} />
+                    </label>
+                    <label>Cantidad máxima del extra
+                      <input type="number" min={1} step={1} value={ex.maxCantidad}
+                        onChange={(e) => handleExtraChange(i, "maxCantidad", e.target.value)} />
+                    </label>
+                  </div>
+                  <p>La tarifa depende de las personas de la reserva. El subtotal se calcula con la cantidad seleccionada del extra.</p>
+                  {(ex.precios || []).map((tarifa, index) => (
+                    <div className="extra-tarifa" key={index}>
+                      <label>Cantidad de personas
+                        <input type="number" min={1} step={1} value={tarifa.personas}
+                          onChange={(e) => cambiarTarifasExtra(i, filas => filas.map((fila, j) => j === index ? { ...fila, personas: e.target.value } : fila))} />
+                      </label>
+                      <label>Precio por persona (COP)
+                        <input type="number" min={1} step={1} value={tarifa.valor}
+                          onChange={(e) => cambiarTarifasExtra(i, filas => filas.map((fila, j) => j === index ? { ...fila, valor: e.target.value } : fila))} />
+                      </label>
+                      <button type="button" className="tour-editor-remove-rate" onClick={() => cambiarTarifasExtra(i, filas => filas.filter((_, j) => j !== index))}>Eliminar tarifa</button>
+                    </div>
+                  ))}
+                  {!ex.precios?.length && (
+                    <label>Precio fijo (COP)
+                      <input type="number" min={Number(tour?.extras?.find(extra => extra.id === ex.id)?.valor) === 0 ? 0 : 1}
+                        step={1} value={ex.valor ?? ""} onChange={(e) => handleExtraChange(i, "valor", e.target.value)} />
+                      <small>Sin tarifas por personas, se aplica este precio a cualquier tamaño de reserva.</small>
+                    </label>
+                  )}
+                  {!!ex.precios?.length && <p>Las cantidades de personas sin tarifa no podrán seleccionar este extra.</p>}
+                  <div className="extra-editor-acciones">
+                    <button type="button" className="btn azul" onClick={() => cambiarTarifasExtra(i, filas => [...filas, { personas: "", valor: "" }])}>Agregar tarifa</button>
+                    <button type="button" className="tour-editor-remove" onClick={() => eliminarExtra(i)}>Eliminar extra</button>
+                  </div>
+                </fieldset>
               ))}
 
               <button type="button" className="btn azul" onClick={agregarExtra}>
@@ -835,6 +941,82 @@ const update = async () => {
               
             {activo === "e" && 
             <div>
+                <ItinerarioEditor
+                  pasos={formData.itinerarioPasos}
+                  itinerarioAntiguo={formData.itinerario}
+                  onChange={pasos => setFormData(prev => ({ ...prev, itinerarioPasos: pasos }))}
+                />
+
+              
+
+              </div>}
+            {activo === "f" && 
+            <div>
+              <h4 className="tour-editor-subtitle">Capacidad y detalles de la experiencia</h4>
+<div className="fila">
+                  <div className="campo">
+                    <label>Cantidad mínima de personas</label>
+                    <input
+                      type="number"
+                      name="cantidadMinima"
+                      value={formData.cantidadMinima}
+                      onChange={handleChange}
+                      placeholder="Ej: 1"
+                      required
+                    />
+                  </div>
+                  <div className="campo">
+                    <label>Cantidad máxima de personas</label>
+                    <input
+                      type="number"
+                      name="cantidadMaxima"
+                      value={formData.cantidadMaxima}
+                      onChange={handleChange}
+                      placeholder="Ej: 8"
+                      required
+                    />
+                  </div>
+
+                </div>
+                
+<div className="fila">
+                    <div className="campo">
+                    <label>Recomendaciones</label>
+                    <input
+                      type="text"
+                      name="recomendaciones"
+                      value={formData.recomendaciones}
+                      onChange={handleChange}
+                      placeholder="Ej: llevar agua, ropa cómoda"
+                      required
+                    />
+                  </div>
+                  <div className="campo">
+                    <label>Incluido</label>
+                    <input
+                      type="text"
+                      name="incluido"
+                      value={formData.incluido}
+                      onChange={handleChange}
+                      placeholder="Ej: almuerzo, transporte"
+                      required
+                    />
+                  </div>
+                  
+                </div>
+                
+<div className="fila"><div className="campo">
+                    <label>Idioma</label>
+                    <input
+                      type="text"
+                      name="idioma"
+                      value={formData.idioma}
+                      onChange={handleChange}
+                      placeholder="Ej: Español/Inglés"
+                      required
+                    />
+                  </div></div>
+<h4 className="tour-editor-subtitle">Horarios y punto de encuentro</h4>
               <div className='fila'>
                  <div className="campo">
                   <label>Tours por día</label>
@@ -883,26 +1065,8 @@ const update = async () => {
                   />
                 </div>
                 </div>
-                <div className='fila'>
-                  <div className="campo">
-                  <label>Itinerario</label>
-                  <textarea
-                    type="text"
-                    name="itinerario"
-                    value={formData.itinerario}
-                    onChange={handleChange}
-                    placeholder="Ej: Salida Parque Principal - Visita al café - Almuerzo - Regreso parque principal"
-                    required
-                    rows={3}
-                  />
-                </div>
-                </div>
 
-              
-
-              </div>}
-            {activo === "f" && 
-            <div>
+              <h4 className="tour-editor-subtitle">Disponibilidad y reservas</h4>
               <div className='fila'>
                 <div className="campo">
                   <label>Hora Limite de Reserva</label>
@@ -945,21 +1109,36 @@ const update = async () => {
                 </div>
               </div>
               <div className="campo">
-                  <label className="label">Deshabilitar los tours por Dias (opcional)</label>
-                  <select
-                    name="diasNoDisponibles"
-                    value={formData.diasNoDisponibles}
-                    onChange={handleChange}
-                  >
-                    <option value="">Ningún día bloqueado</option>
-                    <option value="0">Domingo</option>
-                    <option value="1">Lunes</option>
-                    <option value="2">Martes</option>
-                    <option value="3">Miércoles</option>
-                    <option value="4">Jueves</option>
-                    <option value="5">Viernes</option>
-                    <option value="6">Sábado</option>
-                  </select>
+                  <label className="calendario-configuracion">
+                    <input type="checkbox" name="mostrarReservasCalendario"
+                      checked={formData.mostrarReservasCalendario} onChange={handleChange} disabled={loadingCreate} />
+                    <span>Mostrar reservas por día en el calendario
+                      <small>Permite mostrar a los usuarios cuántas reservas existen en cada fecha.</small>
+                    </span>
+                  </label>
+                  <fieldset className="tour-dias-bloqueados" disabled={loadingCreate}>
+                    <legend>Deshabilitar tours por días de la semana (opcional)</legend>
+                    <p>Marca todos los días que quieras bloquear. Se repetirán cada semana.</p>
+                    <div className="tour-dias-opciones">
+                      {['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'].map((nombre, indice) => {
+                        const dia = String(indice);
+                        return <label key={dia}>
+                          <input type="checkbox" name="diasNoDisponibles" value={dia}
+                            checked={diasBloqueados(formData.diasNoDisponibles).includes(dia)}
+                            onChange={e => {
+                              const checked = e.target.checked;
+                              setFormData(prev => ({ ...prev, diasNoDisponibles: diasBloqueados(checked
+                                ? [...diasBloqueados(prev.diasNoDisponibles), dia]
+                                : diasBloqueados(prev.diasNoDisponibles).filter(item => item !== dia)).join(',') }));
+                            }} />
+                          <span>{nombre}</span>
+                        </label>;
+                      })}
+                    </div>
+                    {diasBloqueados(formData.diasNoDisponibles).length > 0
+                      ? <button type="button" onClick={() => setFormData(prev => ({ ...prev, diasNoDisponibles: '' }))}>Quitar todos los bloqueos semanales</button>
+                      : <small>Ningún día de la semana bloqueado.</small>}
+                  </fieldset>
                   
               </div>
               <div className="campo">

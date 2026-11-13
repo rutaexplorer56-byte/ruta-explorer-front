@@ -225,7 +225,7 @@
 .gr-arrow.left{ left: -10px; }
 .gr-arrow.right{ right: -10px; }
 
-.gr-error{ color:#b91c1c; }
+.gr-error{ color:var(--rx-rojo-oscuro); }
 
 .gr-skeleton-header{
   height: 52px;

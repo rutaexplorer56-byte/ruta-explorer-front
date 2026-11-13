@@ -1,7 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { useEffect, useMemo, useState } from "react";
-import "../styles/Admin_reservations.css";
+import "../styles/admin_reservations.css";
 import axios from "../axiosConfig";
 import * as XLSX from "xlsx";
 import { set } from "date-fns";
@@ -9,8 +10,17 @@ import ConfirmModal from "../components/modalConfirmacion";
 import EditarReserva from "../components/editarReserva";
 import { toast } from "react-toastify";
 
+const normalizarEstado = valor => valor === 'completado' ? 'finalizada' : (valor || 'pendiente');
+const estadosReserva = ['pendiente', 'finalizada', 'cancelada'];
+
+const autorizacion = () => ({ headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } });
 export default function Admin_reservations() {
+  const { t } = useTranslation();
+  const nombreMetodo = metodo => ['bold', 'transferencia', 'efectivo', 'transferencia_sin', 'efectivo_sin'].includes(metodo) ? t('reservasPago.' + metodo) : t('reservasPago.anterior');
   const [reservas, setReservas] = useState([]);
+  const [borradoresEstado, setBorradoresEstado] = useState({});
+  const [confirmacionEstado, setConfirmacionEstado] = useState(null);
+  const [resultadoEstado, setResultadoEstado] = useState({});
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
   const [detalles, setDetalles] = useState(false);
@@ -57,7 +67,7 @@ const [loadingDelete, setLoadingDelete] = useState(false);
   const filtered = useMemo(() => {
     return reservas.filter((r) => {
       const byEstado =
-        estado === "Todos" ? true : (r.estado || "").toLowerCase() === estado.toLowerCase();
+        estado === "Todos" ? true : normalizarEstado(r.estado).toLowerCase() === estado.toLowerCase();
 
       const text = `${r?.nombrePersona || ""} ${r?.nombreTour || ""} ${r?.hotel || ""}`.toLowerCase();
       const byQuery = q.trim() ? text.includes(q.toLowerCase()) : true;
@@ -75,31 +85,30 @@ const [loadingDelete, setLoadingDelete] = useState(false);
   const start = (page - 1) * PAGE_SIZE;
   const pageRows = filtered.slice(start, start + PAGE_SIZE);
 
-  // Toggle estado (optimista)
   const [savingIds, setSavingIds] = useState(new Set());
-  const toggleEstado = async (reserva) => {
-    const nuevo = reserva.estado === "pendiente" ? "finalizada" : "pendiente";
-
-    setReservas((curr) => curr.map((r) => (r.id === reserva.id ? { ...r, estado: nuevo } : r)));
-    setSavingIds((s) => new Set([...s, reserva.id]));
-
+  useEffect(() => setPage(actual => Math.min(actual, totalPages)), [totalPages]);
+  const toggleEstado = async (reserva, nuevo) => {
+    if (savingIds.has(reserva.id) || nuevo === normalizarEstado(reserva.estado)) return;
+    setSavingIds(s => new Set([...s, reserva.id]));
+    setResultadoEstado(actual => ({ ...actual, [reserva.id]: { tipo: 'guardando', texto: 'Guardando cambio...' } }));
     try {
-      await axios.put(`/api/reservas/${reserva.id}`, { estado: nuevo });
+      const { data } = await axios.put('/api/reservas/' + reserva.id, { estado: nuevo }, autorizacion());
+      setReservas(actual => actual.map(r => r.id === reserva.id ? { ...r, ...data.reserva, estado: normalizarEstado(data.reserva?.estado || nuevo) } : r));
+      setBorradoresEstado(actual => { const copia = { ...actual }; delete copia[reserva.id]; return copia; });
+      setResultadoEstado(actual => ({ ...actual, [reserva.id]: { tipo: 'exito', texto: 'Estado guardado: ' + nuevo + '.' } }));
+      toast.success('Reserva #' + reserva.id + ': estado actualizado a ' + nuevo + '.');
+      if (data.advertencia) toast.warn(data.advertencia);
+      else if (data.correoResena === 'enviado') toast.info('El correo de agradecimiento fue aceptado para envío.');
+      setConfirmacionEstado(null);
     } catch (error) {
-      console.error("Error al actualizar estado:", error);
-      // rollback
-      setReservas((curr) => curr.map((r) => (r.id === reserva.id ? { ...r, estado: reserva.estado } : r)));
-      alert("No se pudo actualizar el estado. Inténtalo de nuevo.");
+      console.error('Error al actualizar estado:', error);
+      setResultadoEstado(actual => ({ ...actual, [reserva.id]: { tipo: 'error', texto: 'No se pudo guardar. Inténtalo de nuevo.' } }));
+      toast.error('No se pudo actualizar el estado. El cambio sigue pendiente.');
+      setConfirmacionEstado(null);
     } finally {
-      setSavingIds((s) => {
-        const copy = new Set(s);
-        copy.delete(reserva.id);
-        return copy;
-      });
+      setSavingIds(s => { const copia = new Set(s); copia.delete(reserva.id); return copia; });
     }
   };
-
-
 
  const pedirConfirmacionPago = (reserva) => {
   setReservaSeleccionada(reserva);
@@ -124,9 +133,11 @@ const toggleEstadoPago = async (reserva) => {
   setSavingIds((s) => new Set([...s, reserva.id]));
 
   try {
-    await axios.put(`/api/reservas/${reserva.id}`, {
+    const { data } = await axios.put(`/api/reservas/${reserva.id}`, {
       estadoPago: nuevo,
-    });
+    }, autorizacion());
+    if (data.advertencia) toast.warn(t('reservasPago.correoFallido'));
+    else if (data.correoPago === 'enviado') toast.success(t('reservasPago.correoEnviado'));
   } catch (error) {
     console.error("Error al actualizar estadoPago:", error);
     // rollback
@@ -135,7 +146,7 @@ const toggleEstadoPago = async (reserva) => {
         r.id === reserva.id ? { ...r, estadoPago: reserva.estadoPago } : r
       )
     );
-    toast.error("No se pudo actualizar el estado de pago. Inténtalo de nuevo.");
+    toast.error(t('reservasPago.errorEstado'));
   } finally {
     setSavingIds((s) => {
       const copy = new Set(s);
@@ -188,7 +199,7 @@ const downloadExcel = () => {
   const rows = filtered.map((r) => ({
     ID: r.id,
     Fecha: r.fecha ? new Date(r.fecha).toLocaleDateString("es-CO") : "",
-    Estado: r.estado || "",
+    Estado: normalizarEstado(r.estado),
     Cliente: r.nombrePersona || "",
     Tour: r.nombreTour || "",
     Hotel: r.hotel || "",
@@ -218,6 +229,14 @@ const downloadExcel = () => {
   return (
     <>
     <ConfirmModal
+      open={Boolean(confirmacionEstado)}
+      onClose={() => { if (!savingIds.has(confirmacionEstado?.reserva.id)) setConfirmacionEstado(null); }}
+      onConfirm={() => toggleEstado(confirmacionEstado.reserva, confirmacionEstado.nuevo)}
+      titulo="Guardar estado de la reserva"
+      mensaje={confirmacionEstado ? '¿Deseas cambiar la reserva #' + confirmacionEstado.reserva.id + ' de “' + normalizarEstado(confirmacionEstado.reserva.estado) + '” a “' + confirmacionEstado.nuevo + '”?' + (confirmacionEstado.nuevo === 'finalizada' ? ' Al finalizar se podrá enviar el correo de agradecimiento.' : '') : ''}
+      loading={savingIds.has(confirmacionEstado?.reserva.id)}
+    />
+    <ConfirmModal
       open={openConfirm}
       onClose={cerrarConfirmacion}
       onConfirm={confirmarEliminarReserva}
@@ -229,12 +248,8 @@ const downloadExcel = () => {
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         onConfirm={confirmarCambioPago}
-        titulo="Confirmar cambio de estado de pago"
-        mensaje={`¿Deseas marcar esta reserva como ${
-          reservaSeleccionada?.estadoPago === "pago"
-            ? "pendiente"
-            : "pagada"
-        }?`}
+        titulo={t("reservasPago.confirmarTitulo")}
+        mensaje={t(reservaSeleccionada?.estadoPago === "pago" ? "reservasPago.pendienteMensaje" : "reservasPago.confirmarMensaje")}
       />
       <Header />
       {editar ? (
@@ -262,6 +277,7 @@ const downloadExcel = () => {
                 <option>Todos</option>
                 <option>pendiente</option>
                 <option>finalizada</option>
+                <option>cancelada</option>
               </select>
 
               <input
@@ -297,13 +313,13 @@ const downloadExcel = () => {
             {pageRows.map((reservas, i) => (
             <div key={reservas.id} className={`${detalles && llave==reservas.id ? "reserva-detalles" : "reserva"}`}>
               <div className="header-reserva">
-                <div
-                  className={`logo-reserva ${
+                <button type="button" disabled={savingIds.has(reservas.id)}
+                  className={`logo-reserva confirmar-pago-reserva ${
                     reservas.estadoPago === "pago" ? "" : "pago-pendiente"
                   }`}
                   onClick={() => pedirConfirmacionPago(reservas)}
-                  role="button"
-                  title={reservas.estadoPago}
+                  title={t(reservas.estadoPago === 'pago' ? 'reservasPago.marcarPendiente' : 'reservasPago.confirmar')}
+                  aria-label={t(reservas.estadoPago === 'pago' ? 'reservasPago.marcarPendiente' : 'reservasPago.confirmar')}
                   style={{
                     cursor: "pointer",
                     opacity: savingIds.has(reservas.id) ? 0.6 : 1,
@@ -315,7 +331,8 @@ const downloadExcel = () => {
                   ) : (
                     <i className="bi bi-hourglass-split"></i>
                   )}
-                </div>
+                  <span>{t(reservas.estadoPago === "pago" ? "reservasPago.pago" : "reservasPago.confirmar")}</span>
+                </button>
                 <div className="titulo-reserva">
                   <h3 className="nombre-reserva">{reservas.nombreTour}</h3>
                   <p className="id-reserva">#{reservas.id} </p>
@@ -323,15 +340,30 @@ const downloadExcel = () => {
                   
                 </div>
                 <div className="boton-reserva">
-                  <div
-                      className={`estado-toggle ${reservas.estado === "finalizada" ? "finalizada" : ""}`}
-                      onClick={() => toggleEstado(reservas)}
-                      title={reservas.estado}
-                      role="button"
-                      aria-label="Cambiar estado"
-                      style={{ opacity: savingIds.has(reservas.id) ? 0.6 : 1, pointerEvents: savingIds.has(reservas.id) ? "none" : "auto" }}
-                    />
-                    <p className={`${reservas.estado === "finalizada" ? "pago" : "pendiente"}`}>{reservas.estado}</p>
+                  <form className="reserva-estado-form" aria-busy={savingIds.has(reservas.id)} onSubmit={event => {
+                    event.preventDefault();
+                    const nuevo = borradoresEstado[reservas.id] ?? normalizarEstado(reservas.estado);
+                    if (nuevo !== normalizarEstado(reservas.estado) && !savingIds.has(reservas.id)) setConfirmacionEstado({ reserva: reservas, nuevo });
+                  }}>
+                    <div className="reserva-estado-controles">
+                      <select name="estado" aria-label={'Estado de la reserva #' + reservas.id}
+                        className={'estado-' + (borradoresEstado[reservas.id] ?? normalizarEstado(reservas.estado))}
+                        value={borradoresEstado[reservas.id] ?? normalizarEstado(reservas.estado)}
+                        onChange={event => {
+                          setBorradoresEstado(actual => ({ ...actual, [reservas.id]: event.target.value }));
+                          setResultadoEstado(actual => ({ ...actual, [reservas.id]: null }));
+                        }} disabled={savingIds.has(reservas.id)}>
+                        {!estadosReserva.includes(normalizarEstado(reservas.estado)) && <option value={reservas.estado}>{reservas.estado}</option>}
+                        {estadosReserva.map(valor => <option key={valor} value={valor}>{valor}</option>)}
+                      </select>
+                      <button type="submit" disabled={savingIds.has(reservas.id) || (borradoresEstado[reservas.id] ?? normalizarEstado(reservas.estado)) === normalizarEstado(reservas.estado)}>
+                        {savingIds.has(reservas.id) ? 'Guardando...' : 'Guardar estado'}
+                      </button>
+                    </div>
+                    {resultadoEstado[reservas.id]?.tipo !== 'exito' && <span className={'reserva-estado-mensaje ' + (resultadoEstado[reservas.id]?.tipo || '')} role="status" aria-live="polite">
+                      {resultadoEstado[reservas.id]?.texto || ((borradoresEstado[reservas.id] ?? normalizarEstado(reservas.estado)) !== normalizarEstado(reservas.estado) ? 'Cambio pendiente de guardar' : '')}
+                    </span>}
+                  </form>
 
 
                 </div>
@@ -340,6 +372,8 @@ const downloadExcel = () => {
                   <p className="fecha-reserva"><i className="bi bi-calendar4-week"></i> {reservas?.fecha}</p>
                   <p className="horario-reserva"><i className="bi bi-stopwatch"></i> {reservas?.horario}</p>
                   <p className="personas-reserva"><i className="bi bi-ticket-perforated"></i>  {reservas?.cantidadPersonas} Personas</p>
+                  <p className="metodo-reserva">{t("metodosPago.seleccion")}: <strong>{nombreMetodo(reservas.metodoPago)}</strong></p>
+                  <p className="metodo-reserva">{t("reservasPago.estado")}: <strong>{t('reservasPago.' + (reservas.estadoPago || 'pendiente'), { defaultValue: reservas.estadoPago })}</strong></p>
                   <p className="precio-reserva">${reservas?.valorTotal} COP</p>
                   <button className="btn-editar" onClick={()=>{setIdReserva(reservas.id); setEditar(!editar)}} >Editar</button>
                   <button className="btn-eliminar" onClick={() => pedirConfirmacionEliminar(reservas.id)}>Eliminar</button>
@@ -388,8 +422,8 @@ const downloadExcel = () => {
                         <li key={i}>
                           <strong>{extra.nombre}</strong>  
                           {" "}x{extra.cantidad}  
-                          {" "}— ${extra.valor.toLocaleString("es-CO")} c/u  
-                          {" "}→ <b>${extra.subtotal.toLocaleString("es-CO")}</b>
+                          {" "}— {extra.valor == null ? '—' : `$${Number(extra.valor).toLocaleString("es-CO")}`} c/u
+                          {" "}→ <b>{extra.subtotal == null ? '—' : `$${Number(extra.subtotal).toLocaleString("es-CO")}`}</b>
                         </li>
                       ))}
                     </ul>
@@ -397,8 +431,13 @@ const downloadExcel = () => {
                     <strong>Ninguno</strong>
                   )}
                   </div>
+                  <p className="detalle-info">{t("metodosPago.seleccion")}: {nombreMetodo(reservas.metodoPago)}</p>
+                  {reservas.porcentajeDescuento > 0 && <p className="detalle-info">
+                    {t("metodosPago.totalOriginal")}: ${Number(reservas.totalAntesDescuento).toLocaleString('es-CO')} COP<br />
+                    {t("metodosPago.descuento", { porcentaje: reservas.porcentajeDescuento })}: -${Number(reservas.valorDescuento).toLocaleString('es-CO')} COP
+                  </p>}
                   <p className="detalle-info">${reservas.valorTotal}</p>  
-                  <p className={`${reservas.estadoPago === "pago" ? "pago" : "pendiente"} `}>{reservas.estadoPago === "pago" ? "pago" : "Pendiente"}</p>
+                  <p className={`${reservas.estadoPago === "pago" ? "pago" : "pendiente"} `}>{t(reservas.estadoPago === "pago" ? "reservasPago.pago" : "reservasPago.pendiente")}</p>
                 </div>
 
 
@@ -463,5 +502,4 @@ const downloadExcel = () => {
     </>
   );
 }
-
 

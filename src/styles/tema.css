@@ -1,0 +1,17 @@
+:root {
+  --rx-azul-marca: #08acef;
+  --rx-azul: #007bb8;
+  --rx-azul-oscuro: #075985;
+  --rx-azul-suave: #eff8ff;
+  --rx-azul-borde: #b9dff3;
+  --rx-rojo: #e11d48;
+  --rx-rojo-oscuro: #be123c;
+  --rx-rojo-suave: #fff1f2;
+  --rx-rojo-borde: #fda4af;
+  --rx-verde: #008a3d;
+  --rx-verde-oscuro: #006d32;
+  --rx-verde-suave: #ecfdf3;
+  --toastify-color-info: var(--rx-azul);
+  --toastify-color-success: var(--rx-verde);
+  --toastify-color-error: var(--rx-rojo);
+}

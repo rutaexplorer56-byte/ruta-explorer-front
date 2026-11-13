@@ -46,12 +46,12 @@
 }
 
 .modal-input:focus {
-  border-color: #2ab0e8;
+  border-color: var(--rx-azul);
   box-shadow: 0 0 0 2px #2ab0e859;
 }
 
 .modal-button {
-  background: #2ab0e8;
+  background: var(--rx-azul);
   color: white;
   padding: 12px;
   font-size: 16px;
@@ -80,7 +80,7 @@
 }
 
 .modal-link {
-  color: #2563eb;
+  color: var(--rx-azul);
   text-decoration: none;
   font-weight: 600;
 }

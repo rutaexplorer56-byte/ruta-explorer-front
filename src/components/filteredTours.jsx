@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "../axiosConfig";
 import Card from "./card";
 import "../styles/tours.css";
+import { promocionVisible } from '../utils/promociones';
+import useFechaPromocion from '../hooks/useFechaPromocion';
 
 function FilteredTours({ categoria, numCategoria,subCategoria, hotel, busqueda = "", filtros = {}, mostrarMensaje = false }) {
   const [tours, setTours] = useState([]);
+  const hoyPromocion = useFechaPromocion();
 
   useEffect(() => {
     const obtenerTours = async () => {
@@ -20,7 +23,7 @@ function FilteredTours({ categoria, numCategoria,subCategoria, hotel, busqueda =
   }, []);
 
 const normalizarTexto = (texto = "") => {
-  return texto
+  return (texto ?? '')
     .toString()
     .toLowerCase()
     .normalize("NFD")
@@ -30,6 +33,7 @@ const normalizarTexto = (texto = "") => {
 
 const textoBuscado = normalizarTexto(busqueda);
 const obtenerPrecioTour = (tour) => {
+  if (promocionVisible(tour, hoyPromocion)) return Number(tour.precioPromocion);
   if (tour.tipo === "compartido") {
     return Number(tour.precio) || 0;
   }
@@ -138,6 +142,7 @@ const toursFiltrados = tours
                   idioma={tour.idioma}
                   precios={tour.precios}
                   tipo={tour.tipo}
+                  promocion={tour}
                   activo={tour.activo}
                   hotel={hotel}
                   slug={tour.slug}

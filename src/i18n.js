@@ -5,7 +5,9 @@ import es from "./locales/es.json";
 import en from "./locales/en.json";
 import fr from "./locales/fr.json";
 
-const savedLang = localStorage.getItem("lang") || "es";
+const queryLang = new URLSearchParams(window.location.search).get('lang');
+const savedLang = ['es', 'en', 'fr'].includes(queryLang) ? queryLang
+  : /^\/app\/tour\//.test(window.location.pathname) ? 'es' : localStorage.getItem("lang") || "es";
 
 i18n.use(initReactI18next).init({
   resources: {

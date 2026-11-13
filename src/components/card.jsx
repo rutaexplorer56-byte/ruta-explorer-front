@@ -1,19 +1,29 @@
 import '../styles/card.css';
 // import AOS from 'aos';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import TourLink from './TourLink';
 import ModalAgregarTour from './modal_tours';
 import axios from "../axiosConfig";
 import { toast } from 'react-toastify';
 import { useTranslation } from "react-i18next";
 
 import { optimizarImagenCloudinary } from "../utils/cloudinary";
+import PrecioPromocion from './PrecioPromocion';
+import { promocionVisible } from '../utils/promociones';
+import useFechaPromocion from '../hooks/useFechaPromocion';
+import { numero, tarifasValidas } from '../utils/datosApi';
 
-// eslint-disable-next-line react/prop-types
-const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,hotel,slug,onEdit}) => {
+/* eslint-disable react/prop-types */
+const Card = ({ id,titulo, imagen, personasMax, horarios, duracion, precio,idioma,actualizarToursPadre,precios,tipo,activo,hotel,slug,onEdit,promocion}) => {
+   const hoyPromocion = useFechaPromocion();
+   const tienePromocion = promocionVisible(promocion, hoyPromocion);
    const [modalAbierto, setModalAbierto] = useState(false);
    const [loadingDeleteId, setLoadingDeleteId] = useState(null);
    const { t } = useTranslation();
+   const precioNormal = tipo === 'compartido' ? numero(precio) : tarifasValidas(precios).reduce(
+     (minimo, tarifa) => minimo === null ? numero(tarifa.precioPorPersona) : Math.min(minimo, numero(tarifa.precioPorPersona)),
+     null
+   );
 
 //   useEffect(() => {
 //   AOS.init({
@@ -160,49 +170,44 @@ const generarSlug = (texto) => {
             </span>
           )}
         </div>
-
-        
+        <p className="tour-card-price-notice">{t('card.precioVariable')}</p>
       </div>
 
       <div className="tour-card-price">
         <span className="price-label">{t("card.desde")}</span>
 
+        {!(precioNormal > 0) ? <strong>{t('datosApi.precioPendiente')}</strong> : tienePromocion ? (
+          <PrecioPromocion
+            precioNormal={precioNormal}
+            precioPromocion={promocion.precioPromocion}
+            tipo={tipo}
+          />
+        ) : <>
         <strong>
-          {tipo === "compartido"
-            ? `$${Number(precio).toLocaleString("es-CO", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })}`
-            : precios?.length > 0
-            ? `$${Number(
-                precios[precios.length - 1].precioPorPersona
-              ).toLocaleString("es-CO", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })}`
-            : "$0"}
+          {`$${Number(precioNormal).toLocaleString('es-CO')}`}
         </strong>
 
         <small>COP</small>
         <span className="price-persona">por persona</span>
+        </>}
 
         <div className="buttons-container-list">
           {!buttons ? (
-            <Link
+            <TourLink
               className="details-link"
-              to={`/tour/${hotel || "RutaExplorer"}/${slug}`}
+              slug={slug} referral={hotel}
             >
               VER DETALLES
-            </Link>
+            </TourLink>
           ) : (
             <div className="admin-card-actions">
               <button className="edit" onClick={() => onEdit?.(id)}>
                 <i className="bi bi-pencil-square"></i>
               </button>
 
-              <Link className="view" to={`/tour/${slug}`}>
+              <TourLink className="view" slug={slug}>
                 <i className="bi bi-eye"></i>
-              </Link>
+              </TourLink>
 
               <button className="delete" onClick={() => eliminarTour(id)}>
                 <i className="bi bi-trash"></i>

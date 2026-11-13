@@ -32,7 +32,9 @@ export default function EditarReserva({onClose,id}) {
     horario: "",
     idioma: "",
     telefono: "",
-    nombrePersona: ""
+    nombrePersona: "",
+    cantidadPersonas: "",
+    valorTotal: ""
   });
 
   function parseLista(cadena) {
@@ -72,7 +74,9 @@ useEffect(() => {
         horario: reservaData?.horario || "",
         idioma: reservaData?.idioma || "",
         telefono: reservaData?.telefono || "",
-        nombrePersona: reservaData?.nombrePersona || ""
+        nombrePersona: reservaData?.nombrePersona || "",
+        cantidadPersonas: reservaData?.cantidadPersonas ?? "",
+        valorTotal: reservaData?.valorTotal ?? ""
       });
       setTour(tourResponse);
       setHorariosDisponibles(parseLista(tourResponse.salidas));
@@ -106,12 +110,27 @@ const onSubmit = async (e) => {
     setSaving(true);
     setError("");
 
+    const cantidad = Number(form.cantidadPersonas);
+    const total = Number(form.valorTotal);
+    const maximo = Number(tour?.cantidadMaxima);
+    if (String(form.cantidadPersonas).trim() === '' || !Number.isSafeInteger(cantidad) || cantidad < 1 || cantidad > 2147483647 ||
+        (Number.isInteger(maximo) && maximo > 0 && cantidad > maximo)) {
+      setError('Ingresa una cantidad entera válida, desde 1 y dentro de la capacidad máxima del tour.');
+      return;
+    }
+    if (String(form.valorTotal).trim() === '' || !Number.isSafeInteger(total) || total < 0 || total > 2147483647) {
+      setError('Ingresa un valor total entero, no negativo y máximo de 2147483647 COP.');
+      return;
+    }
+
     const payload = {
       fecha: form.fecha,
       horario: form.horario,
       idioma: form.idioma,
       telefono: form.telefono.trim(),
       nombrePersona: form.nombrePersona.trim(),
+      cantidadPersonas: cantidad,
+      valorTotal: total,
     };
 
     const token = localStorage.getItem("token");
@@ -126,6 +145,7 @@ const onSubmit = async (e) => {
     if (response.status === 200) {
       // si usas toast:
       toast.success("Reserva actualizada exitosamente");
+      onClose();
       
     } else {
       setError("No se pudo actualizar la reserva");
@@ -155,7 +175,7 @@ const onSubmit = async (e) => {
         <div className="er-header">
           <h2 className="er-title">Editar reserva</h2>
           <p className="er-subtitle">
-            Solo se actualiza: fecha, horario, idioma, teléfono y nombre.
+            Edita los datos de la reserva, la cantidad de personas y el valor total.
           </p>
         </div>
 
@@ -174,6 +194,18 @@ const onSubmit = async (e) => {
 
         <form onSubmit={onSubmit} className="er-form">
           <div className="er-grid">
+            <div className="er-field">
+              <label className="er-label" htmlFor="editar-cantidad">Cantidad de personas</label>
+              <input id="editar-cantidad" className="er-input" type="number" name="cantidadPersonas"
+                min="1" max={Number(tour?.cantidadMaxima) > 0 ? tour.cantidadMaxima : 2147483647} step="1"
+                value={form.cantidadPersonas} onChange={onChange} required />
+            </div>
+            <div className="er-field">
+              <label className="er-label" htmlFor="editar-total">Valor total (COP)</label>
+              <input id="editar-total" className="er-input" type="number" name="valorTotal"
+                min="0" max="2147483647" step="1" value={form.valorTotal} onChange={onChange} required />
+              <small className="er-help">El valor total se edita manualmente; cambiar la cantidad no lo recalcula.</small>
+            </div>
             <div className="er-field">
               <label className="er-label">Nombre</label>
               <input
@@ -256,7 +288,7 @@ const onSubmit = async (e) => {
           </div>
 
           <div className="er-actions">
-            <button className="er-btn er-primary" type="submit" disabled={saving} onClick={()=>setTimeout(()=>onClose(), 3000) }>
+            <button className="er-btn er-primary" type="submit" disabled={saving}>
               {saving ? "Guardando..." : "Guardar cambios"}
             </button>
 

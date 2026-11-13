@@ -1,17 +1,22 @@
-import { useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import '../styles/header.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
  import AOS from 'aos';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import GoogleTranslate from './language';
+import { Link, useLocation } from 'react-router-dom';
+import { withReferral } from '../utils/tourUrls';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo_nuevo.png';
 import { toast } from "react-toastify";
 import LanguageSelect from "../components/LanguajeSelect";
 import ToursMegaMenu from "./ToursMegaMenu";
+import HeaderBackground from './HeaderBackground';
+// Cambiar a true para recuperar el submenú de Tours sin reconstruirlo.
+const MOSTRAR_SUBMENU_TOURS = false;
 function Header(){
+    const { search } = useLocation();
+    const toursUrl = withReferral('/tours', undefined, search);
     useEffect(() => {
       AOS.init({
         duration: 1000, // duración de la animación
@@ -24,26 +29,68 @@ function Header(){
     const[menuAdmin,setMenuAdmin]=useState(false)
     const[nombre,setNombre]=useState("")
     const [openToursMenu, setOpenToursMenu] = useState(false);
+    const [esMovil, setEsMovil] = useState(() => window.matchMedia('(max-width: 1024px)').matches);
+    const headerRef = useRef(null);
+    const navShellRef = useRef(null);
+    const [menuFijo, setMenuFijo] = useState(false);
+    const menuButtonRef = useRef(null);
+    const menuId = useId();
+    const toursMenuId = useId();
+    const cerrarMenus = () => { setBtnMenu(false); setOpenToursMenu(false); };
+
+    useEffect(() => {
+      const media = window.matchMedia('(max-width: 1024px)');
+      const actualizar = () => {
+        setEsMovil(media.matches);
+        setBtnMenu(false);
+        setOpenToursMenu(false);
+      };
+      media.addEventListener('change', actualizar);
+      return () => media.removeEventListener('change', actualizar);
+    }, []);
+
+    useEffect(() => {
+      if (!esMovil || !btnMenu) return;
+      const cerrarFuera = event => {
+        if (!headerRef.current?.contains(event.target)) {
+          setBtnMenu(false);
+          setOpenToursMenu(false);
+        }
+      };
+      const cerrarConEscape = event => {
+        if (event.key === 'Escape') {
+          setBtnMenu(false);
+          setOpenToursMenu(false);
+          menuButtonRef.current?.focus();
+        }
+      };
+      document.addEventListener('pointerdown', cerrarFuera);
+      document.addEventListener('keydown', cerrarConEscape);
+      return () => {
+        document.removeEventListener('pointerdown', cerrarFuera);
+        document.removeEventListener('keydown', cerrarConEscape);
+      };
+    }, [esMovil, btnMenu]);
 
 useEffect(() => {
   const handleScroll = () => {
-    const header = document.querySelector(".header");
-
-    if (window.scrollY > 50) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
-    }
+    if (!headerRef.current) return;
+    const top = headerRef.current.getBoundingClientRect().top + 10;
+    setMenuFijo(esMovil && top <= 0);
+    navShellRef.current?.style.setProperty('--header-nav-top', `${Math.max(0, top)}px`);
   };
 
-  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  window.addEventListener("resize", handleScroll);
 
   return () => {
     window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener("resize", handleScroll);
   };
-}, []);
+}, [esMovil]);
     const toggleClase = () => {
-        setBtnMenu(!btnMenu);
+        setBtnMenu(abierto => !abierto);
         
     };
     useEffect(()=>{
@@ -57,6 +104,7 @@ useEffect(() => {
 
     },[menuAdmin])
      const logOut=()=>{
+      cerrarMenus();
       localStorage.removeItem("token") 
       localStorage.removeItem("nombre") 
        toast.info("👋 Sesión cerrada correctamente", {
@@ -75,7 +123,7 @@ useEffect(() => {
    
 
     return (
-        <div className="container" data-aos="fade">
+        <div className="container rx-site-header" data-aos={esMovil ? undefined : 'fade'}>
          
             
           
@@ -88,10 +136,26 @@ useEffect(() => {
                    
                 </ul>
             </div>
-            <header className="header">
-                <div className={`boton ${btnMenu?`voltear`:``} `} onClick={toggleClase}><i className="bi bi-chevron-double-down"></i></div>
-                <Link to="https://rutaxplorer.com"><img src={logo} loading="lazy"></img></Link>
-                  <ul className={`${btnMenu ? 'menu' : ''}`}>
+            <header className={`header${menuAdmin ? ' header-admin' : ''}`} ref={headerRef}>
+              {!menuAdmin && <HeaderBackground />}
+              <div ref={navShellRef} className={`header-nav-shell${menuFijo ? ' is-sticky' : ''}`}>
+                <div className="header-topbar">
+                  <Link className="header-logo" to="https://rutaxplorer.com" onClick={cerrarMenus}>
+                    <img src={logo} alt="RutaXplorer" />
+                  </Link>
+                  {esMovil && !menuAdmin && <div className="header-mobile-languages" role="group" aria-label={t('headerMobile.idiomas')}>
+                    <LanguageSelect />
+                  </div>}
+                  <button type="button" ref={menuButtonRef} className="header-menu-toggle"
+                    aria-expanded={btnMenu} aria-controls={menuId}
+                    aria-label={t(btnMenu ? 'headerMobile.cerrar' : 'headerMobile.abrir')}
+                    onClick={toggleClase}>
+                    <i className={`bi ${btnMenu ? 'bi-x-lg' : 'bi-list'}`} aria-hidden="true" />
+                  </button>
+                </div>
+                  <ul id={menuId} className={`header-navigation ${btnMenu ? 'menu' : ''}`}
+                    aria-label={t('headerMobile.navegacion')}
+                    onClick={event => { if (esMovil && event.target.closest('a')) cerrarMenus(); }}>
               {menuAdmin ? (
                 <>
                   <li><Link to="/admin/reservations">{t('reservas')}</Link></li>
@@ -107,27 +171,35 @@ useEffect(() => {
                   {/* <li><a href='https://rutaxplorer.com/servicios/'>{t('servicios')}</a></li> */}
                    <li
                         className="tours-hover"
-                        onMouseEnter={() => setOpenToursMenu(true)}
+                        onMouseEnter={() => { if (MOSTRAR_SUBMENU_TOURS && !esMovil) setOpenToursMenu(true); }}
                         
                       >
-                        <a href="https://rutaxplorer.com/app/">{t("tours")}</a>
+                        <Link to={toursUrl}>{t("tours")}</Link>
+                        {MOSTRAR_SUBMENU_TOURS && esMovil && <button type="button" className="header-tours-toggle"
+                          aria-expanded={openToursMenu} aria-controls={toursMenuId}
+                          aria-label={t(openToursMenu ? 'headerMobile.ocultarTours' : 'headerMobile.verTours')}
+                          onClick={() => setOpenToursMenu(abierto => !abierto)}>
+                          <i className={`bi ${openToursMenu ? 'bi-dash-lg' : 'bi-plus-lg'}`} aria-hidden="true" />
+                        </button>}
 
-                        <ToursMegaMenu
+                        {MOSTRAR_SUBMENU_TOURS && <ToursMegaMenu
+                          id={toursMenuId}
                           open={openToursMenu}
                           onClose={() => setOpenToursMenu(false)}
-                          onMouseLeave={() => setOpenToursMenu(false)}
-                        />
+                          onMouseLeave={() => { if (!esMovil) setOpenToursMenu(false); }}
+                        />}
                       </li>
                   <li><a href='https://rutaxplorer.com/contacto/'>{t('contacto')}</a></li>
                   {/* <li><a href='https://checkout.bold.co/payment/LNK_QO3ZYM10UC'>{t('pagos')}</a></li> */}
-                  <a href='https://wa.me/573124151539?text=Hola%20RutaExplorer%2C%20estoy%20interesado%20en%20reservar%20un%20tour.%20¿Podrían%20ayudarme%3F'><h3 ><i className="bi bi-whatsapp"></i> 3124151539</h3></a>
+                  <a className="header-whatsapp" href='https://wa.me/573124151539?text=Hola%20RutaXplorer%2C%20estoy%20interesado%20en%20reservar%20un%20tour.%20¿Podrían%20ayudarme%3F'><h3 ><i className="bi bi-whatsapp"></i> 3124151539</h3></a>
                  
-                  <LanguageSelect />
+                  {!esMovil && <LanguageSelect />}
                   
                  
                 </>
               )}
             </ul>
+              </div>
            {!menuAdmin ? (
 
 
@@ -145,14 +217,14 @@ useEffect(() => {
                         </ul>
                         <div className="botones-hero">
                           <button className="btn-reservar-hero" >
-                            <Link to="/tours">{t("hero.buttons.reserve")}</Link>
+                            <Link to={toursUrl}>{t("hero.buttons.reserve")}</Link>
                             
                             
                           </button>
 
                           <button className="btn-whatsapp-hero">
                             <i className="bi bi-whatsapp"></i>
-                            <a href="https://wa.me/573124151539?text=Hola%20RutaExplorer%2C%20estoy%20interesado%20en%20reservar%20un%20tour.%20¿Podrían%20ayudarme%3F" target="_blank" rel="noopener noreferrer">
+                            <a href="https://wa.me/573124151539?text=Hola%20RutaXplorer%2C%20estoy%20interesado%20en%20reservar%20un%20tour.%20¿Podrían%20ayudarme%3F" target="_blank" rel="noopener noreferrer">
                             {t("hero.buttons.contact")}</a>
                           </button>
                           

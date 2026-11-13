@@ -1,0 +1,35 @@
+.header .header-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.header .header-background-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+}
+.header .header-background-image.is-previous { opacity: 1; z-index: 0; }
+.header .header-background-image.is-active { opacity: 1; z-index: 1; transition: opacity 1800ms ease-in-out; }
+.header .header-background-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, #00000012, #00000038);
+}
+/* Los fondos nunca crean un contenedor que limite la barra fija del móvil. */
+.header .header-logo, .header:not(.header-admin) .header-navigation, .header > .titulo { position: relative; z-index: 1; }
+@media (max-width: 1024px) {
+  .header .header-background-image { object-position: var(--header-image-position, center); }
+  .header .header-background-shade { background: linear-gradient(180deg, #ffffff1a, transparent 55%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header .header-background-image.is-active { transition: none; }
+}

@@ -120,7 +120,7 @@ border-bottom: 1px solid #eef0f3;
 .tabla-reservas tr:nth-child(even){ background:#fafbfc; }
 .tabla-reservas tr:hover{ background:#f3f6fb; transition: background .15s; }
 
-.id_table{ width: 48px; text-align:center; color:#2563eb; font-weight:700; }
+.id_table{ width: 48px; text-align:center; color:var(--rx-azul); font-weight:700; }
 
 /* ----- Columna Estado: toggle + label ----- */
 .td-estado{
@@ -168,7 +168,7 @@ border-bottom: 1px solid #eef0f3;
   height: fit-content;
   width: 100px;
   font-weight: 500 ; padding: 5px; text-align:center ; border-radius: 50px; color: #f0322b; background-color: #f7b296;}
-.estado-toggle.finalizada{ background:#22c55e; }
+.estado-toggle.finalizada{ background:var(--rx-verde); }
 .estado-toggle.inactivo{ background:#666666; }
 
 .estado-toggle.finalizada::before{ transform: translateX(22px); }
@@ -203,7 +203,7 @@ border-bottom: 1px solid #eef0f3;
 }
 .page-btn:hover:not(:disabled){ background:#f1f5f9; }
 .page-btn:disabled{ opacity:.5; cursor:not-allowed; }
-.page-btn.active{ background:#2563eb; color:#fff; border-color:#2563eb; }
+.page-btn.active{ background:var(--rx-azul); color:#fff; border-color:var(--rx-azul); }
 
 .contenedor-reservas{
   width: 95%;
@@ -246,12 +246,21 @@ border-radius: 5px;
   background-color: #ffffff;
 
 }
+.contenedor-reservas > .reserva { height: auto; }
+.contenedor-reservas > .reserva > .body-reserva { display: none; }
+.contenedor-reservas .header-reserva { height: auto; min-height: 105px; row-gap: 12px; }
+.contenedor-reservas .info-reserva { flex-wrap: wrap; height: auto; align-items: center; }
+.contenedor-reservas .metodo-reserva { margin: 0; padding: 5px 8px; background: var(--rx-azul-suave); border-radius: 6px; font-size: 0.8rem; color: #31536c; }
+.contenedor-reservas .confirmar-pago-reserva { width: 110px; height: auto; min-height: 50px; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
+.contenedor-reservas .confirmar-pago-reserva span { color: #fff; }
+.contenedor-reservas .confirmar-pago-reserva.pago-pendiente span { color: #ffffff; }
+.contenedor-reservas .titulo-reserva { width: auto; flex: 1; min-width: 180px; }
 .logo-reserva{
   width: 45px;
   height: 50px;
   padding: 5px 8px;
   border-radius: 8px;
-  background-color: #04a74b;;
+  background-color: var(--rx-verde);;
   margin-right: 10px;
 }
 .logo-reserva i{
@@ -259,7 +268,7 @@ border-radius: 5px;
   color: white;
 }
 .cancelado{
-  background-color: rgb(250, 48, 48);
+  background-color: var(--rx-rojo);
 }
 .pago-pendiente{
   background-color: rgb(251, 191, 36);
@@ -319,12 +328,12 @@ border-radius: 5px;
   width: 100%;
   padding: 5px;;
   border-radius: 10px;
-  border: 1px solid #2563eb;
-  color: #2563eb;
+  border: 1px solid var(--rx-azul);
+  color: var(--rx-azul);
   cursor: pointer;
 }
 .btn-detalles:hover{
-  background-color: #2563eb;
+  background-color: var(--rx-azul);
   color: white;
   transition: background-color 0.3s;
 }
@@ -383,4 +392,32 @@ border-radius: 5px;
   .toolbar-right{ justify-content: flex-start; flex-wrap: wrap; }
   .table-foot{ flex-direction: column; text-align: center; }
   
+}
+.reserva-estado-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.reserva-estado-form select, .reserva-estado-form button { min-height: 40px; border-radius: 8px; padding: 8px 12px; font: inherit; }
+.reserva-estado-form select { background: #fff; color: #174766; border: 1px solid #c8dde9; }
+.reserva-estado-form button { background: #174766; color: #fff; border: 1px solid #174766; cursor: pointer; }
+.reserva-estado-form button:disabled { opacity: .6; cursor: wait; }
+.reserva-estado-form :focus-visible { outline: 3px solid #3fabf8; outline-offset: 2px; }
+.reserva-estado-form { flex-direction: column; align-items: flex-start; gap: 8px; max-width: 100%; }
+.reserva-estado-controles { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.reserva-estado-actual { display: inline-flex; align-items: center; gap: 6px; border: 1px solid; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 700; text-transform: capitalize; }
+.reserva-estado-actual::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.reserva-estado-form .estado-pendiente { color: #854d0e; background: #fef3c7; border-color: #e5b94e; }
+.reserva-estado-form .estado-finalizada { color: #166534; background: #dcfce7; border-color: #86cf9e; }
+.reserva-estado-form .estado-cancelada { color: #991b1b; background: #fee2e2; border-color: #f0a1a1; }
+.reserva-estado-form select { font-weight: 600; text-transform: capitalize; cursor: pointer; }
+.reserva-estado-form option { background: #fff; color: #1f2937; }
+.reserva-estado-form button { background: var(--rx-azul-marca, #3fabf8); border-color: var(--rx-azul-marca, #3fabf8); color: #fff; font-weight: 600; transition: filter .15s, box-shadow .15s; }
+.reserva-estado-form button:hover:not(:disabled) { filter: brightness(.9); box-shadow: 0 3px 8px #17476626; }
+.reserva-estado-form button:disabled { opacity: .55; cursor: not-allowed; }
+.reserva-estado-form[aria-busy="true"] button { cursor: wait; }
+.reserva-estado-mensaje { font-size: 13px; color: #854d0e; line-height: 1.4; }
+.reserva-estado-mensaje:empty { display: none; }
+.reserva-estado-mensaje.exito { color: #166534; }
+.reserva-estado-mensaje.error { color: #991b1b; }
+.reserva-estado-mensaje.guardando { color: #174766; }
+@media (max-width: 480px) {
+  .reserva-estado-controles { width: 100%; }
+  .reserva-estado-controles select, .reserva-estado-controles button { flex: 1 1 130px; }
 }

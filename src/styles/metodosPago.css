@@ -1,0 +1,19 @@
+.metodos-pago, .reserva-manual { margin: 20px 0; color: #314f63; }
+.metodos-pago fieldset { padding: 0; margin: 0; border: 0; min-width: 0; }
+.metodos-pago legend { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+.tour-reservation .metodo-pago { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; align-items: start; padding: 16px; margin: 0 0 12px; border: 1px solid #cddde7; border-radius: 10px; cursor: pointer; }
+.metodo-pago.seleccionado { background: var(--rx-azul-suave); border-color: var(--rx-azul); }
+.tour-reservation .metodo-pago input[type="radio"] { appearance: auto; box-sizing: border-box; width: 24px; height: 24px; min-width: 24px; min-height: 24px; max-width: 24px; max-height: 24px; margin: 2px 0 0; padding: 0; accent-color: var(--rx-azul); cursor: pointer; }
+.tour-reservation .metodo-pago input[type="radio"]:focus-visible { outline: 3px solid var(--rx-azul); outline-offset: 3px; }
+.metodo-pago span { min-width: 0; }
+.metodo-pago strong, .metodo-pago small { display: block; }
+.metodo-pago small { margin-top: 5px; line-height: 1.5; color: #577083; font-size: 0.85rem; }
+.pago-resumen { background: #f5f9fc; padding: 14px; border-radius: 10px; font-size: 0.9rem; }
+.pago-resumen > div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 14px; margin: 10px 0; }
+.pago-resumen dd { margin: 0; }
+.pago-resumen .pago-total { padding-top: 10px; border-top: 1px solid #ccdde7; font-weight: 700; }
+.pago-datos { line-height: 1.6; overflow-wrap: anywhere; }
+.pago-datos dt { font-weight: 600; }
+.pago-datos dd { margin: 0 0 10px; }
+.pago-pendiente-aviso { padding: 12px; background: var(--rx-azul-suave); border-radius: 8px; color: var(--rx-azul-oscuro); }
+.reserva-manual h3 { font-size: 1.1rem; }

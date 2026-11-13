@@ -1,4 +1,134 @@
 {
+  "calendario": {
+    "titulo": "Choisissez votre date",
+    "anterior": "Mois précédent",
+    "siguiente": "Mois suivant",
+    "reservas_one": "{{count}} réservation",
+    "reservas_other": "{{count}} réservations",
+    "leyenda": "+N indique les réservations existantes",
+    "aclaracion": "",
+    "cargando": "Chargement des réservations du mois…",
+    "error": "Impossible de charger les nombres. Vous pouvez toujours choisir votre date."
+  },
+  "datosApi": {
+    "tourNoDisponible": "Impossible de charger cette excursion",
+    "intentarDespues": "L'excursion est peut-être indisponible ou la connexion a échoué. Réessayez dans quelques minutes.",
+    "volverTours": "Retour aux excursions",
+    "precioPendiente": "Prix à confirmer",
+    "noReservable": "Cette excursion n'est pas encore entièrement configurée pour la réservation. Contactez-nous pour vérifier les disponibilités."
+  },
+  "headerMobile": {
+    "abrir": "Ouvrir le menu",
+    "cerrar": "Fermer le menu",
+    "navegacion": "Navigation principale",
+    "idiomas": "Choisir la langue",
+    "verTours": "Afficher les excursions disponibles",
+    "ocultarTours": "Masquer les excursions disponibles"
+  },
+  "galeriaTour": {
+    "titulo": "Photos de {{nombre}}",
+    "foto": "{{nombre}} — Photo {{numero}}",
+    "abrir": "Agrandir la photo {{numero}}",
+    "verTodas": "Voir toutes les photos ({{total}})",
+    "contador": "{{numero}} sur {{total}}",
+    "cerrar": "Fermer la galerie",
+    "anterior": "Photo précédente",
+    "siguiente": "Photo suivante",
+    "seleccionar": "Sélectionner une photo",
+    "vacia": "Aucune image disponible",
+    "error": "Impossible de charger la photo"
+  },
+  "accionesUI": {
+    "cancelar": "Annuler",
+    "confirmar": "Confirmer",
+    "guardando": "Enregistrement…",
+    "cerrar": "Fermer"
+  },
+  "avisosReserva": {
+    "fecha": "Veuillez sélectionner une date.",
+    "fechaNoDisponible": "Cette date n’est pas disponible pour cette excursion.",
+    "horario": "Veuillez sélectionner un horaire disponible ou changer la date.",
+    "campos": "Veuillez remplir tous les champs avant de réserver.",
+    "correo": "Veuillez saisir une adresse e-mail valide.",
+    "personas": "Veuillez sélectionner le nombre de personnes.",
+    "terminos": "Veuillez accepter les conditions générales avant de continuer.",
+    "iniciandoPago": "Réservation créée. Préparation du paiement avec Bold…",
+    "errorPasarela": "Impossible d’ouvrir la plateforme de paiement.",
+    "errorReserva": "Impossible de créer la réservation. Vérifiez vos informations et réessayez."
+  },
+  "reservasPago": {
+    "transferencia_sin": "Virement",
+    "efectivo_sin": "Espèces",
+    "bold": "Bold",
+    "transferencia": "Virement bancaire",
+    "efectivo": "Espèces",
+    "anterior": "Non renseigné (ancienne réservation)",
+    "estado": "État du paiement",
+    "pendiente": "En attente",
+    "pago": "Paiement reçu",
+    "fallido": "Échec",
+    "confirmar": "Confirmer le paiement",
+    "marcarPendiente": "Marquer le paiement comme en attente",
+    "confirmarTitulo": "Confirmer le changement de statut du paiement",
+    "confirmarMensaje": "Confirmez-vous la réception du paiement ? Une confirmation sera envoyée au client.",
+    "pendienteMensaje": "Marquer le paiement de cette réservation comme en attente ?",
+    "correoEnviado": "Paiement confirmé. E-mail envoyé au client.",
+    "correoFallido": "Le paiement a été confirmé, mais l’e-mail n’a pas pu être envoyé au client.",
+    "errorEstado": "Impossible de mettre à jour le statut du paiement. Veuillez réessayer."
+  },
+  "metodosPago": {
+    "transferencia_sin": "Virement",
+    "efectivo_sin": "Espèces",
+    "transferencia_sinDescripcion": "Payez le montant total par virement.",
+    "efectivo_sinDescripcion": "Payez le montant total en espèces. Au moins 24 heures avant le départ, dans un point autorisé.",
+    "seleccion": "Mode de paiement",
+    "bold": "Paiement électronique · Bold",
+    "boldDescripcion": "Payez en ligne avec Bold.",
+    "transferencia": "Virement bancaire",
+    "transferenciaDescripcion": "7 % de réduction sur le total de la réservation, suppléments inclus.",
+    "efectivo": "Paiement en espèces",
+    "efectivoDescripcion": "7 % de réduction sur le total de la réservation, suppléments inclus. Payez au moment convenu pour votre excursion.",
+    "totalOriginal": "Total avant réduction",
+    "descuento": "Réduction selon le mode de paiement {{porcentaje}} %",
+    "totalFinal": "Total à payer",
+    "reservaCreada": "Réservation créée",
+    "pendiente": "Paiement : en attente",
+    "referencia": "Référence de réservation",
+    "tour": "Excursion",
+    "fecha": "Date et horaire",
+    "datosTransferencia": "Informations pour le virement",
+    "instruccionesTransferencia": "Virez le montant indiqué ci-dessus en utilisant la référence de votre réservation.",
+    "datosPendientes": "Nous vous contacterons pour vous communiquer les coordonnées bancaires. Conservez la référence et le montant à payer.",
+    "instruccionesEfectivo": "Payez en espèces au moment convenu pour votre excursion.",
+    "confirmacionPosterior": "Votre réservation est enregistrée. Vous recevrez la confirmation du paiement après validation de sa réception par l’administrateur.",
+    "banco": "Banque",
+    "tipoCuenta": "Type de compte",
+    "numeroCuenta": "Numéro de compte",
+    "titular": "Titulaire",
+    "documento": "Document d’identité",
+    "creando": "Création de la réservation…"
+  },
+  "itinerarioPasos": {
+    "paso": "Étape {{numero}}",
+    "tipos": { "salida": "Départ", "transporte": "Transport", "actividad": "Activité", "llegada": "Arrivée" }
+  },
+  "promocion": {
+    "distintivo": "PROMOTION",
+    "precioAnterior": "Prix normal",
+    "precioActual": "Prix promotionnel",
+    "porPersona": "Par personne",
+    "soloUnaPersona": "",
+    "cualquierCantidad": "Pour tout nombre de personnes autorisé",
+    "aplicada": "Promotion appliquée au circuit. Les suppléments sont calculés séparément.",
+    "noAplicaGrupo": "Le prix normal du circuit s’applique à partir de 2 personnes."
+  },
+  "extras": {
+    "cantidad": "Quantité de {{nombre}}",
+    "precio": "{{valor}} $ COP par unité · Max : {{max}}",
+    "noDisponible": "Indisponible pour {{personas}} personnes",
+    "seleccionaPersonas": "Sélectionnez le nombre de personnes de la réservation",
+    "subtotal": "Sous-total : {{valor}} $ COP"
+  },
   "language": "Langue",
   "languages": {
     "es": "Espagnol",
@@ -101,7 +231,7 @@
 
 
   "direccion": "Salento, Quindío - Colombie",
-  "correos": "rutaxplorer@gmail.com",
+  "correos": "rutaexplorer@gmail.com",
   "telefonos": "+57 312 415 1539",
 
   "boletin": "Newsletter",
@@ -177,7 +307,7 @@
     "idioma": "Langue",
     "desde": "À partir de",
     "moneda": "COP par Personne",
-    "precioVariable": "le prix varie selon le nombre de participants",
+    "precioVariable": "Le prix peut varier selon le nombre de personnes",
     "reservar": "Réserver"
   }
   

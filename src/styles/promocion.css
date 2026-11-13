@@ -1,0 +1,45 @@
+.promocion-precio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.promocion-distintivo {
+  display: inline-block;
+  background: red;
+  color: #fff;
+  padding: 4px 9px;
+  border-radius: 5px;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  height: auto;
+}
+.promocion-precio del { color: #64748b; font-size: 0.9rem; }
+.promocion-precio strong { color: var(--rx-azul-oscuro); }
+.promocion-precio small { font-size: 0.8rem; }
+.promocion-formulario {
+  min-width: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 20px;
+}
+.promocion-formulario legend { padding: 0 8px; font-weight: 600; }
+.promocion-formulario .promocion-activar { display: flex; align-items: center; gap: 8px; }
+.promocion-formulario .promocion-activar input { width: auto; }
+.promocion-formulario p { font-size: 0.875rem; color: #475569; }
+
+.promocion-precio { padding: 12px 14px; border: 1px solid var(--rx-azul-borde); border-radius: 12px; background: var(--rx-azul-suave); gap: 6px; max-width: 100%; box-sizing: border-box; overflow-wrap: anywhere;  }
+.promocion-precio .promocion-distintivo { border-radius: 20px; padding: 5px 10px; font-size: 0.72rem; }
+.promocion-precio del { font-size: 0.95rem; text-decoration-thickness: 2px; }
+.promocion-precio strong { font-size: clamp(1.15rem, 2.5vw, 1.5rem); line-height: 1.25; font-weight: 800; }
+.promocion-precio small { color: var(--rx-azul-oscuro); line-height: 1.4; }
+.tour-editor-modal .promocion-formulario { margin-top: 0; padding: 20px; border-color: var(--rx-azul-borde); background: var(--rx-azul-suave); }
+.tour-editor-modal .promocion-formulario legend { width: auto; font-size: 1rem; color: var(--rx-azul-oscuro); }
+.tour-editor-modal .promocion-activar { margin: 0; padding: 8px 0; cursor: pointer; }
+.tour-editor-modal .promocion-formulario .fila { margin-top: 20px; }
+@media (max-width: 600px) {
+  .tour-editor-modal .promocion-formulario { padding: 12px; }
+}

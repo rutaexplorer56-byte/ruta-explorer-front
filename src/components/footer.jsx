@@ -3,9 +3,12 @@ import AOS from 'aos';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../assets/logo_nuevo.png';
+import { Link, useLocation } from 'react-router-dom';
+import { withReferral } from '../utils/tourUrls';
 
 
 function Footer() {
+  const { search } = useLocation();
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -37,7 +40,7 @@ function Footer() {
             <li><a href="https://rutaxplorer.com/">{t('inicio')}</a></li>
             <li><a href="https://rutaxplorer.com/nosotros/">{t('nosotros')}</a></li>
             <li><a href="https://rutaxplorer.com/servicios/">{t('servicios')}</a></li>
-            <li><a href="https://rutaxplorer.com/app/">{t('tours')}</a></li>
+            <li><Link to={withReferral('/tours', undefined, search)}>{t('tours')}</Link></li>
             <li><a href="https://rutaxplorer.com/contacto/">{t('contacto')}</a></li>
             <li><a href="https://checkout.bold.co/payment/LNK_QO3ZYM10UC">{t('pagos')}</a></li>
           </ul>

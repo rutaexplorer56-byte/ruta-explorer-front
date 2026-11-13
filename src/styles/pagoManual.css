@@ -1,0 +1,16 @@
+.rx-condiciones-abrir { border: 1px solid #2f80d8; background: #fff; color: #17629e; border-radius: 8px; padding: 10px 14px; margin: 10px 0; cursor: pointer; font: inherit; white-space: normal; }
+.rx-condiciones-modal { width: min(720px, calc(100% - 24px)); max-height: 85dvh; padding: 20px; margin: auto; border: 0; border-radius: 16px; color: #314f63; box-shadow: 0 16px 50px #0004; overflow: auto; }
+.rx-condiciones-modal::backdrop { background: #102536b3; }
+.rx-condiciones-cabecera { display: flex; align-items: flex-start; gap: 16px; }
+.rx-condiciones-cabecera h2 { font-size: 1.25rem; line-height: 1.4; margin: 0; flex: 1; }
+.rx-condiciones-cabecera button { flex: 0 0 44px; height: 44px; border: 0; border-radius: 8px; background: #edf5fa; color: #17629e; font-size: 28px; cursor: pointer; }
+.rx-condiciones-lista { padding-left: 24px; line-height: 1.65; font-size: .95rem; overflow-wrap: anywhere; }
+.rx-condiciones-lista li { padding-left: 4px; margin: 16px 0; }
+.rx-condiciones-lista p { margin: 4px 0 8px; }
+.rx-qr-lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.rx-qr-lista figure { min-width: 0; margin: 0; padding: 12px; background: white; border: 1px solid #cddde7; border-radius: 12px; }
+.rx-qr-lista figcaption { font-weight: 700; margin-bottom: 12px; }
+.rx-qr-lista img { display: block; width: 100%; height: auto; object-fit: contain; margin: 0 auto 12px; }
+.rx-qr-lista a { display: block; overflow-wrap: anywhere; color: #17629e; }
+.rx-condiciones-abrir:focus-visible, .rx-condiciones-modal button:focus-visible, .rx-qr-lista a:focus-visible { outline: 3px solid #2f80d8; outline-offset: 3px; }
+@media (max-width: 420px) { .rx-condiciones-modal { padding: 16px; } }

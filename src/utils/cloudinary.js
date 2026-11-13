@@ -1,5 +1,5 @@
 export const optimizarImagenCloudinary = (url, width = 800) => {
-  if (!url) return "";
+  if (typeof url !== 'string' || !url) return "";
 
   if (!url.includes("res.cloudinary.com")) return url;
 

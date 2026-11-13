@@ -139,6 +139,7 @@ useEffect(() => {
                     idioma={tour.idioma}
                     precios={tour.precios}
                     tipo={tour.tipo}
+                    promocion={tour}
                     activo={tour.activo}
                     slug={tour.slug}
                     onEdit={abrirEditar}

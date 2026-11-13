@@ -1,0 +1,1288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://rutaxplorer.com/app/tours?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tours?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tours?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cacao-y-chocolate-en-kakawa-desde-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1790538854/tours/eqixwvwy8kozgcueumy2.jpg</image:loc>
+      <image:title>Tour de Cacao y Chocolate en Kakawa desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cacao-y-chocolate-en-kakawa-desde-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1790538854/tours/eqixwvwy8kozgcueumy2.jpg</image:loc>
+      <image:title>Tour de Cacao y Chocolate en Kakawa desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cacao-y-chocolate-en-kakawa-desde-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1790538854/tours/eqixwvwy8kozgcueumy2.jpg</image:loc>
+      <image:title>Tour de Cacao y Chocolate en Kakawa desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/conexion-cafetera-termales-de-santa-rosa-tour-compartido-desde-salento-filandia?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1790289858/tours/wlrfppoqcer1jzmi7nmo.jpg</image:loc>
+      <image:title>Conexion Cafetera Termales de Santa Rosa (Tour Compartido desde Salento &amp; Filandia)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/conexion-cafetera-termales-de-santa-rosa-tour-compartido-desde-salento-filandia?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1790289858/tours/wlrfppoqcer1jzmi7nmo.jpg</image:loc>
+      <image:title>Conexion Cafetera Termales de Santa Rosa (Tour Compartido desde Salento &amp; Filandia)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/conexion-cafetera-termales-de-santa-rosa-tour-compartido-desde-salento-filandia?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1790289858/tours/wlrfppoqcer1jzmi7nmo.jpg</image:loc>
+      <image:title>Conexion Cafetera Termales de Santa Rosa (Tour Compartido desde Salento &amp; Filandia)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/cabalgata-al-rio-boqueron-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1789220111/tours/ulrazexxv6cturnpkzy7.jpg</image:loc>
+      <image:title>Cabalgata al Río Boquerón Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/cabalgata-al-rio-boqueron-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1789220111/tours/ulrazexxv6cturnpkzy7.jpg</image:loc>
+      <image:title>Cabalgata al Río Boquerón Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/cabalgata-al-rio-boqueron-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1789220111/tours/ulrazexxv6cturnpkzy7.jpg</image:loc>
+      <image:title>Cabalgata al Río Boquerón Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/cabalgata-panoramica-por-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1789218978/tours/nopvlghmnebgfrixaqfq.jpg</image:loc>
+      <image:title>Cabalgata Panorámica por Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/cabalgata-panoramica-por-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1789218978/tours/nopvlghmnebgfrixaqfq.jpg</image:loc>
+      <image:title>Cabalgata Panorámica por Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/cabalgata-panoramica-por-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1789218978/tours/nopvlghmnebgfrixaqfq.jpg</image:loc>
+      <image:title>Cabalgata Panorámica por Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/aventura-a-caballo-hacia-las-cascadas-de-santa-rita-desde-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1789165584/tours/qwtz7cv2tfnskc2xd48d.jpg</image:loc>
+      <image:title>Aventura a caballo hacia las Cascadas de Santa Rita desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/aventura-a-caballo-hacia-las-cascadas-de-santa-rita-desde-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1789165584/tours/qwtz7cv2tfnskc2xd48d.jpg</image:loc>
+      <image:title>Aventura a caballo hacia las Cascadas de Santa Rita desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/aventura-a-caballo-hacia-las-cascadas-de-santa-rita-desde-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1789165584/tours/qwtz7cv2tfnskc2xd48d.jpg</image:loc>
+      <image:title>Aventura a caballo hacia las Cascadas de Santa Rita desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/santa-rita-cascadas-naturales-desde-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1785193338/tours/uy7cel1edq3zwqoo8qwh.jpg</image:loc>
+      <image:title>Santa Rita Cascadas Naturales desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/santa-rita-cascadas-naturales-desde-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1785193338/tours/uy7cel1edq3zwqoo8qwh.jpg</image:loc>
+      <image:title>Santa Rita Cascadas Naturales desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/santa-rita-cascadas-naturales-desde-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1785193338/tours/uy7cel1edq3zwqoo8qwh.jpg</image:loc>
+      <image:title>Santa Rita Cascadas Naturales desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/santa-rita-cascadas-naturales-compartido-desde-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1785190185/tours/gdl1zpjb3m4c7ycovwel.jpg</image:loc>
+      <image:title>Santa Rita Cascadas Naturales (Compartido) desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/santa-rita-cascadas-naturales-compartido-desde-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1785190185/tours/gdl1zpjb3m4c7ycovwel.jpg</image:loc>
+      <image:title>Santa Rita Cascadas Naturales (Compartido) desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/santa-rita-cascadas-naturales-compartido-desde-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1785190185/tours/gdl1zpjb3m4c7ycovwel.jpg</image:loc>
+      <image:title>Santa Rita Cascadas Naturales (Compartido) desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/experiencia-en-el-valle-de-cocora-y-cafe-tradicional-con-almuerzo-tour-compartido?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784821725/tours/hjxwbhf0svyqo5xopmwx.jpg</image:loc>
+      <image:title>Experiencia en el Valle de Cocora y Cafe Tradicional Con almuerzo (Tour Compartido)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/experiencia-en-el-valle-de-cocora-y-cafe-tradicional-con-almuerzo-tour-compartido?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784821725/tours/hjxwbhf0svyqo5xopmwx.jpg</image:loc>
+      <image:title>Experiencia en el Valle de Cocora y Cafe Tradicional Con almuerzo (Tour Compartido)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/experiencia-en-el-valle-de-cocora-y-cafe-tradicional-con-almuerzo-tour-compartido?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784821725/tours/hjxwbhf0svyqo5xopmwx.jpg</image:loc>
+      <image:title>Experiencia en el Valle de Cocora y Cafe Tradicional Con almuerzo (Tour Compartido)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-del-cafe-salida-desde-hoteles-en-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1782662174/tours/qg2mjrhqdniop2xyhi8j.jpg</image:loc>
+      <image:title>Parque del Cafe salida desde Hoteles en Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-del-cafe-salida-desde-hoteles-en-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1782662174/tours/qg2mjrhqdniop2xyhi8j.jpg</image:loc>
+      <image:title>Parque del Cafe salida desde Hoteles en Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-del-cafe-salida-desde-hoteles-en-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1782662174/tours/qg2mjrhqdniop2xyhi8j.jpg</image:loc>
+      <image:title>Parque del Cafe salida desde Hoteles en Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-recuca-recorrido-de-la-cultura-cafetera-desde-hoteles-en-el-quindio?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1782661653/tours/tvdwg8xow44ynazcq8sp.jpg</image:loc>
+      <image:title>Parque Recuca (Recorrido de la Cultura Cafetera) Desde Hoteles en el Quindio</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-recuca-recorrido-de-la-cultura-cafetera-desde-hoteles-en-el-quindio?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1782661653/tours/tvdwg8xow44ynazcq8sp.jpg</image:loc>
+      <image:title>Parque Recuca (Recorrido de la Cultura Cafetera) Desde Hoteles en el Quindio</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-recuca-recorrido-de-la-cultura-cafetera-desde-hoteles-en-el-quindio?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1782661653/tours/tvdwg8xow44ynazcq8sp.jpg</image:loc>
+      <image:title>Parque Recuca (Recorrido de la Cultura Cafetera) Desde Hoteles en el Quindio</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/vuela-en-parapente-buenavista-quindio?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1782659648/tours/tai14ijwnd3xu4e4rifp.jpg</image:loc>
+      <image:title>Vuela en Parapente Buenavista Quindio</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/vuela-en-parapente-buenavista-quindio?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1782659648/tours/tai14ijwnd3xu4e4rifp.jpg</image:loc>
+      <image:title>Vuela en Parapente Buenavista Quindio</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/vuela-en-parapente-buenavista-quindio?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1782659648/tours/tai14ijwnd3xu4e4rifp.jpg</image:loc>
+      <image:title>Vuela en Parapente Buenavista Quindio</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/transfer-al-aeropuerto-de-pereira-con-city-tour-en-filandia?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1779911578/tours/hvikcrdchp2wpcbamby4.jpg</image:loc>
+      <image:title>Transfer al Aeropuerto de Pereira con City Tour en Filandia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/transfer-al-aeropuerto-de-pereira-con-city-tour-en-filandia?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1779911578/tours/hvikcrdchp2wpcbamby4.jpg</image:loc>
+      <image:title>Transfer al Aeropuerto de Pereira con City Tour en Filandia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/transfer-al-aeropuerto-de-pereira-con-city-tour-en-filandia?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1779911578/tours/hvikcrdchp2wpcbamby4.jpg</image:loc>
+      <image:title>Transfer al Aeropuerto de Pereira con City Tour en Filandia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-finca-don-elias-desde-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1779894200/tours/d2trorohjxs3srfnfeyo.jpg</image:loc>
+      <image:title>Tour de Café en Finca Don Elías desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-finca-don-elias-desde-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1779894200/tours/d2trorohjxs3srfnfeyo.jpg</image:loc>
+      <image:title>Tour de Café en Finca Don Elías desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-finca-don-elias-desde-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1779894200/tours/d2trorohjxs3srfnfeyo.jpg</image:loc>
+      <image:title>Tour de Café en Finca Don Elías desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/recorrido-de-la-cultura-cafetera-recuca-desde-pereira?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774641562/tours/nfsgin3u1jc5snnb1h7k.jpg</image:loc>
+      <image:title>Recorrido de la cultura cafetera (RECUCA) Desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/recorrido-de-la-cultura-cafetera-recuca-desde-pereira?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774641562/tours/nfsgin3u1jc5snnb1h7k.jpg</image:loc>
+      <image:title>Recorrido de la cultura cafetera (RECUCA) Desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/recorrido-de-la-cultura-cafetera-recuca-desde-pereira?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774641562/tours/nfsgin3u1jc5snnb1h7k.jpg</image:loc>
+      <image:title>Recorrido de la cultura cafetera (RECUCA) Desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-del-cafe?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774640930/tours/ehrwgs0e3rncdzfsbgja.jpg</image:loc>
+      <image:title>Parque del Cafe</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-del-cafe?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774640930/tours/ehrwgs0e3rncdzfsbgja.jpg</image:loc>
+      <image:title>Parque del Cafe</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-del-cafe?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774640930/tours/ehrwgs0e3rncdzfsbgja.jpg</image:loc>
+      <image:title>Parque del Cafe</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-pueblos-de-la-cordillera-cordoba-pijao-buenavista-salida-desde-hoteles-en-el-quindio?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774365086/tours/bkoz3a2k74tmxibb459w.jpg</image:loc>
+      <image:title>Tour de Pueblos de la Cordillera (cordoba, pijao, Buenavista) Salida desde Hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-pueblos-de-la-cordillera-cordoba-pijao-buenavista-salida-desde-hoteles-en-el-quindio?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774365086/tours/bkoz3a2k74tmxibb459w.jpg</image:loc>
+      <image:title>Tour de Pueblos de la Cordillera (cordoba, pijao, Buenavista) Salida desde Hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-pueblos-de-la-cordillera-cordoba-pijao-buenavista-salida-desde-hoteles-en-el-quindio?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774365086/tours/bkoz3a2k74tmxibb459w.jpg</image:loc>
+      <image:title>Tour de Pueblos de la Cordillera (cordoba, pijao, Buenavista) Salida desde Hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cacao-y-chocolate-en-finca-cinco-cacao?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1781215503/tours/mdo7howdunl87xesw4de.jpg</image:loc>
+      <image:title>Tour de Cacao y Chocolate en Finca Cinco Cacao</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cacao-y-chocolate-en-finca-cinco-cacao?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1781215503/tours/mdo7howdunl87xesw4de.jpg</image:loc>
+      <image:title>Tour de Cacao y Chocolate en Finca Cinco Cacao</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cacao-y-chocolate-en-finca-cinco-cacao?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1781215503/tours/mdo7howdunl87xesw4de.jpg</image:loc>
+      <image:title>Tour de Cacao y Chocolate en Finca Cinco Cacao</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-fincas-tipicas-de-salento-salida-desde-hoteles-en-el-quindio?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774365665/tours/sx0of88w6empqr2kvl0e.jpg</image:loc>
+      <image:title>Tour de Cafe en fincas típicas de Salento Salida desde hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-fincas-tipicas-de-salento-salida-desde-hoteles-en-el-quindio?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774365665/tours/sx0of88w6empqr2kvl0e.jpg</image:loc>
+      <image:title>Tour de Cafe en fincas típicas de Salento Salida desde hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-fincas-tipicas-de-salento-salida-desde-hoteles-en-el-quindio?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774365665/tours/sx0of88w6empqr2kvl0e.jpg</image:loc>
+      <image:title>Tour de Cafe en fincas típicas de Salento Salida desde hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/jardin-botanico-mariposario-salida-desde-desde-hoteles-en-el-quindio?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774369882/tours/vmlmykgazps0eiflv7oj.png</image:loc>
+      <image:title>Jardin Botánico Mariposario Salida desde desde Hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/jardin-botanico-mariposario-salida-desde-desde-hoteles-en-el-quindio?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774369882/tours/vmlmykgazps0eiflv7oj.png</image:loc>
+      <image:title>Jardin Botánico Mariposario Salida desde desde Hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/jardin-botanico-mariposario-salida-desde-desde-hoteles-en-el-quindio?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774369882/tours/vmlmykgazps0eiflv7oj.png</image:loc>
+      <image:title>Jardin Botánico Mariposario Salida desde desde Hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/explora-la-magia-de-salento-y-el-valle-del-cocora-finca-cafetera-salida-desde-hoteles-en-el-quindio?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774371239/tours/tk2fzzvbrvzwecqwznby.png</image:loc>
+      <image:title>Explora la magia de salento y el valle del cocora  &amp; Finca Cafetera salida desde hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/explora-la-magia-de-salento-y-el-valle-del-cocora-finca-cafetera-salida-desde-hoteles-en-el-quindio?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774371239/tours/tk2fzzvbrvzwecqwznby.png</image:loc>
+      <image:title>Explora la magia de salento y el valle del cocora  &amp; Finca Cafetera salida desde hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/explora-la-magia-de-salento-y-el-valle-del-cocora-finca-cafetera-salida-desde-hoteles-en-el-quindio?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1774371239/tours/tk2fzzvbrvzwecqwznby.png</image:loc>
+      <image:title>Explora la magia de salento y el valle del cocora  &amp; Finca Cafetera salida desde hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-del-cafe-salida-desde-hoteles-en-el-quindio?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773807261/tours/abdnpr9hyynfuz3cqzwk.jpg</image:loc>
+      <image:title>Parque del Cafe salida desde Hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-del-cafe-salida-desde-hoteles-en-el-quindio?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773807261/tours/abdnpr9hyynfuz3cqzwk.jpg</image:loc>
+      <image:title>Parque del Cafe salida desde Hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-del-cafe-salida-desde-hoteles-en-el-quindio?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773807261/tours/abdnpr9hyynfuz3cqzwk.jpg</image:loc>
+      <image:title>Parque del Cafe salida desde Hoteles en el Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/termales-de-santa-rosa-de-cabal-salida-desde-pereira?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773807347/tours/ggsvdtfyta1t9bngvcyz.jpg</image:loc>
+      <image:title>Termales de Santa Rosa de Cabal salida desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/termales-de-santa-rosa-de-cabal-salida-desde-pereira?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773807347/tours/ggsvdtfyta1t9bngvcyz.jpg</image:loc>
+      <image:title>Termales de Santa Rosa de Cabal salida desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/termales-de-santa-rosa-de-cabal-salida-desde-pereira?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773807347/tours/ggsvdtfyta1t9bngvcyz.jpg</image:loc>
+      <image:title>Termales de Santa Rosa de Cabal salida desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-recuca-recorrido-de-la-cultura-cafetera-desde-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811100/tours/n47qe7s8m6bxjsu2hujj.jpg</image:loc>
+      <image:title>Parque Recuca (Recorrido de la Cultura Cafetera) Desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-recuca-recorrido-de-la-cultura-cafetera-desde-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811100/tours/n47qe7s8m6bxjsu2hujj.jpg</image:loc>
+      <image:title>Parque Recuca (Recorrido de la Cultura Cafetera) Desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/parque-recuca-recorrido-de-la-cultura-cafetera-desde-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811100/tours/n47qe7s8m6bxjsu2hujj.jpg</image:loc>
+      <image:title>Parque Recuca (Recorrido de la Cultura Cafetera) Desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/reserva-la-carbonera-tour-basico-salida-desde-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773982318/tours/qwsz8qyfokske6l3jy7n.png</image:loc>
+      <image:title>Reserva la Carbonera Tour Basico salida desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/reserva-la-carbonera-tour-basico-salida-desde-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773982318/tours/qwsz8qyfokske6l3jy7n.png</image:loc>
+      <image:title>Reserva la Carbonera Tour Basico salida desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/reserva-la-carbonera-tour-basico-salida-desde-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773982318/tours/qwsz8qyfokske6l3jy7n.png</image:loc>
+      <image:title>Reserva la Carbonera Tour Basico salida desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-valle-de-cocora-finca-cafetera-filandia-salida-desde-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811216/tours/rlha9m8exc4qoqcht4ij.jpg</image:loc>
+      <image:title>Tour Valle de Cocora, Finca Cafetera &amp; Filandia Salida Desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-valle-de-cocora-finca-cafetera-filandia-salida-desde-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811216/tours/rlha9m8exc4qoqcht4ij.jpg</image:loc>
+      <image:title>Tour Valle de Cocora, Finca Cafetera &amp; Filandia Salida Desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-valle-de-cocora-finca-cafetera-filandia-salida-desde-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811216/tours/rlha9m8exc4qoqcht4ij.jpg</image:loc>
+      <image:title>Tour Valle de Cocora, Finca Cafetera &amp; Filandia Salida Desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/cabalgata-natural-valle-de-cocora?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811271/tours/wqyybxxsfcnqqfqf5udn.jpg</image:loc>
+      <image:title>Cabalgata Natural Valle de Cocora</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/cabalgata-natural-valle-de-cocora?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811271/tours/wqyybxxsfcnqqfqf5udn.jpg</image:loc>
+      <image:title>Cabalgata Natural Valle de Cocora</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/cabalgata-natural-valle-de-cocora?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811271/tours/wqyybxxsfcnqqfqf5udn.jpg</image:loc>
+      <image:title>Cabalgata Natural Valle de Cocora</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-recorrido-por-filandia-salida-desde-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811392/tours/eehnmw0sljknyhieqvs0.jpg</image:loc>
+      <image:title>Tour de Cafe &amp; Recorrido por Filandia Salida Desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-recorrido-por-filandia-salida-desde-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811392/tours/eehnmw0sljknyhieqvs0.jpg</image:loc>
+      <image:title>Tour de Cafe &amp; Recorrido por Filandia Salida Desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-recorrido-por-filandia-salida-desde-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811392/tours/eehnmw0sljknyhieqvs0.jpg</image:loc>
+      <image:title>Tour de Cafe &amp; Recorrido por Filandia Salida Desde Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/senderismo-en-el-valle-del-cocora-y-recorrido-a-caballo?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811460/tours/zofe8odo0fg1lui1v4cl.jpg</image:loc>
+      <image:title>Senderismo en el Valle del Cocora y Recorrido a Caballo</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/senderismo-en-el-valle-del-cocora-y-recorrido-a-caballo?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811460/tours/zofe8odo0fg1lui1v4cl.jpg</image:loc>
+      <image:title>Senderismo en el Valle del Cocora y Recorrido a Caballo</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/senderismo-en-el-valle-del-cocora-y-recorrido-a-caballo?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811460/tours/zofe8odo0fg1lui1v4cl.jpg</image:loc>
+      <image:title>Senderismo en el Valle del Cocora y Recorrido a Caballo</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-valle-del-cocora-finca-cafetera-recorrido-por-salento-salida-desde-filandia?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811690/tours/t6unksztysd9t5l0x2l4.png</image:loc>
+      <image:title>Tour Valle del Cocora, Finca Cafetera &amp; Recorrido por Salento Salida desde Filandia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-valle-del-cocora-finca-cafetera-recorrido-por-salento-salida-desde-filandia?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811690/tours/t6unksztysd9t5l0x2l4.png</image:loc>
+      <image:title>Tour Valle del Cocora, Finca Cafetera &amp; Recorrido por Salento Salida desde Filandia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-valle-del-cocora-finca-cafetera-recorrido-por-salento-salida-desde-filandia?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811690/tours/t6unksztysd9t5l0x2l4.png</image:loc>
+      <image:title>Tour Valle del Cocora, Finca Cafetera &amp; Recorrido por Salento Salida desde Filandia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-circuito-reserva-acaime-colibries?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811900/tours/sik88f5tnrjxscd0zreu.jpg</image:loc>
+      <image:title>Tour Circuito Reserva Acaime (colibries)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-circuito-reserva-acaime-colibries?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811900/tours/sik88f5tnrjxscd0zreu.jpg</image:loc>
+      <image:title>Tour Circuito Reserva Acaime (colibries)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-circuito-reserva-acaime-colibries?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773811900/tours/sik88f5tnrjxscd0zreu.jpg</image:loc>
+      <image:title>Tour Circuito Reserva Acaime (colibries)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/recorrido-a-caballo-en-el-valle-del-cocora-mirador-uno?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812194/tours/qje0wppmj7ldeh0bjlxk.jpg</image:loc>
+      <image:title>Recorrido a Caballo en el Valle del Cocora  Mirador Uno</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/recorrido-a-caballo-en-el-valle-del-cocora-mirador-uno?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812194/tours/qje0wppmj7ldeh0bjlxk.jpg</image:loc>
+      <image:title>Recorrido a Caballo en el Valle del Cocora  Mirador Uno</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/recorrido-a-caballo-en-el-valle-del-cocora-mirador-uno?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812194/tours/qje0wppmj7ldeh0bjlxk.jpg</image:loc>
+      <image:title>Recorrido a Caballo en el Valle del Cocora  Mirador Uno</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/valle-del-cocora-y-ruta-del-cafe-salida-desde-pereira?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1785433838/tours/djarlge2addor0mv6jif.jpg</image:loc>
+      <image:title>Valle del cocora y Ruta del Cafe Salida Desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/valle-del-cocora-y-ruta-del-cafe-salida-desde-pereira?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1785433838/tours/djarlge2addor0mv6jif.jpg</image:loc>
+      <image:title>Valle del cocora y Ruta del Cafe Salida Desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/valle-del-cocora-y-ruta-del-cafe-salida-desde-pereira?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1785433838/tours/djarlge2addor0mv6jif.jpg</image:loc>
+      <image:title>Valle del cocora y Ruta del Cafe Salida Desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-valle-del-cocora-filandia-salento-salida-desde-pereira?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812368/tours/i9a0ibucqlpx2oz35hch.jpg</image:loc>
+      <image:title>Tour Valle del Cocora-Filandia-Salento Salida Desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-valle-del-cocora-filandia-salento-salida-desde-pereira?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812368/tours/i9a0ibucqlpx2oz35hch.jpg</image:loc>
+      <image:title>Tour Valle del Cocora-Filandia-Salento Salida Desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-valle-del-cocora-filandia-salento-salida-desde-pereira?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812368/tours/i9a0ibucqlpx2oz35hch.jpg</image:loc>
+      <image:title>Tour Valle del Cocora-Filandia-Salento Salida Desde Pereira</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-ingles-finca-el-ocaso?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812423/tours/ljgcvlsc1m1zruytkdxg.jpg</image:loc>
+      <image:title>Tour de Cafe en Ingles Finca El Ocaso</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-ingles-finca-el-ocaso?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812423/tours/ljgcvlsc1m1zruytkdxg.jpg</image:loc>
+      <image:title>Tour de Cafe en Ingles Finca El Ocaso</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-ingles-finca-el-ocaso?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812423/tours/ljgcvlsc1m1zruytkdxg.jpg</image:loc>
+      <image:title>Tour de Cafe en Ingles Finca El Ocaso</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-espanol-finca-el-ocaso?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812481/tours/wad8kn3xlus8wxeg98za.jpg</image:loc>
+      <image:title>Tour de Cafe en español Finca El Ocaso</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-espanol-finca-el-ocaso?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812481/tours/wad8kn3xlus8wxeg98za.jpg</image:loc>
+      <image:title>Tour de Cafe en español Finca El Ocaso</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-en-espanol-finca-el-ocaso?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812481/tours/wad8kn3xlus8wxeg98za.jpg</image:loc>
+      <image:title>Tour de Cafe en español Finca El Ocaso</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/recorridos-a-caballo-aventura-en-boquia-junto-al-rio-quindio?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812525/tours/n6jagx10qvvl12myhzlp.jpg</image:loc>
+      <image:title>Recorridos a caballo, Aventura en Boquía junto al Río Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/recorridos-a-caballo-aventura-en-boquia-junto-al-rio-quindio?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812525/tours/n6jagx10qvvl12myhzlp.jpg</image:loc>
+      <image:title>Recorridos a caballo, Aventura en Boquía junto al Río Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/recorridos-a-caballo-aventura-en-boquia-junto-al-rio-quindio?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812525/tours/n6jagx10qvvl12myhzlp.jpg</image:loc>
+      <image:title>Recorridos a caballo, Aventura en Boquía junto al Río Quindío</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-finca-luger?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1788458432/tours/dwvasqlvvrtbeuafnics.jpg</image:loc>
+      <image:title>Tour de Cafe Finca Luger</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-finca-luger?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1788458432/tours/dwvasqlvvrtbeuafnics.jpg</image:loc>
+      <image:title>Tour de Cafe Finca Luger</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-finca-luger?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1788458432/tours/dwvasqlvvrtbeuafnics.jpg</image:loc>
+      <image:title>Tour de Cafe Finca Luger</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-finca-buenos-aires?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784853811/tours/snxsac5oc0yc8l00hxj6.jpg</image:loc>
+      <image:title>Tour de Cafe Finca Buenos Aires</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-finca-buenos-aires?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784853811/tours/snxsac5oc0yc8l00hxj6.jpg</image:loc>
+      <image:title>Tour de Cafe Finca Buenos Aires</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-de-cafe-finca-buenos-aires?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784853811/tours/snxsac5oc0yc8l00hxj6.jpg</image:loc>
+      <image:title>Tour de Cafe Finca Buenos Aires</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-cafetero-finca-entrebosques?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812688/tours/f2rugd4f5s6o53t5rl9s.jpg</image:loc>
+      <image:title>Tour Cafetero Finca Entrebosques</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-cafetero-finca-entrebosques?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812688/tours/f2rugd4f5s6o53t5rl9s.jpg</image:loc>
+      <image:title>Tour Cafetero Finca Entrebosques</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-cafetero-finca-entrebosques?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812688/tours/f2rugd4f5s6o53t5rl9s.jpg</image:loc>
+      <image:title>Tour Cafetero Finca Entrebosques</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-salento---valle-del-cocora-finca-cafetera?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784854377/tours/vklreopewubbffxchywf.jpg</image:loc>
+      <image:title>Tour Salento - Valle del Cocora &amp; Finca Cafetera</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-salento---valle-del-cocora-finca-cafetera?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784854377/tours/vklreopewubbffxchywf.jpg</image:loc>
+      <image:title>Tour Salento - Valle del Cocora &amp; Finca Cafetera</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-salento---valle-del-cocora-finca-cafetera?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784854377/tours/vklreopewubbffxchywf.jpg</image:loc>
+      <image:title>Tour Salento - Valle del Cocora &amp; Finca Cafetera</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-reserva-la-carbonera-todo-incluido?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812799/tours/bbhnfar4dkewoaib2icc.png</image:loc>
+      <image:title>Tour Reserva La Carbonera todo Incluido</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-reserva-la-carbonera-todo-incluido?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812799/tours/bbhnfar4dkewoaib2icc.png</image:loc>
+      <image:title>Tour Reserva La Carbonera todo Incluido</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-reserva-la-carbonera-todo-incluido?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773812799/tours/bbhnfar4dkewoaib2icc.png</image:loc>
+      <image:title>Tour Reserva La Carbonera todo Incluido</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-pueblos-de-la-cordillera-cordoba-pijao-buenavista-salida-desde-salento-puedes-adicionar-tour-de-cacao?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813116/tours/tx33s5lvkbmdayrtijqg.jpg</image:loc>
+      <image:title>Tour Pueblos de la Cordillera (Cordoba-Pijao-Buenavista) Salida Desde Salento (Puedes adicionar tour de cacao)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-pueblos-de-la-cordillera-cordoba-pijao-buenavista-salida-desde-salento-puedes-adicionar-tour-de-cacao?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813116/tours/tx33s5lvkbmdayrtijqg.jpg</image:loc>
+      <image:title>Tour Pueblos de la Cordillera (Cordoba-Pijao-Buenavista) Salida Desde Salento (Puedes adicionar tour de cacao)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-pueblos-de-la-cordillera-cordoba-pijao-buenavista-salida-desde-salento-puedes-adicionar-tour-de-cacao?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813116/tours/tx33s5lvkbmdayrtijqg.jpg</image:loc>
+      <image:title>Tour Pueblos de la Cordillera (Cordoba-Pijao-Buenavista) Salida Desde Salento (Puedes adicionar tour de cacao)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/termales-de-santa-rosa-de-cabal?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813169/tours/agkcp7u374c2ujqhiyil.jpg</image:loc>
+      <image:title>Termales de Santa Rosa de Cabal</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/termales-de-santa-rosa-de-cabal?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813169/tours/agkcp7u374c2ujqhiyil.jpg</image:loc>
+      <image:title>Termales de Santa Rosa de Cabal</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/termales-de-santa-rosa-de-cabal?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813169/tours/agkcp7u374c2ujqhiyil.jpg</image:loc>
+      <image:title>Termales de Santa Rosa de Cabal</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-senderismo-por-el-valle-del-cocora-recorrido-por-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813219/tours/cmatzwpo21w9vzgvshyc.jpg</image:loc>
+      <image:title>Tour Senderismo por el Valle del cocora  &amp; recorrido por Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-senderismo-por-el-valle-del-cocora-recorrido-por-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813219/tours/cmatzwpo21w9vzgvshyc.jpg</image:loc>
+      <image:title>Tour Senderismo por el Valle del cocora  &amp; recorrido por Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-senderismo-por-el-valle-del-cocora-recorrido-por-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813219/tours/cmatzwpo21w9vzgvshyc.jpg</image:loc>
+      <image:title>Tour Senderismo por el Valle del cocora  &amp; recorrido por Salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-salento-valle-del-cocora-filandia?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1790235275/tours/paxlpdvnkoccnwsba9wq.jpg</image:loc>
+      <image:title>Tour Salento-Valle del Cocora-Filandia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-salento-valle-del-cocora-filandia?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1790235275/tours/paxlpdvnkoccnwsba9wq.jpg</image:loc>
+      <image:title>Tour Salento-Valle del Cocora-Filandia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-salento-valle-del-cocora-filandia?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1790235275/tours/paxlpdvnkoccnwsba9wq.jpg</image:loc>
+      <image:title>Tour Salento-Valle del Cocora-Filandia</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/reserva-acaime-14k-tour-comparido?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813326/tours/rixcrwagajrk5f0htwfz.jpg</image:loc>
+      <image:title>Reserva Acaime 14k (Tour Comparido)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/reserva-acaime-14k-tour-comparido?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813326/tours/rixcrwagajrk5f0htwfz.jpg</image:loc>
+      <image:title>Reserva Acaime 14k (Tour Comparido)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/reserva-acaime-14k-tour-comparido?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1773813326/tours/rixcrwagajrk5f0htwfz.jpg</image:loc>
+      <image:title>Reserva Acaime 14k (Tour Comparido)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-compartido-valle-del-cocora-finca-cafetera-reorrido-por-salento?lang=es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784388279/tours/znapz0xyjtau0twao6ey.jpg</image:loc>
+      <image:title>Tour Compartido Valle del Cocora-Finca Cafetera &amp; reorrido por salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-compartido-valle-del-cocora-finca-cafetera-reorrido-por-salento?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784388279/tours/znapz0xyjtau0twao6ey.jpg</image:loc>
+      <image:title>Tour Compartido Valle del Cocora-Finca Cafetera &amp; reorrido por salento</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rutaxplorer.com/app/tour/tour-compartido-valle-del-cocora-finca-cafetera-reorrido-por-salento?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dlbma8is5/image/upload/v1784388279/tours/znapz0xyjtau0twao6ey.jpg</image:loc>
+      <image:title>Tour Compartido Valle del Cocora-Finca Cafetera &amp; reorrido por salento</image:title>
+    </image:image>
+  </url>
+</urlset>

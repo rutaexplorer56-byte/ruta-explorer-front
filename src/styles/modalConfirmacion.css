@@ -83,7 +83,7 @@
 .dark .modal-close:hover { background: rgba(255,255,255,0.06); }
 .modal-close:active { transform: scale(0.94); }
 .modal-close:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--rx-azul);
   outline-offset: 2px;
 }
 
@@ -137,11 +137,11 @@
 }
 .btn.cancelar {
     color: #ffffff;
-  background: #fda348;
+  background: var(--rx-rojo);
 }
 .btn.confirmar {
     color: #ffffff;
-  background: #1bb2f3;
+  background: var(--rx-azul);
 }
 .dark .btn { background: #111827; border-color: #30363d; }
 .dark .btn:hover { background: #0b1220; }
@@ -150,7 +150,7 @@
 
 /* Pantallas pequeñas: usar modal "sheet" (casi pantalla completa) */
 @media (max-width: 640px) {
-  .modal-content {
+  .modal-overlay .modal-contenido {
     width: 100vw;
     height: 96vh;
     max-height: 96vh;
@@ -172,7 +172,7 @@
 
 /* Alturas muy pequeñas (teclados móviles, etc.) */
 @media (max-height: 620px) {
-  .modal-content {
+  .modal-overlay .modal-contenido {
     max-height: 92vh;
   }
   .modal-body {
@@ -193,7 +193,7 @@
 /* Respeta usuarios con “reduced motion” */
 @media (prefers-reduced-motion: reduce) {
   .modal-overlay,
-  .modal-content,
+  .modal-overlay .modal-contenido,
   .modal-close,
   .btn {
     animation: none !important;

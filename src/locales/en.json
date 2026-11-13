@@ -1,4 +1,134 @@
 {
+  "calendario": {
+    "titulo": "Choose your date",
+    "anterior": "Previous month",
+    "siguiente": "Next month",
+    "reservas_one": "{{count}} reservation",
+    "reservas_other": "{{count}} reservations",
+    "leyenda": "+N indicates existing reservations",
+    "aclaracion": "",
+    "cargando": "Loading this month's reservations…",
+    "error": "We could not load the counts. You can still select your date."
+  },
+  "datosApi": {
+    "tourNoDisponible": "We could not load this tour",
+    "intentarDespues": "The tour may be unavailable or there may be a connection issue. Please try again in a few minutes.",
+    "volverTours": "Back to tours",
+    "precioPendiente": "Price to be confirmed",
+    "noReservable": "This tour is not yet fully configured for booking. Contact us to check availability."
+  },
+  "headerMobile": {
+    "abrir": "Open menu",
+    "cerrar": "Close menu",
+    "navegacion": "Main navigation",
+    "idiomas": "Select language",
+    "verTours": "Show available tours",
+    "ocultarTours": "Hide available tours"
+  },
+  "galeriaTour": {
+    "titulo": "Photos of {{nombre}}",
+    "foto": "{{nombre}} — Photo {{numero}}",
+    "abrir": "Enlarge photo {{numero}}",
+    "verTodas": "View all photos ({{total}})",
+    "contador": "{{numero}} of {{total}}",
+    "cerrar": "Close gallery",
+    "anterior": "Previous photo",
+    "siguiente": "Next photo",
+    "seleccionar": "Select a photo",
+    "vacia": "No images available",
+    "error": "The photo could not be loaded"
+  },
+  "accionesUI": {
+    "cancelar": "Cancel",
+    "confirmar": "Confirm",
+    "guardando": "Saving…",
+    "cerrar": "Close"
+  },
+  "avisosReserva": {
+    "fecha": "Please select a date.",
+    "fechaNoDisponible": "This date is not available for this tour.",
+    "horario": "Please select an available time or change the date.",
+    "campos": "Please complete all fields before booking.",
+    "correo": "Please enter a valid email address.",
+    "personas": "Please select the number of people.",
+    "terminos": "Please accept the Terms and Conditions before continuing.",
+    "iniciandoPago": "Reservation created. Preparing your Bold payment…",
+    "errorPasarela": "The payment gateway could not be opened.",
+    "errorReserva": "The reservation could not be created. Check your details and try again."
+  },
+  "reservasPago": {
+    "transferencia_sin": "Bank transfer",
+    "efectivo_sin": "Cash",
+    "bold": "Bold",
+    "transferencia": "Bank transfer",
+    "efectivo": "Cash",
+    "anterior": "Not recorded (previous reservation)",
+    "estado": "Payment status",
+    "pendiente": "Pending",
+    "pago": "Payment received",
+    "fallido": "Failed",
+    "confirmar": "Confirm payment",
+    "marcarPendiente": "Mark payment as pending",
+    "confirmarTitulo": "Confirm payment status change",
+    "confirmarMensaje": "Do you confirm receipt of payment? A confirmation will be sent to the customer.",
+    "pendienteMensaje": "Mark this reservation’s payment as pending?",
+    "correoEnviado": "Payment confirmed. Email sent to the customer.",
+    "correoFallido": "Payment was confirmed, but the email could not be sent to the customer.",
+    "errorEstado": "The payment status could not be updated. Please try again."
+  },
+  "metodosPago": {
+    "transferencia_sin": "Bank transfer",
+    "efectivo_sin": "Cash",
+    "transferencia_sinDescripcion": "Pay the full amount by bank transfer.",
+    "efectivo_sinDescripcion": "Pay the full amount in cash. At least 24 hours before departure, at an authorized location.",
+    "seleccion": "Payment method",
+    "bold": "Electronic payment · Bold",
+    "boldDescripcion": "Pay electronically with Bold.",
+    "transferencia": "Direct bank transfer",
+    "transferenciaDescripcion": "7% off the reservation total, including extras.",
+    "efectivo": "Cash payment",
+    "efectivoDescripcion": "7% off the reservation total, including extras. Pay at the time agreed for your tour.",
+    "totalOriginal": "Total before discount",
+    "descuento": "Payment method discount {{porcentaje}}%",
+    "totalFinal": "Total to pay",
+    "reservaCreada": "Reservation created",
+    "pendiente": "Payment status: pending",
+    "referencia": "Reservation reference",
+    "tour": "Tour",
+    "fecha": "Date and time",
+    "datosTransferencia": "Bank transfer information",
+    "instruccionesTransferencia": "Transfer the total shown above and use your reservation reference.",
+    "datosPendientes": "We will contact you with the bank details. Keep your reference and the total to pay.",
+    "instruccionesEfectivo": "Pay in cash at the time agreed for your tour.",
+    "confirmacionPosterior": "Your reservation is registered. You will receive payment confirmation once the administrator confirms receipt.",
+    "banco": "Bank",
+    "tipoCuenta": "Account type",
+    "numeroCuenta": "Account number",
+    "titular": "Account holder",
+    "documento": "Identification document",
+    "creando": "Creating reservation…"
+  },
+  "itinerarioPasos": {
+    "paso": "Step {{numero}}",
+    "tipos": { "salida": "Departure", "transporte": "Transport", "actividad": "Activity", "llegada": "Arrival" }
+  },
+  "promocion": {
+    "distintivo": "PROMOTION",
+    "precioAnterior": "Regular price",
+    "precioActual": "Promotional price",
+    "porPersona": "Per person",
+    "soloUnaPersona": "",
+    "cualquierCantidad": "For any permitted group size",
+    "aplicada": "Promotion applied to the tour. Extras are calculated separately.",
+    "noAplicaGrupo": "The regular tour price applies to bookings of 2 or more people."
+  },
+  "extras": {
+    "cantidad": "Quantity of {{nombre}}",
+    "precio": "COP ${{valor}} each · Max: {{max}}",
+    "noDisponible": "Not available for {{personas}} people",
+    "seleccionaPersonas": "Select the number of people in your booking",
+    "subtotal": "Subtotal: COP ${{valor}}"
+  },
   "language": "Language",
   "languages": {
     "es": "Spanish",
@@ -97,7 +227,7 @@
 
 
   "direccion": "Salento, Quindío - Colombia",
-  "correos": "rutaxplorer@gmail.com",
+  "correos": "rutaexplorer@gmail.com",
   "telefonos": "+57 312 415 1539",
 
   "boletin": "Newsletter",
@@ -174,7 +304,7 @@
     "idioma": "Language",
     "desde": "From",
     "moneda": "COP per Person",
-    "precioVariable": "price varies depending on the number of participants",
+    "precioVariable": "The price may vary depending on the number of people",
     "reservar": "Book"
   }
 

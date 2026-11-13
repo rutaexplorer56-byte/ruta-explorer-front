@@ -1,0 +1,62 @@
+{
+  "titulo": "Condiciones de reserva y pago en efectivo y transferencia",
+  "abrir": "Ver condiciones de reserva y pago",
+  "cerrar": "Cerrar",
+  "qrTitulo": "Paga por transferencia con QR",
+  "qrAyuda": "Escanea el QR con la app de tu banco para realizar el pago. Elige uno de los dos QR y paga el total indicado en COP. Verifica los datos antes de confirmar y conserva el soporte junto con la referencia de tu reserva.",
+  "verQr": "Abrir QR en tamaño completo",
+  "descargarQr": "Descargar QR",
+  "efectivo": "Realiza el pago total en COP mínimo 24 horas antes de la salida, en un punto autorizado. Consulta las condiciones para conocer dónde pagar.",
+  "aviso": "Tu reserva está registrada y pendiente de pago. El cupo solo se confirma cuando el pago ha sido recibido, registrado y validado.",
+  "condiciones": [
+    {
+      "titulo": "Pago total",
+      "parrafos": [
+        "El servicio debe estar pagado en su totalidad, en pesos colombianos (COP)."
+      ]
+    },
+    {
+      "titulo": "Tiempo límite de pago",
+      "parrafos": [
+        "El pago debe realizarse mínimo 24 horas antes de la fecha y hora de salida, con el fin de garantizar y asegurar el cupo."
+      ]
+    },
+    {
+      "titulo": "Reserva activa",
+      "parrafos": [
+        "Una reserva que no haya sido pagada dentro del plazo establecido no se considerará activa ni tendrá el cupo garantizado."
+      ]
+    },
+    {
+      "titulo": "Cancelaciones",
+      "parrafos": [
+        "Las cancelaciones deberán realizarse mínimo 24 horas antes de la salida."
+      ]
+    },
+    {
+      "titulo": "Penalidad por cancelación tardía",
+      "parrafos": [
+        "Las cancelaciones realizadas con menos de 24 horas de anticipación estarán sujetas a una penalidad del 15% del valor total del servicio."
+      ]
+    },
+    {
+      "titulo": "Lugar autorizado para realizar el pago",
+      "parrafos": [
+        "Si el servicio fue adquirido directamente en un hotel aliado, el pago en efectivo deberá realizarse en la recepción del hotel, siempre que este se encuentre autorizado para recibirlo.",
+        "Si el servicio fue adquirido en otro punto de venta o por un aliado, el pasajero deberá comunicarse con las líneas oficiales de WhatsApp de RUTA. XPLORER SAS para recibir las instrucciones sobre el lugar autorizado para realizar el pago."
+      ]
+    },
+    {
+      "titulo": "Confirmación del pago",
+      "parrafos": [
+        "El cupo solo se considerará confirmado una vez que el pago haya sido recibido, registrado y validado por RUTA. XPLORER SAS o por el punto autorizado."
+      ]
+    },
+    {
+      "titulo": "Soporte de pago",
+      "parrafos": [
+        "Todo pago en efectivo deberá contar con el respectivo soporte o registro de pago."
+      ]
+    }
+  ]
+}

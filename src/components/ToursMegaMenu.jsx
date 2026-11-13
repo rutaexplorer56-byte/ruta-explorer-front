@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "../axiosConfig";
-import { Link,useParams } from "react-router-dom";
-import "../styles/toursMegaMenu.css";
+import TourLink from './TourLink';
+import "../styles/ToursMegaMenu.css";
 import { useTranslation } from "react-i18next";
 
-export default function ToursMegaMenu({ open, onClose }) {
+/* eslint-disable react/prop-types */
+export default function ToursMegaMenu({ open, onClose, onMouseLeave = onClose, id }) {
   const { t, i18n } = useTranslation();
   const lang = (i18n.language || "es").split("-")[0];
 
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(false);
-    const { hotel} = useParams();
+    
 
 
 const categorias = [
@@ -101,7 +102,7 @@ useEffect(() => {
 
 
   return (
-    <div className="tours-mega-overlay" onMouseLeave={onClose}>
+    <div id={id} className="tours-mega-overlay" onMouseLeave={onMouseLeave}>
       <div className="tours-mega">
 
         {loading ? (
@@ -127,13 +128,13 @@ useEffect(() => {
                   <div className="tours-mega-list">
                     {toursFiltrados.slice(0, 6).filter(tour => tour.activo === true).map((tour) => (
                       <div key={tour.id}>
-                        <Link
-                          to={`/tour/${hotel || "RutaExplorer"}/${tour.slug}`}
+                        <TourLink
+                          slug={tour.slug}
                           className="tours-mega-link"
                           onClick={onClose}
                         >
                          - {tour.nombre}
-                        </Link>
+                        </TourLink>
                       </div>
                     ))}
                   </div>

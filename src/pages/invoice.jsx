@@ -160,8 +160,8 @@ import { useSearchParams } from "react-router-dom";
                         <li key={i}>
                           <strong>{extra.nombre}</strong>  
                           {" "}x{extra.cantidad}  
-                          {" "}— ${extra.valor.toLocaleString("es-CO")} c/u  
-                          {" "}→ <b>${extra.subtotal.toLocaleString("es-CO")}</b>
+                          {" "}— {extra.valor == null ? '—' : `$${Number(extra.valor).toLocaleString("es-CO")}`} c/u
+                          {" "}→ <b>{extra.subtotal == null ? '—' : `$${Number(extra.subtotal).toLocaleString("es-CO")}`}</b>
                         </li>
                       ))}
                     </ul>

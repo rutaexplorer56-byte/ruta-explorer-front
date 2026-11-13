@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /app/
+Disallow: /app/admin/
+Disallow: /app/login
+Disallow: /app/registro
+Disallow: /app/invoice
+Disallow: /app/tourAdmin/
+
+Sitemap: https://rutaxplorer.com/app/sitemap.xml
+
